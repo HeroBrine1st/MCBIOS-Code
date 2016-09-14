@@ -1,4 +1,4 @@
-ocal component_invoke = component.invoke
+local component_invoke = component.invoke
 function boot_invoke(address, method, ...)
   local result = table.pack(pcall(component_invoke, address, method, ...))
   if not result[1] then
@@ -75,7 +75,8 @@ status("Initializion components")
 status("GPU and keyboard is avaliable")
 status("Loading boot screen")
 centerText(h/2-2,"MСBIOS")
---boot_invoke(gpu,"set",1,h,"Please press ALT to enter BIOS settings")
+local str = "Made by HeroBrine1"
+boot_invoke(gpu,"set",w-unicode.len(str),h,str)
 
 
 local eeprom = component.list("eeprom")()
