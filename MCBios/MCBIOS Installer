@@ -1,5 +1,6 @@
 -- pastebin run N5kEQbi3
 
+
 local EEPROMLabel = "EEPROM (MС BIOS)"
 local component = require("component")
 local computer = require("computer")
@@ -32,23 +33,23 @@ local function internetRequest(url)
 end
  
 
-local function getFromGitHub(url, path)
-local success, reason = internetRequest(url)
-if success then
-fs.makeDirectory(fs.path(path) or "")
-fs.remove(path)
-local file = io.open(path, "w")
-file:write(reason)
-file:close()
-return reason
-else
-error("error")
-end
+local function getFromGitHub(url,filepath)
+ local success, reason = internetRequest(url)
+ if success then
+   fs.makeDirectory(fs.path(filepath) or "")
+   fs.remove(filepath)
+   local file = io.open(filepath, "w")
+   file:write(reason)
+   file:close()
+   return reason
+ else
+   error("error")
+ end
 end
 
  
 
-getFromGitHub(GitHubUrl .. "HeroBrine1st/OpenComputers/master/MCBIOS%20Code", "/MCBios/EEPROMCode.lua")
+getFromGitHub(GitHubUrl .. "HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code", "/MCBios/EEPROMCode.lua")
 
 local f = io.open("/MCBios/EEPROMCode.lua","r")
 local success, reason = f:read(4096)
