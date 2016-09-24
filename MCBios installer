@@ -1,0 +1,110 @@
+-- pastebin run N5kEQbi3
+
+local EEPROMLabel = "EEPROM (MС BIOS)"
+local component = require("component")
+local computer = require("computer")
+local fs = require("filesystem")
+local internet = require("internet")
+local serialization = require("serialization")
+local shell = require("shell")
+local EEPROMCode
+local GitHubUrl = "https://raw.githubusercontent.com/"
+
+local function internetRequest(url)
+  local success, response = pcall(component.internet.request, url)
+  if success then
+    local responseData = ""
+    while true do
+      local data, responseChunk = response.read()
+      if data then
+        responseData = responseData .. data
+      else
+        if responseChunk then
+         return false, responseChunk
+        else
+      return true, responseData
+    end
+    end
+    end
+  else
+    return false, reason
+  end
+end
+ 
+
+local function getFromGitHub(url, path)
+local success, reason = internetRequest(url)
+if success then
+fs.makeDirectory(fs.path(path) or "")
+fs.remove(path)
+local file = io.open(path, "w")
+file:write(reason)
+file:close()
+return reason
+else
+error("error")
+end
+end
+
+ 
+
+getFromGitHub(GitHubUrl .. "HeroBrine1st/OpenComputers/master/MCBIOS%20Code", "/MCBios/EEPROMCode.lua")
+
+local f = io.open("/MCBios/EEPROMCode.lua","r")
+local success, reason = f:read(4096)
+f:close()
+if success then
+EEPROMCode = success
+else
+error(reason)
+end
+
+
+
+local computer = require("computer")
+local shell = require("shell")
+
+local options
+
+local write = io.write
+local read = io.read
+
+local eeprom
+
+
+ write("Insert the EEPROM you would like to flash.\n")
+ write("When ready to write, type `y` to confirm.\n")
+  local result = read()
+  if not result or result == "" or result:sub(1, 1):lower() == "y" then
+    eeprom = component.getPrimary("eeprom")
+    write("Beginning to flash EEPROM.\n")
+    write("Flashing EEPROM " .. eeprom.address .. ".\n")
+    write("Please do NOT power down or restart your computer during this operation!\n")
+    local uptime = computer.uptime()
+    write(eeprom.set(EEPROMCode .. "\n"))
+   	local time = computer.uptime() - uptime
+   	write("OKAY. Time: " .. time .. "\n")
+   	local uptimes = computer.uptime()
+   	write("Set label to '" .. EEPROMLabel .. "'\n")
+   	eeprom.setLabel(EEPROMLabel)
+   	local timess = computer.uptime() - uptimes
+    write("OKAY. Time: " .. timess .. "\n")
+    local uptimess = computer.uptime()
+    write("Clear data \n")
+    eeprom.setData("nil")
+    local timesss = computer.uptime() - uptimess
+    write("OKAY. Time: " .. timesss .. "\n")
+   	local times = computer.uptime() - uptime
+    options = true
+    write("Finished. Time: " .. times .. "\n")
+  end
+if options then
+  write("Reboot now? [Y/n] ")
+  local result = read()
+  if not result or result == "" or result:sub(1, 1):lower() == "y" then
+    write("\nRebooting now!\n")
+    computer.shutdown(true)
+  end
+end
+
+write("Returning to shell.\n")
