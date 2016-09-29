@@ -2,6 +2,7 @@
 -----------------------------------------
 {
 name="EEPROMCode.lua"
-url=""
+url="HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code"
+
 }
 }
