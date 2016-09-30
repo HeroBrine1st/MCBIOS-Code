@@ -1,4 +1,5 @@
 GitHubUrl="https://raw.githubusercontent.com/",
-{name="/MCBios/EEPROMCode.lua",
-url="HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code"
+{
+name=\"/MCBios/EEPROMCode.lua\",
+url=\"HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code\"
 }
