@@ -167,7 +167,7 @@ local w,h = gpu.getResolution()
 local unicode = require("unicode")
 
 local function centerText(y,text)
-  local x = math.floor(w / 2 - unicode.len() / 2)
+  local x = math.floor(w / 2 - string.len() / 2)
   gpu.set(x,y,text)
 end
 
