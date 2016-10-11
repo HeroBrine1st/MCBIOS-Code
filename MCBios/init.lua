@@ -48,7 +48,7 @@ do
   end
   local y = 1
   local function status(msg)
-    return(msg)
+    return msg
   end
 
   status("Booting " .. _OSVERSION .. "...")
