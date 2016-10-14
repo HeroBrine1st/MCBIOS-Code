@@ -2,7 +2,7 @@
 GitHubUrl="https://raw.githubusercontent.com/",
 {
 path="/MCBios/EEPROMCode.lua",
-name="EEPROMCode.lua"
-url="HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code"
+name="EEPROMCode.lua",
+url="HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code",
 }
 }
