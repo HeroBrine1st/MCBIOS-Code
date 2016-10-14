@@ -2,6 +2,7 @@
 
 
 local EEPROMLabel = "EEPROM (MС BIOS)"
+local filesystem = require("filesystem")
 local component = require("component")
 local computer = require("computer")
 local fs = require("filesystem")
@@ -31,7 +32,10 @@ local function internetRequest(url)
     return false, reason
   end
 end
- 
+ local write = io.write
+local read = io.read
+
+
 
 local function getFromGitHub(url,filepath)
  local success, reason = internetRequest(url)
@@ -47,9 +51,23 @@ local function getFromGitHub(url,filepath)
  end
 end
 
- 
+write("Downloading file list...\n\n")
+local applications
+local dfile = "return " .. string.gsub(getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/MCBios/applications.txt","/MCBios/applications.txt"),"\n","")
 
-getFromGitHub(GitHubUrl .. "HeroBrine1st/OpenComputers/master/MCBios/MCBios%20Code", "/MCBios/EEPROMCode.lua")
+local file = io.open("/MCBios/apps.lua","w")
+file:write(dfile)
+file:close()
+applications = dofile("/MCBios/apps.lua")
+
+for i = 1, #applications do
+if applications[i].preLoad == true then
+write("Downloading \"" .. applications[i].name .. "\"\n")
+getFromGitHub(GitHubUrl .. applications[i].url, applications[i].path)
+end
+end
+
+write("\n")
 
 local f = io.open("/MCBios/EEPROMCode.lua","r")
 local success, reason = f:read(4096)
@@ -67,11 +85,26 @@ local shell = require("shell")
 
 local options
 
-local write = io.write
-local read = io.read
+
 
 local eeprom
 
+function installFiles()
+local uptime = computer.uptime()
+
+local s = 0
+for i = 1, #applications do
+if applications[i].preLoad == false then
+write("Downloading \"" .. applications[i].name .. "\"\n")
+getFromGitHub(GitHubUrl .. applications[i].url, applications[i].name)
+s = s + 1
+end
+end
+local time = computer.uptime() - uptime
+if s > 0 then
+write("OKAY. Time: " .. time .. "\n")
+end
+end
 
  write("Insert the EEPROM you would like to flash.\n")
  write("When ready to write, type `y` to confirm.\n")
@@ -95,9 +128,11 @@ local eeprom
     eeprom.setData("nil")
     local timesss = computer.uptime() - uptimess
     write("OKAY. Time: " .. timesss .. "\n")
+    installFiles()
    	local times = computer.uptime() - uptime
     options = true
     write("Finished. Time: " .. times .. "\n")
+    write("Made by HeroBrine1\n")
   end
 if options then
   write("Reboot now? [Y/n] ")
