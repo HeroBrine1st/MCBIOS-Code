@@ -7,6 +7,7 @@ function boot_invoke(address, method, ...)
     return table.unpack(result, 2, result.n)
   end
 end
+
 local screen = component.list("screen")()
 local gpu = component.list("gpu")()
 if gpu == nil then
@@ -127,14 +128,13 @@ if not init then
 end
 if not init then
   status("Error: no bootable medium found" .. (reason and (": " .. tostring(reason)) or ""), 0)
-  sleep(0.8)
   b(1000,0.8)
   local f = 1
   while f < 7 do
   f = f + 1
   b(1000,0.2)
   end
-  error("no bootable medium found" .. (reason and (": " .. tostring(reason)) or ""), 0)
+  computer.shutdown(true)
 end
 computer.beep(1000,0.2)
 status("Booting filesystem " .. computer.getBootAddress())
