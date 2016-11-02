@@ -75,7 +75,7 @@ component.invoke(gpu,"fill",1,1,w,h," ")
 status("Initializion components")
 status("GPU and keyboard is avaliable")
 status("Loading boot screen")
-centerText(h/2-2,"MСBIOS")
+centerText(h/2-1,"MСBIOS")
 local str = "Made by HeroBrine1"
 boot_invoke(gpu,"set",w-unicode.len(str),h,str)
 
