@@ -68,8 +68,8 @@ if boot_invoke(gpu,"maxDepth") < 8 then
 setBackground(0x000000)
 setForeground(0xFFFFFF)
 else
-setBackground(0xCCCCCC)
-setForeground(0x333333)
+setBackground(0xDDDDDD)
+setForeground(0x999999)
 end
 component.invoke(gpu,"fill",1,1,w,h," ")
 status("Initializion components")
