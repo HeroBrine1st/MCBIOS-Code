@@ -12,11 +12,24 @@ local function centerText(y, text, color)
   end
 
 
-print("3")
-os.sleep(1)
-print("2")
-os.sleep(1)
-print("1")
-os.sleep(1)
-require("term").clear()
+function bootanimation()
+local progressBar11 = "\ /" 
+local progressBar12 = " X " 
+local progressBar13 = "/ \ "
+local progressBar21 = " | "
+local progressBar22 = "-+-"
+local progressBar23 = " | "
+while true do
+centerText(w/2-1,progressBar11,0xFFFFFF)
+centerText(w/2,progressBar12,0xFFFFFF)
+centerText(w/2+1,progressBar13,0xFFFFFF)
+os.sleep(0.1)
+centerText(w/2-1,progressBar21,0xFFFFFF)
+centerText(w/2,progressBar22,0xFFFFFF)
+centerText(w/2+1,progressBar23,0xFFFFFF)
+os.sleep(0.1)
+end
+end
+
+bootanimation()
 
