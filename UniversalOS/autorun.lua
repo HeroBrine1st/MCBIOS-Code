@@ -11,3 +11,12 @@ local function centerText(y, text, color)
       gpu.setForeground(oldcolor)
   end
 
+
+print("3")
+os.sleep(1)
+print("2")
+os.sleep(1)
+print("1")
+os.sleep(1)
+require("term").clear()
+
