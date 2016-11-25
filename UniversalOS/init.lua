@@ -205,7 +205,7 @@ local function motd()
 end
 
 boot_invoke(gpu,"fill",w,h," ")
-
+dofile("/autorun.lua")
 while true do
   motd()
   local result, reason = os.execute(os.getenv("SHELL"))
@@ -217,3 +217,4 @@ while true do
   end
   require("term").clear()
 end
+
