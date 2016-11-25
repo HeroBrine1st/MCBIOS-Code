@@ -13,12 +13,12 @@ local function centerText(y, text, color)
 
 
 function bootanimation()
-local progressBar11 = " \ / " 
-local progressBar12 = "  X  " 
-local progressBar13 = " / \ "
-local progressBar21 = "  |  "
-local progressBar22 = " -+- "
-local progressBar23 = "  |  "
+local progressBar11 = "-" 
+local progressBar12 = " " 
+local progressBar13 = "-"
+local progressBar21 = " "
+local progressBar22 = "-"
+local progressBar23 = " "
 while true do
 centerText(w/2-1,progressBar11,0xFFFFFF)
 centerText(w/2,progressBar12,0xFFFFFF)
