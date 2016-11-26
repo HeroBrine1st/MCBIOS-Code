@@ -22,5 +22,12 @@ url="http://pastebin.com/raw/E0SzJcCx",
 name="Thread.lua",
 path="/lib/Thread.lua",
 preLoad=false,
-}
+},
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/install.lua",
+name="install.lua",
+path="/UOS/install.lua",
+preload=false,
+requireRecovery=true
+},
 }
