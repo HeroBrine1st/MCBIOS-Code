@@ -19,6 +19,8 @@ gpu.set(1,h,msg)
 gpu.setForeground(0xFFFFFF)
 end
 
-status("Booting...")
+status("Booting " .. _OSVERSION)
 
-os.sleep(4)
+os.sleep(4) 
+
+gpu.fill(1,1,w,h," ")
