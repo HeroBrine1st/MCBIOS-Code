@@ -7,6 +7,7 @@ local shell = require("shell")
 local GitHubInstallerUrl = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/install.lua"
 local GitHubApplicationsUrl = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt"
 local gpu =  component.gpu
+local event = require("event")
 local package = require("package")
 local function internetRequest(url)
   local success, response = pcall(component.internet.request, url)
