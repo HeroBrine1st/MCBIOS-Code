@@ -90,7 +90,6 @@ firstMenu()
 while true do
 local touch = {event.pull("touch")}
 if touch[4]==1 then
-getFromGithub(GitHubInstallerUrl,"/UOS/install.lua")
 dofile("/UOS/install.lua")
 end
 end
