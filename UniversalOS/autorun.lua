@@ -9,7 +9,8 @@ local function centerText(y, text)
   end
 
 gpu.fill(1,1,w,h," ")
-centerText(w/2,"Booting system")
+centerText(h/2-1,"UniversalOS")
+centerText(h/2,"Booting system")
 
 local function status(msg)
 gpu.setForeground(0x434343)
