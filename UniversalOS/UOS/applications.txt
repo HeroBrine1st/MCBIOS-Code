@@ -33,5 +33,5 @@ name="Recovery.lua",
 path="/recovery/recovery.lua",
 preLoad=false,
 requireRecovery=false,
-},
+}
 }
