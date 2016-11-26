@@ -72,7 +72,7 @@ gpu.setBackground(0xCCCCCC)
 dI()
 gpu.fill(1,1,w,h," ")
 
-status("Booting recovery")
+--status("Booting recovery")
 
 local function firstMenu()
 gpu.setBackground(0xD8D8D8)
@@ -84,4 +84,4 @@ gpu.setBackground(0xCCCCCC)
 gpu.set(1,2,"Repair system")
 end
 
-firstMenu()
+furstMenu()
