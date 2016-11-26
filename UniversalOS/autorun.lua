@@ -20,3 +20,5 @@ gpu.setForeground(0xFFFFFF)
 end
 
 status("Test")
+
+os.sleep(1)
