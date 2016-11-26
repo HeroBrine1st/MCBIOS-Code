@@ -27,4 +27,4 @@ end
 end
 
 
-thread.create(boot())
+thread.create(boot)
