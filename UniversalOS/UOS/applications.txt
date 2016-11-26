@@ -18,7 +18,7 @@ path="/lib/SurfaceFlinder.lua",
 preLoad=false,
 },
 {
-url="pastebin.com/raw/E0SzJcCx",
+url="http://pastebin.com/raw/E0SzJcCx",
 name="Thread.lua",
 path="/lib/Thread.lua",
 preLoad=false,
