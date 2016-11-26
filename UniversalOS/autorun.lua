@@ -22,13 +22,13 @@ local function centerText(y, text, color)
       gpu.setForeground(oldcolor)
   end
 while true do
-centerText(w/2,"Booting system")
+centerText(w/2,"Booting system",0xFFFFFF)
 os.sleep(1)
-centerText(w/2,"Booting system.")
+centerText(w/2,"Booting system.",0xFFFFFF)
 os.sleep(1)
-centerText(w/2,"Booting system..")
+centerText(w/2,"Booting system..",0xFFFFFF)
 os.sleep(1)
-centerText(w/2,"Booting system...")
+centerText(w/2,"Booting system...",0xFFFFFF)
 os.sleep(1)
 end
 end
