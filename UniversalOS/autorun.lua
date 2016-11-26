@@ -19,6 +19,6 @@ gpu.set(1,h,msg)
 gpu.setForeground(0xFFFFFF)
 end
 
-status("Test")
+status("Booting...")
 
-os.sleep(1)
+os.sleep(4)
