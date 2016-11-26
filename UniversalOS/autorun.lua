@@ -16,7 +16,7 @@ centerText(w/2,"Booting system",0xFFFFFF)
 local function status(msg)
 --gpu.setForeground(0x071910)
 gpu.set(1,h,msg)
-gpu.setForeground(0xFFFFFF)
+--gpu.setForeground(0xFFFFFF)
 end
 
 status("Test")
