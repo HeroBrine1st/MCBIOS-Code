@@ -14,7 +14,7 @@ gpu.fill(1,1,w,h," ")
 centerText(w/2,"Booting system",0xFFFFFF)
 
 local function status(msg)
-gpu.setForeground(0x071910)
+--gpu.setForeground(0x071910)
 gpu.set(w,1,msg)
 gpu.setForeground(0xFFFFFF)
 end
