@@ -27,4 +27,6 @@ end
 end
 
 
-thread.create(boot)
+local b = thread.create(boot)
+os.slepp(2)
+thread.kill(b)
