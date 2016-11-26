@@ -12,12 +12,6 @@ path="/autorun.lua",
 preLoad=false,
 },
 {
-url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/lib/SurfaceFlinder.lua",
-name="SurfaceFlinder.lua",
-path="/lib/SurfaceFlinder.lua",
-preLoad=false,
-},
-{
 url="http://pastebin.com/raw/E0SzJcCx",
 name="Thread.lua",
 path="/lib/Thread.lua",
