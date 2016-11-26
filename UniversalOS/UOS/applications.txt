@@ -25,7 +25,7 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 name="install.lua",
 path="/UOS/install.lua",
 preload=false,
-requireRecovery=true,
+requireRecovery=false,
 },
 {
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/recovery/recovery.lua",
