@@ -64,7 +64,7 @@ end
 local w,h = gpu.getResolution()
 local function status(msg)
 gpu.copy(1,h/3,w,h,w,h-1)
-gpu.fill(1,h/3,w,h/3-1)
+gpu.fill(1,h/3,w,h/3-1,"")
 gpu.set(1,h,msg)
 end
 
@@ -76,9 +76,9 @@ gpu.fill(1,1,w,h," ")
 
 local function firstMenu()
 gpu.setBackground(0xD8D8D8)
-gpu.fill(1,1,w,1)
+gpu.fill(1,1,w,1," ")
 gpu.set(1,1,"Reinstall system")
-gpu.fill(1,3,w,3)
+gpu.fill(1,3,w,3," ")
 gpu.set(1,3,"Exit")
 gpu.setBackground(0xCCCCCC)
 gpu.set(1,2,"Repair system")
