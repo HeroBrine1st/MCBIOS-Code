@@ -2,8 +2,6 @@ local component = require("component")
 local gpu = component.gpu
 local unicode = require("unicode")
 local w,h = gpu.getResolution()
-local thread = require("Thread")
-thread.init()
 local function centerText(y, text, color)
       local lenght = unicode.len(text)
       local x = math.floor(w / 2 - lenght / 2)
@@ -12,22 +10,13 @@ local function centerText(y, text, color)
       gpu.setForeground(oldcolor)
   end
 
-
-function boot()
-while true do
+gpu.fill(1,1,w,h," ")
 centerText(w/2,"Booting system",0xFFFFFF)
-os.sleep(1)
-centerText(w/2,"Booting system.",0xFFFFFF)
-os.sleep(1)
-centerText(w/2,"Booting system..",0xFFFFFF)
-os.sleep(1)
-centerText(w/2,"Booting system...",0xFFFFFF)
-os.sleep(1)
-end
+
+local function status(msg)
+gpu.setForeground(0x071910)
+gpu.set(w,1,msg)
+gpu.setForeground(0xFFFFFF)
 end
 
-
-local b = thread.create(boot)
-os.slepp(2)
-thread.kill(b)
-thread.waitForAll()
+status("Test")
