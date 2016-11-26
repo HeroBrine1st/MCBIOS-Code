@@ -30,3 +30,4 @@ end
 local b = thread.create(boot)
 os.slepp(2)
 thread.kill(b)
+thread.waitForAll()
