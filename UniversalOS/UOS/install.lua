@@ -5,6 +5,7 @@ local fs = require("filesystem")
 local internet = require("internet")
 local serialization = require("serialization")
 local shell = require("shell")
+local event = require("event")
 local GitHubUrl = "https://raw.githubusercontent.com/"
 
 local function internetRequest(url)
