@@ -84,4 +84,4 @@ gpu.setBackground(0xCCCCCC)
 gpu.set(1,2,"Repair system")
 end
 
-furstMenu()
+firstMenu()
