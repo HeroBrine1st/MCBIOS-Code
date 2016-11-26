@@ -40,7 +40,7 @@ centerText(h/2,"Booting kernel...",0xFFFFFF)
 
 
 do
-  _G._OSVERSION = "OpenOS 1.5"
+  _G._OSVERSION = "UniversalOS"
 
   local component = component
   local computer = computer
@@ -204,7 +204,7 @@ local function motd()
   end
 end
 
-boot_invoke(gpu,"fill",w,h," ")
+
 
 while true do
   motd()
@@ -217,4 +217,3 @@ while true do
   end
   require("term").clear()
 end
-
