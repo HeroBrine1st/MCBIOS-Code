@@ -28,10 +28,10 @@ preload=false,
 requireRecovery=true
 },
 {
-url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/recovery/recovery.lua"
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/recovery/recovery.lua",
 name="Recovery.lua",
 path="/recovery/recovery.lua",
 preLoad=false,
 requireRecovery=false,
-}
+},
 }
