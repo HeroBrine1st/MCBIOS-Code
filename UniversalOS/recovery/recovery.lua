@@ -154,8 +154,8 @@ for i = 1, #applications do
       getFromGitHub(applications[i].url,applications[i].path)
   end
 end
+end
 term.clear()
 firstMenu()
-end
 end
 end
