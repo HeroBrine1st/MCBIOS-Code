@@ -1,5 +1,5 @@
 local component = require("component")
-local gpu = require("gpu")
+local gpu = component.gpu
 local unicode = require("unicode")
 local AGPU = {}
 local e = {}
