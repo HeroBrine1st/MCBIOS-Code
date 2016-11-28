@@ -204,9 +204,7 @@ local function motd()
   end
 end
 
-if not require("event").pull(2,"key") == nil then
-dofile("/recovery/recovery.lua")
-end
+
 
 while true do
   motd()
@@ -219,4 +217,3 @@ while true do
   end
   require("term").clear()
 end
-
