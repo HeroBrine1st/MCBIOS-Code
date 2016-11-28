@@ -74,7 +74,7 @@ gpu.fill(1,3,w,3," ")
 gpu.set(1,3,"Exit")
 gpu.setForeground(0xFFFFFF)
 gpu.setBackground(0xCCCCCC)
-gpu.set(1,2,"Repair system")
+gpu.set(1,2,"Repair/update system")
 gpu.fill(1,4,w,5," ")
 end
 
