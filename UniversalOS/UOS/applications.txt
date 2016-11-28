@@ -34,4 +34,11 @@ path="/recovery/recovery.lua",
 preLoad=false,
 requireRecovery=false,
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/lib/AGPU.lua",
+name="AGPU.lua",
+path="/lib/AGPU.lua",
+preLoad=false,
+requireRecovery=false,
+},
 }
