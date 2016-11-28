@@ -15,7 +15,6 @@ local addToE = {
 	text,
 }
 table.insert(e,addToE)
-table.sort(e)
 end
 
 function AGPU.drawCenterText(x,y,color,text)
@@ -31,7 +30,6 @@ local addToE = {
 	text,
 }
 table.insert(e,addToE)
-table.sort(e)
 end
 
 return AGPU
