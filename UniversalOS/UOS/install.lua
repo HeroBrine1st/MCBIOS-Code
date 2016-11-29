@@ -65,3 +65,38 @@ write("Downloading \"" .. applications[i].name .. "\"\n")
 getFromGitHub(applications[i].url, applications[i].path)
 end
 end
+
+write("\nCheck downloaded files...\n")
+
+for i = 1, #applications do
+        print("Check " .. applications[i].path)
+        local size = fs.size(applications[i].path)
+          if fs.exists(applications[i].path) == true then
+            local file = io.open(applications[i].path,"r")
+            local text = file:read(size+1)
+            file:close()
+            local textOriginal = getFromGitHub(applications[i].url,"/tmp/recovery.tmp")
+            if text == textOriginal then
+              print(applications[i].path .. "corrects")
+            else
+              print("Downloading " .. applications[i].path)
+              getFromGitHub(applications[i].url,applications[i].path)
+            end
+          else
+            print("Downloading " .. applications[i].path)
+              getFromGitHub(applications[i].url,applications[i].path)
+          end
+        end
+	end
+
+write("\nInstallation completed!\n")
+
+write("\nReboot now? [Y/n] ")
+  local result = read()
+  if not result or result == "" or result:sub(1, 1):lower() == "y" then
+    write("\nRebooting now!\n")
+    computer.shutdown(true)
+  end
+
+term.clear()
+write("\nReturning to shell\n")
