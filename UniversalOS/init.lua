@@ -37,7 +37,6 @@ local function centerText(y, text, color)
 w, h = boot_invoke(gpu,"getResolution")
 centerText(h/2-1,"UniversalOS",0xFFFFFF)
 centerText(h/2,"Booting kernel...",0xFFFFFF)
-centerText(h,"Press any key to enter recovery","0xFFFFFF")
 
 do
   _G._OSVERSION = "UniversalOS"
@@ -202,12 +201,6 @@ local function motd()
     io.write(f:read("*a") .. "\n")
     f:close()
   end
-end
-
-local key = require("event").pull(2,"key")
-
-if not key == nil then
-os.execute("/recovery/recovery.lua")
 end
 
 while true do
