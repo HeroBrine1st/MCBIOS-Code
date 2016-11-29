@@ -204,10 +204,10 @@ local function motd()
   end
 end
 
-local key = event.pull(2,"key")
+local key = require("event").pull(2,"key")
 
 if not key == nil then
-os.execute("/recovery/recovery")
+os.execute("/recovery/recovery.lua")
 end
 
 while true do
