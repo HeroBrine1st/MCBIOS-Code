@@ -132,12 +132,13 @@ if touch[4]==2 then
   file:write(dfile)
   file:close()
   applications = dofile("/UOS/apps.lua")
-    print("Scan system? y/n:")
-    local result = term.read()
-      if not result or result == "" or result:sub(1, 1):lower() == "y" then
-        for i = 1, #applications do
-          print("Check " .. applications[i].path)
-          local size = fs.size(applications[i].path)
+  io.write("Check system files? y/n:")
+  local result = io.read()
+  io.write("\n")
+    if not result or result == "" or result:sub(1, 1):lower() == "y" then
+      for i = 1, #applications do
+        print("Check " .. applications[i].path)
+        local size = fs.size(applications[i].path)
           if fs.exists(applications[i].path) == true then
             local file = io.open(applications[i].path,"r")
             local text = file:read(size+1)
@@ -156,6 +157,6 @@ if touch[4]==2 then
         end
       end
     term.clear()
-  firstMenu()
-end
+    firstMenu()
+  end
 end
