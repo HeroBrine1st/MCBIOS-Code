@@ -68,7 +68,7 @@ end
 
 write("\nCheck downloaded files...\n\n")
 
-if touch[4]==2 then
+
   print("Downloading file list...")
   local applications
   local dfile = "return " .. string.gsub(getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt"),"\n","")
@@ -100,7 +100,6 @@ if touch[4]==2 then
           end
         end
       end
-  end
 
 write("\nInstallation completed!\n")
 
