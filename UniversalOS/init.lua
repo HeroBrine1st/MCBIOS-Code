@@ -204,7 +204,11 @@ local function motd()
   end
 end
 
+local key = event.pull(2,"key")
 
+if not key == nil then
+os.execute("/recovery/recovery")
+end
 
 while true do
   motd()
