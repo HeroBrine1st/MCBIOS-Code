@@ -100,8 +100,6 @@ if touch[4]==2 then
           end
         end
       end
-    term.clear()
-    firstMenu()
   end
 
 write("\nInstallation completed!\n")
