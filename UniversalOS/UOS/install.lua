@@ -6,6 +6,7 @@ local internet = require("internet")
 local serialization = require("serialization")
 local shell = require("shell")
 local event = require("event")
+local term = require("term")
 local GitHubUrl = "https://raw.githubusercontent.com/"
 
 local function internetRequest(url)
