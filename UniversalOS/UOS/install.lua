@@ -70,7 +70,7 @@ local success, reason = getFromGitHub(applications[i].url, applications[i].path)
 if success == true then
 io.write("Success")
 end
-if success = false then
+if success == false then
 io.stderr("Error. Reason: " .. reason)
 end
 end
@@ -113,7 +113,7 @@ end
               if success == true then
 				io.write("Success")
 				end
-				if success = false then
+				if success == false then
 				io.stderr("error. Reason: " .. reason)
 				end
             end
@@ -123,7 +123,7 @@ end
               if success == true then
 io.write("Success")
 end
-if success = false then
+if success == false then
 io.stderr("Error. Reason: " .. reason)
 end
           end
