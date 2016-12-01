@@ -42,6 +42,7 @@ local function getFromGitHub(url,filepath)
    local file = io.open(filepath, "w")
    file:write(reason)
    file:close()
+   write("Success \n")
    return reason
  else
    error("Can't download " .. url)
@@ -49,7 +50,7 @@ local function getFromGitHub(url,filepath)
 end
 
 print("Downloading file list")
-
+print(" ")
 getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
 
 local applications
@@ -62,7 +63,7 @@ applications = dofile("/UOS/apps.lua")
 
 for i = 1, #applications do
 if applications[i].preLoad == false then
-write("Downloading \"" .. applications[i].name .. "\"\n")
+write("Downloading \"" .. applications[i].name .. "\"...     ")
 getFromGitHub(applications[i].url, applications[i].path)
 end
 end
