@@ -95,24 +95,7 @@ local touch = {event.pull("touch")}
 if touch[4]==1 then
 gpu.setBackground(0x000000)
 term.clear()
-print("Downloading file list")
-
-getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
-
-local applications
-local dfile = "return " .. string.gsub(getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt"),"\n","")
-
-local file = io.open("/UOS/apps.lua","w")
-file:write(dfile)
-file:close()
-applications = dofile("/UOS/apps.lua")
-
-for i = 1, #applications do
-if applications[i].preLoad == false then
-print("Downloading \"" .. applications[i].name .. "\"\n")
-getFromGitHub(applications[i].url, applications[i].path)
-end
-end
+dofile("/UOS/install.lua")
 firstMenu()
 end
 if touch[4]==3 then
@@ -125,15 +108,23 @@ if touch[4]==2 then
   gpu.setBackground(0x000000)
   term.clear()
   print("Downloading file list...")
+
+local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
+
+  
   local applications
-  local dfile = "return " .. string.gsub(getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt"),"\n","")
+  if success == true then
+dfile = "return " .. string.gsub(reason,"\n","")
+write("Success\n\n")
+else
+error("Error. Reason: " .. reason)
+end
 
   local file = io.open("/UOS/apps.lua","w") 
   file:write(dfile)
   file:close()
   applications = dofile("/UOS/apps.lua")
-  io.write("Check system files? y/n:")
-  local result = io.read()
+  local result = "y"
   io.write("\n")
     if not result or result == "" or result:sub(1, 1):lower() == "y" then
       for i = 1, #applications do
@@ -143,16 +134,28 @@ if touch[4]==2 then
             local file = io.open(applications[i].path,"r")
             local text = file:read(size+1)
             file:close()
-            local textOriginal = getFromGitHub(applications[i].url,"/tmp/recovery.tmp")
+            local success, textOriginal = getFromGitHub(applications[i].url,"/tmp/recovery.tmp")
             if text == textOriginal then
               print(applications[i].path .. " true")
             else
-              print("Downloading " .. applications[i].path)
-              getFromGitHub(applications[i].url,applications[i].path)
+              write("Downloading " .. applications[i].path .. "    ")
+              local success, reason = getFromGitHub(applications[i].url,applications[i].path)
+              if success == true then
+        io.write("Success")
+        end
+        if success = false then
+        io.stderr("error. Reason: " .. reason)
+        end
             end
           else
-            print("Downloading " .. applications[i].path)
-              getFromGitHub(applications[i].url,applications[i].path)
+            write("Downloading " .. applications[i].path .. "    ")
+              local success, reason =  getFromGitHub(applications[i].url,applications[i].path)
+              if success == true then
+io.write("Success")
+end
+if success = false then
+io.stderr("Error. Reason: " .. reason)
+end
           end
         end
       end
