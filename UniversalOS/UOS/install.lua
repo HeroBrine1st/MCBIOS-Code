@@ -50,10 +50,12 @@ print("Downloading file list")
 print(" ")
 local success, reason == getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
 
-
+local dfile
 local applications
 if success == true then
-local dfile = "return " .. string.gsub(reason,"\n","")
+dfile = "return " .. string.gsub(reason,"\n","")
+else
+error("Error. Reason: " .. reason)
 end
 reason = nil
 success = nil
