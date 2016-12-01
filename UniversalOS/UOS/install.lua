@@ -68,7 +68,7 @@ for i = 1, #applications do
 write("Downloading \"" .. applications[i].name .. "\"...     ")
 local success, reason = getFromGitHub(applications[i].url, applications[i].path)
 if success == true then
-io.write("Success")
+io.write("Success\n")
 end
 if success == false then
 io.stderr("Error. Reason: " .. reason)
