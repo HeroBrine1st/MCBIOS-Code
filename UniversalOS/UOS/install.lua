@@ -42,29 +42,34 @@ local function getFromGitHub(url,filepath)
    local file = io.open(filepath, "w")
    file:write(reason)
    file:close()
-   write("Success \n")
-   return reason
- else
-   error("Can't download " .. url)
+   return success, reason
  end
 end
 
 print("Downloading file list")
 print(" ")
-getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
+local success, reason == getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
+
 
 local applications
-local dfile = "return " .. string.gsub(getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt"),"\n","")
-
+if success == true then
+local dfile = "return " .. string.gsub(reason,"\n","")
+end
+reason = nil
+success = nil
 local file = io.open("/UOS/apps.lua","w")
 file:write(dfile)
 file:close()
 applications = dofile("/UOS/apps.lua")
 
 for i = 1, #applications do
-if applications[i].preLoad == false then
 write("Downloading \"" .. applications[i].name .. "\"...     ")
-getFromGitHub(applications[i].url, applications[i].path)
+local success, reason = getFromGitHub(applications[i].url, applications[i].path)
+if success == true then
+io.write("Success")
+end
+if success = false then
+io.stderr("Error. Reason: " .. reason)
 end
 end
 
