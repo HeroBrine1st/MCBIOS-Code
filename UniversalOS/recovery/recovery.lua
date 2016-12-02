@@ -104,11 +104,8 @@ eI()
 break
 end
 if touch[4]==2 then
-  local function check()
-local file = io.open("/UOS/apps.lua","w") 
-  file:write(dfile)
-  file:close()
-  applications = dofile("/UOS/apps.lua")
+  gpu.setBackground(0x000000)
+  term.clear()
   local result = "y"
   io.write("\n")
     if not result or result == "" or result:sub(1, 1):lower() == "y" then
@@ -144,26 +141,6 @@ end
           end
         end
       end
-    
-end
-  gpu.setBackground(0x000000)
-  term.clear()
-  print("Downloading file list...")
-
-local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
-
-  
-  local applications
-  if success == true then
-dfile = "return " .. string.gsub(reason,"\n","")
-write("Success\n\n")
-check()
-else
-print(reason)
-os.sleep(5)
-firstMenu()
-end
-
 term.clear()
 firstMenu()
 end  
