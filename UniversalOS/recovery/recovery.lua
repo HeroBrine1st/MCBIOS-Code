@@ -94,7 +94,7 @@ local touch = {event.pull("touch")}
 if touch[4]==1 then
 gpu.setBackground(0x000000)
 term.clear()
-dofile("/UOS/install.lua")
+local applications = dofile("/UOS/install.lua")
 firstMenu()
 end
 if touch[4]==3 then
