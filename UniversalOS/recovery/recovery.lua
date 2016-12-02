@@ -80,7 +80,6 @@ end
 
 local w,h = gpu.getResolution()
 local function status(msg)
-
 end
 
 gpu.setBackground(0xCCCCCC)
@@ -105,21 +104,7 @@ eI()
 break
 end
 if touch[4]==2 then
-  gpu.setBackground(0x000000)
-  term.clear()
-  print("Downloading file list...")
-
-local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
-
-  
-  local applications
-  if success == true then
-dfile = "return " .. string.gsub(reason,"\n","")
-write("Success\n\n")
-else
-error(reason)
-end
-
+  local function check()
   local file = io.open("/UOS/apps.lua","w") 
   file:write(dfile)
   file:close()
@@ -163,3 +148,23 @@ end
     firstMenu()
   end
 end
+end
+  gpu.setBackground(0x000000)
+  term.clear()
+  print("Downloading file list...")
+
+local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
+
+  
+  local applications
+  if success == true then
+dfile = "return " .. string.gsub(reason,"\n","")
+write("Success\n\n")
+check()
+else
+print(reason)
+os.sleep(5)
+firstMenu()
+end
+
+
