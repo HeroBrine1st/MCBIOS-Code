@@ -69,9 +69,9 @@ gpu.fill(1,1,w,h," ")
 gpu.setBackground(0xFFFFFF)
 gpu.setForeground(0x000000)
 gpu.fill(1,1,w,1," ")
-gpu.set(1,1,"Reinstall system")
+gpu.set(1,3,"Reinstall system")
 gpu.fill(1,3,w,3," ")
-gpu.set(1,3,"Exit")
+gpu.set(1,1,"Reboot system now")
 gpu.setForeground(0xFFFFFF)
 gpu.setBackground(0xCCCCCC)
 gpu.set(1,2,"Repair/update system")
@@ -91,7 +91,7 @@ firstMenu()
 
 while true do
 local touch = {event.pull("touch")}
-if touch[4]==1 then
+if touch[4]==3 then
 gpu.setBackground(0x000000)
 term.clear()
 write("Downloading file list...    ")
@@ -113,10 +113,11 @@ end
   applications = dofile("/UOS/apps.lua")
 firstMenu()
 end
-if touch[4]==3 then
+if touch[4]==1 then
 gpu.setBackground(0x000000)
 term.clear()
 eI()
+computer.shutdown(true)
 break
 end
 if touch[4]==2 then
