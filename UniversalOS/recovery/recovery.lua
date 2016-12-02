@@ -94,7 +94,23 @@ local touch = {event.pull("touch")}
 if touch[4]==1 then
 gpu.setBackground(0x000000)
 term.clear()
-local applications = dofile("/UOS/install.lua")
+write("Downloading file list...    ")
+
+local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
+
+  
+  local applications
+  if success == true then
+dfile = "return " .. string.gsub(reason,"\n","")
+write("Success\n\n")
+else
+error("Error. Reason: " .. reason)
+end
+
+  local file = io.open("/UOS/apps.lua","w") 
+  file:write(dfile)
+  file:close()
+  applications = dofile("/UOS/apps.lua")
 firstMenu()
 end
 if touch[4]==3 then
