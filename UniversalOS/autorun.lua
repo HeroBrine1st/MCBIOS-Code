@@ -1,7 +1,7 @@
-local component = require("component")
-local gpu = component.gpu
-local unicode = require("unicode")
-
+_G.component = require("component")
+_G.computer = require("computer")
+_G.unicode = require("unicode")
+_G.gpu = component.gpu
 local w,h = gpu.getResolution()
 local function centerText(y, text)
       local lenght = unicode.len(text)
@@ -22,7 +22,12 @@ local function status(msg)
 	gpu.setForeground(0xFFFFFF)
 end
 
-local AGPU = require("AGPU")
+
+
+
+
+
+
 
 
 
