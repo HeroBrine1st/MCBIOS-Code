@@ -105,7 +105,7 @@ break
 end
 if touch[4]==2 then
   local function check()
-  local file = io.open("/UOS/apps.lua","w") 
+local file = io.open("/UOS/apps.lua","w") 
   file:write(dfile)
   file:close()
   applications = dofile("/UOS/apps.lua")
@@ -144,10 +144,7 @@ end
           end
         end
       end
-    term.clear()
-    firstMenu()
-  end
-end
+    
 end
   gpu.setBackground(0x000000)
   term.clear()
@@ -167,4 +164,7 @@ os.sleep(5)
 firstMenu()
 end
 
-
+term.clear()
+firstMenu()
+end  
+end
