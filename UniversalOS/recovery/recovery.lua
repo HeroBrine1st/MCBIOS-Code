@@ -117,7 +117,7 @@ local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBri
 dfile = "return " .. string.gsub(reason,"\n","")
 write("Success\n\n")
 else
-error("Error. Reason: " .. reason)
+error(reason)
 end
 
   local file = io.open("/UOS/apps.lua","w") 
