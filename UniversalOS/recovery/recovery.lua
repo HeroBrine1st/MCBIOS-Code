@@ -43,7 +43,7 @@ local function getFromGitHub(url,filepath)
    local file = io.open(filepath, "w")
    file:write(reason)
    file:close()
-   return reason
+   return success, reason
  else
    io.stderr("Can't download " .. url .. "\n")
  end
