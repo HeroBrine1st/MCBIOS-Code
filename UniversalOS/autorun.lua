@@ -8,8 +8,6 @@ fs.makeDirectory("/init.d/")
 
 dofile("/init.d/mics.lua")
 
-os.sleep(1)
-
 local w,h = gpu.getResolution()
 local function centerText(y, text)
       local lenght = unicode.len(text)
