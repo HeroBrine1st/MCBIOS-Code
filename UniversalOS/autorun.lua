@@ -2,6 +2,41 @@ _G.component = require("component")
 _G.computer = require("computer")
 _G.unicode = require("unicode")
 _G.gpu = component.gpu
+
+local function list(dir)
+local component = require("component")
+local fs = require("filesystem")
+local shell = require("shell")
+local text = require('text')
+ 
+
+  local list, reason = fs.list(path)
+    local lsd = {}
+    local lsf = {}
+    local m = 1
+    for f in list do
+      m = math.max(m, f:len() + 2)
+      if f:sub(-1) == "/" then
+        if options.p then
+          table.insert(lsd, f)
+        else
+          table.insert(lsd, f:sub(1, -2))
+        end
+      else
+        table.insert(lsf, f)
+      end
+    end
+    table.sort(lsd)
+    table.sort(lsf)
+   return lsf
+end
+
+local initdList = list("/init.d/")
+for i = 0, #initdList do
+dofile("/init.d/" .. initdList[i])
+end
+
+
 local w,h = gpu.getResolution()
 local function centerText(y, text)
       local lenght = unicode.len(text)
