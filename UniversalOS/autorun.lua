@@ -3,9 +3,7 @@ _G.computer = require("computer")
 _G.unicode = require("unicode")
 _G.gpu = component.gpu
 _G.fs = require("filesystem")
-
-fs.makeDirectory("/init.d/")
-
+_G.term = require("term")
 dofile("/init.d/mics.lua")
 
 local w,h = gpu.getResolution()
