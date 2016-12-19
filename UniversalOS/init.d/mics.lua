@@ -22,7 +22,7 @@ gpu.setForeground(0x000000)
 gpu.fill(1,4,w,h," ")
 end
 firstMenu()
-
+local w,h = gpu.getResolution()
 while true do
 local touch = {event.pull("touch")}
 if touch[4]==2 then
