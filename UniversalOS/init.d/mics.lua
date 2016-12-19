@@ -1,1 +1,16 @@
-
+local function firstMenu()
+term.clear()
+gpu.setBackground(0xCCCCCC)
+local w,h = gpu.getResolution()
+gpu.fill(1,1,w,h," ")
+gpu.setBackground(0x424242)
+gpu.setForeground(0xFFFFFF)
+gpu.fill(1,1,w,1," ")
+gpu.set(1,1,"Select what to boot:")
+gpu.fill(1,3,w,5," ")
+gpu.set(1,4,"System")
+gpu.fill(1,7,w,9," ")
+gpu.set(1,8,"Recovery")
+end
+firstMenu()
+os.sleep(1)
