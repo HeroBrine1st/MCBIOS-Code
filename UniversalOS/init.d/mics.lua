@@ -37,6 +37,6 @@ local str ="Booting recovery"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2,h/2-lenght,str)
 os.sleep(0.5)
-dofile("/recovery/recovery")
+dofile("/recovery/recovery.lua")
 end
 end
