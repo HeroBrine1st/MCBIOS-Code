@@ -4,6 +4,20 @@ _G.unicode = require("unicode")
 _G.gpu = component.gpu
 _G.fs = require("filesystem")
 _G.term = require("term")
+local function dI()
+_G.eventInterruptBackup = package.loaded.event.shouldInterrupt 
+_G.eventSoftInterruptBackup = package.loaded.event.shouldSoftInterrupt 
+package.loaded.event.shouldInterrupt = function () return false end
+package.loaded.event.shouldSoftInterrupt = function () return false end
+end
+
+
+local function eI()
+if _G.eventInterruptBackup then
+package.loaded.event.shouldInterrupt = _G.eventInterruptBackup 
+package.loaded.event.shouldSoftInterrupt = _G.eventSoftInterruptBackup
+end
+dI()
 dofile("/init.d/mics.lua")
 
 local w,h = gpu.getResolution()
@@ -41,3 +55,4 @@ os.sleep(4)
 
 gpu.fill(1,1,w,h," ")
 require("term").clear()
+eI()
