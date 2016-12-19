@@ -1,3 +1,5 @@
+local event = require("event")
+
 local function firstMenu()
 term.clear()
 gpu.setBackground(0xCCCCCC)
@@ -20,4 +22,21 @@ gpu.setForeground(0x000000)
 gpu.fill(1,4,w,h," ")
 end
 firstMenu()
-os.sleep(1)
+
+while true do
+local touch = {event.pull("touch")}
+if touch[4]==2 then
+local str ="Booting internal system"
+local lenght = Math.floor(unicode.len(str)/2)
+gpu.set(w/2,h/2-lenght,str)
+os.sleep(0.5)
+break
+end
+if touch[4]==3 then
+local str ="Booting recovery"
+local lenght = Math.floor(unicode.len(str)/2)
+gpu.set(w/2,h/2-lenght,str)
+os.sleep(0.5)
+dofile("/recovery/recovery")
+end
+end
