@@ -85,7 +85,6 @@ local function status(msg)
 end
 
 gpu.setBackground(0xCCCCCC)
-dI()
 gpu.fill(1,1,w,h," ")
 
 --status("Booting recovery")
@@ -154,7 +153,7 @@ end
             write("Downloading " .. applications[i].path .. "    ")
               local success, reason =  getFromGitHub(applications[i].url,applications[i].path)
               if success == true then
-io.write("Success")
+io.write("Success\n")
 end
 if success == false then
 io.stderr("Error. Reason: " .. reason)
