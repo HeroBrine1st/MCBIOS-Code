@@ -13,6 +13,7 @@ local term = require("term")
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,w,h," ")
+os.sleep(1)
 local str ="UniversalOS"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2-1,str)
@@ -153,7 +154,7 @@ end
               write("Downloading " .. applications[i].path .. "    ")
               local success, reason = getFromGitHub(applications[i].url,applications[i].path)
               if success == true then
-        io.write("Success")
+        io.write("Success\n")
         end
         if success == false then
         io.stderr("error. Reason: " .. reason)
