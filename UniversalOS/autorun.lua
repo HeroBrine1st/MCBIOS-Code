@@ -17,6 +17,7 @@ if _G.eventInterruptBackup then
 package.loaded.event.shouldInterrupt = _G.eventInterruptBackup 
 package.loaded.event.shouldSoftInterrupt = _G.eventSoftInterruptBackup
 end
+end
 dI()
 dofile("/init.d/mics.lua")
 
