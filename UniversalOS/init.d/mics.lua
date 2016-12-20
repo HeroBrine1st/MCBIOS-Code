@@ -37,16 +37,6 @@ local str ="Booting recovery"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2,str)
 os.sleep(0.5)
-gpu.setBackground(0x000000)
-gpu.setForeground(0xFFFFFF)
-gpu.fill(1,1,w,h," ")
-local str ="UniversalOS"
-local lenght = (unicode.len(str)/2)
-gpu.set(w/2-lenght,h/2-1,str)
-local str ="Booting recovery"
-local lenght = (unicode.len(str)/2)
-gpu.set(w/2-lenght,h/2,str)
-os.sleep(3)
 dofile("/recovery/recovery.lua")
 end
 end
