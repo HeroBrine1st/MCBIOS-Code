@@ -10,11 +10,6 @@ name="autorun.lua",
 path="/autorun.lua",
 },
 {
-url="http://pastebin.com/raw/E0SzJcCx",
-name="Thread.lua",
-path="/lib/Thread.lua",
-},
-{
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/install.lua",
 name="install.lua",
 path="/UOS/install.lua",
