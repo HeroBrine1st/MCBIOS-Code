@@ -59,4 +59,19 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 path="/lib/advancedComputer.lua",
 name="advancedComputer.lua",
 },
+{
+url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/doubleBuffering.lua",
+path="/lib/DoubleBuffering.lua",
+name="DoubleBuffering.lua by ECS",
+},
+{
+url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/image.lua",
+path="/lib/image.lua",
+name="image.lua by ECS",
+},
+{
+url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/colorlib.lua",
+path="/lib/colorlib.lua",
+name="colorlib.lua by ECS",
+},
 }
