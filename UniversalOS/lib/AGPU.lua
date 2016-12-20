@@ -1,8 +1,9 @@
 local component = require("component")
 local gpu = component.gpu
 local unicode = require("unicode")
-local AGPU = {}
-local e = {}
+local AGPU = {
+	elements = {}
+}
 
 function AGPU.drawText(x,y,color,text)
 local foreground = gpu.setForeground(color)
@@ -14,7 +15,9 @@ local addToE = {
 	color,
 	text,
 }
-table.insert(e,addToE)
+local index = #(AGPU.elements) + 1
+table.insert(AGPU.elements,addToE)
+return index
 end
 
 function AGPU.drawCenterText(x,y,color,text)
@@ -29,7 +32,11 @@ local addToE = {
 	color,
 	text,
 }
-table.insert(e,addToE)
+local index = #(AGPU.elements) + 1
+table.insert(AGPU.elements,addToE)
+return index
 end
+
+
 
 return AGPU
