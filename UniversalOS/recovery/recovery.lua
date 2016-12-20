@@ -10,6 +10,7 @@ local gpu =  component.gpu
 local event = require("event")
 local package = require("package")
 local term = require("term")
+local w,h = gpu.getResolution()
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,w,h," ")
