@@ -55,4 +55,11 @@ name="mics.lua",
 preLoad=false,
 requireRecovery=false,
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/dev/block/mics",
+path="/dev/block/mics",
+name="mics",
+preLoad=false,
+requireRecovery=false,
+},
 }
