@@ -78,7 +78,7 @@ requireRecovery=false,
 },
 {
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/lib/advancedComputer.lua",
-path-"/lib/advancedComputer.lua",
+path="/lib/advancedComputer.lua",
 name="advancedComputer.lua",
 preLoad=false,
 requireRecovery=false,
