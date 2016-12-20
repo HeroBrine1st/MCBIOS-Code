@@ -69,4 +69,9 @@ url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/col
 path="/lib/colorlib.lua",
 name="colorlib.lua by ECS",
 },
+{
+url="https://github.com/HeroBrine1st/OpenComputers/raw/master/UniversalOS/recovery/recovery.pic",
+path="/recovery/recovery.pic",
+name="recovery.pic",
+}
 }
