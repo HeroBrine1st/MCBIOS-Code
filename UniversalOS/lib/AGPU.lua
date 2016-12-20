@@ -17,7 +17,7 @@ local addToE = {
 }
 local index = #(AGPU.elements) + 1
 table.insert(AGPU.elements,addToE)
-return index
+return index, "text"
 end
 
 function AGPU.drawCenterText(x,y,color,text)
@@ -27,16 +27,21 @@ local foreground = gpu.setForeground(color)
 gpu.set(aX,y,text)
 gpu.setForeground(foreground)
 local addToE = {
-	aX,
+	x = aX,
 	y,
 	color,
 	text,
 }
 local index = #(AGPU.elements) + 1
 table.insert(AGPU.elements,addToE)
-return index
+return index, "text"
 end
 
-
+function deleteElement(index, type)
+local element = AGPU.elements[index]
+if type == "text" then
+gpu.fill(element.x,element.y,1,unicode.len(element.text)," ")
+end
+end
 
 return AGPU
