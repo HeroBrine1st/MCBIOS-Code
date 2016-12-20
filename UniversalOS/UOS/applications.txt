@@ -49,13 +49,6 @@ preLoad=false,
 requireRecovery=false,
 },
 {
-url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/bin/recovery.lua",
-name="recovery.lua",
-path="/bin/recovery.lua",
-preLoad=false,
-requireRecovery=false,
-},
-{
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/init.d/mics.lua",
 path="/init.d/mics.lua",
 name="mics.lua",
