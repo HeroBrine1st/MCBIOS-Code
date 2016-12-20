@@ -1,1 +1,0 @@
-dofile("/recovery/recovery.lua")
