@@ -74,4 +74,9 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 path="/bin/wget.lua",
 name="wget.lua",
 },
+{
+url="https://github.com/HeroBrine1st/OpenComputers/raw/master/UniversalOS/recovery/recovery.pic",
+path="/recovery/recovery.pic",
+name="recovery.pic",
+},
 }
