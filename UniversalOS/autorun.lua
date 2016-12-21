@@ -43,9 +43,12 @@ local function status(msg)
 	gpu.setForeground(0xFFFFFF)
 end
 
-
-
-
+if fs.exists("/UOS/Pictures/BootImage.pic") then
+buffer.start()
+local pic = image.load("/UOS/Pictures/BootImage.pic")
+buffer.image(1,1,pic)
+buffer.draw()
+end
 
 
 
