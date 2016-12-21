@@ -27,7 +27,7 @@ while true do
 local touch = {event.pull("touch")}
 if touch[4]==2 then
 local str ="Booting internal system"
-gpu.setBackground(0x000000)
+local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2,str)
 os.sleep(0.5)
 break
