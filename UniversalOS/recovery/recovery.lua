@@ -30,7 +30,7 @@ local bootImage = image.load("/recovery/recovery.pic")
 local pic
 local i = 255
 while i > 0 do
-i = i - 1
+i = i - 17
 pic = image.photoFilter(bootImage,0x000000,i)
 buffer.image(1,1,pic)
 buffer.draw()
