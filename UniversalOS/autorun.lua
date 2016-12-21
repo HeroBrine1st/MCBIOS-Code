@@ -4,6 +4,8 @@ _G.unicode = require("unicode")
 _G.gpu = component.gpu
 _G.fs = require("filesystem")
 _G.term = require("term")
+_G.buffer = require("DoubleBuffering")
+_G.image = require("image")
 local function dI()
 _G.eventInterruptBackup = package.loaded.event.shouldInterrupt 
 _G.eventSoftInterruptBackup = package.loaded.event.shouldSoftInterrupt 
