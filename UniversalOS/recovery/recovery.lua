@@ -10,11 +10,14 @@ local gpu =  component.gpu
 local event = require("event")
 local package = require("package")
 local term = require("term")
+local image = require("image")
+local buffer = require("DoubleBuffering")
 local w,h = gpu.getResolution()
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,w,h," ")
 os.sleep(1)
+if not file.exists("/recovery/recovery.pic")
 local str ="UniversalOS"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2-1,str)
@@ -22,6 +25,17 @@ local str ="Booting recovery"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2,str)
 os.sleep(3)
+else
+local bootImage = image.load("/recovery/recovery.pic")
+local pic
+local i = 255
+while i > 0 do
+i = i - 1
+pic = image.photoFilter(bootImage,0x000000,i)
+buffer.image(1,1,pic)
+buffer.draw()
+end
+end
 local function internetRequest(url)
   local success, response = pcall(component.internet.request, url)
     if success then
