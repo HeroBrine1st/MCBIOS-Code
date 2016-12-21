@@ -66,50 +66,51 @@ f = nil
 if not options.q then
   io.write("Downloading... ")
 end
-local result, response = pcall(internet.request, url)
-if result then
-  local result, reason = pcall(function()
-    for chunk in response do
-      if not f then
-        f, reason = io.open(filename, "wb")
-        assert(f, "failed opening file for writing: " .. tostring(reason))
-      end
-      f:write(chunk)
+local function internetRequest(url)
+  local success, response = pcall(component.internet.request, url)
+    if success then
+    local responseData = ""
+    while true do
+      local data, responseChunk = response.read()
+      if data then
+        responseData = responseData .. data
+      else
+        if responseChunk then
+         return false, responseChunk
+        else
+      return true, responseData
     end
-  end)
-  if not result then
-    if not options.q then
-      io.stderr:write("failed.\n")
     end
-    if f then
-      f:close()
-      if not preexisted then
-        fs.remove(filename)
-      end
     end
-    if not options.Q then
-      io.stderr:write("HTTP request failed: " .. reason .. "\n")
-    end
-    return nil, reason -- for programs using wget as a function
+  else
+    return false, reason
   end
-  if not options.q then
-    io.write("success.\n")
-  end
-  
-  if f then
-    f:close()
-  end
-
-  if not options.q then
-    io.write("Saved data to " .. filename .. "\n")
-  end
-else
-  if not options.q then
-    io.write("failed.\n")
-  end
-  if not options.Q then
-    io.stderr:write("HTTP request failed: " .. response .. "\n")
-  end
-  return nil, response -- for programs using wget as a function
 end
-return true -- for programs using wget as a function
+ local write = io.write
+local read = io.read
+
+
+
+local function getFromUrl(url,filepath)
+ local success, reason = internetRequest(url)
+ if success then
+   fs.makeDirectory(fs.path(filepath) or "")
+   fs.remove(filepath)
+   local file = io.open(filepath, "w")
+   file:write(reason)
+   file:close()
+   return success, reason
+ else
+   io.stderr("Can't download " .. url .. "\n")
+ end
+end
+
+local success, reason = getFromUrl(url,filename)
+if not success then
+io.stderr:write(reason)
+return
+else
+io.write("Success\n")
+end
+
+return success, reason -- for programs using wget as a function
