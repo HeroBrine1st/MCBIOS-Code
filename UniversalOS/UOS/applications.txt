@@ -79,9 +79,4 @@ url="https://github.com/HeroBrine1st/OpenComputers/raw/master/UniversalOS/recove
 path="/recovery/recovery.pic",
 name="recovery.pic",
 },
-{
-url="https://github.com/HeroBrine1st/OpenComputers/raw/master/UniversalOS/UOS/Pictures/BootImage.pic",
-path="/UOS/Pictures/BootImage.pic",
-name="BootImage.pic",
-},
 }
