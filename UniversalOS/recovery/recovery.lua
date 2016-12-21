@@ -17,7 +17,7 @@ gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,w,h," ")
 os.sleep(1)
-if not file.exists("/recovery/recovery.pic")
+if not file.exists("/recovery/recovery.pic") then
 local str ="UniversalOS"
 local lenght = (unicode.len(str)/2)
 gpu.set(w/2-lenght,h/2-1,str)
