@@ -103,7 +103,13 @@ gpu.set(1,1,"Reboot system now")
 gpu.setForeground(0xFFFFFF)
 gpu.setBackground(0xCCCCCC)
 gpu.set(1,2,"Repair/update system")
-gpu.fill(1,4,w,5," ")
+gpu.setBackground(0xFFFFFF)
+gpu.setForeground(0x000000)
+gpu.fill(1,4,w,4," ")
+gpu.set(1,4,"Power off")
+gpu.setForeground(0xFFFFFF)
+gpu.setBackground(0xCCCCCC)
+gpu.fill(1,5,w,6," ")
 end
 
 local w,h = gpu.getResolution()
@@ -189,5 +195,11 @@ end
       end
 term.clear()
 firstMenu()
-end  
+end
+if touch[4]==4 then
+gpu.setBackground(0x000000)
+term.clear()
+eI()
+computer.shutdown()
+end
 end
