@@ -2,7 +2,6 @@ local filesystem = require("filesystem")
 local component = require("component")
 local computer = require("computer")
 local fs = require("filesystem")
-local internet = require("internet")
 local serialization = require("serialization")
 local shell = require("shell")
 local event = require("event")
@@ -77,7 +76,7 @@ end
 
 write("\nCheck downloaded files...\n\n")
 
-print("Downloading file list...")
+write("Downloading file list...    ")
 
 local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
 
@@ -104,7 +103,7 @@ end
             local file = io.open(applications[i].path,"r")
             local text = file:read(size+1)
             file:close()
-            local success, textOriginal = getFromGitHub(applications[i].url,"/tmp/recovery.tmp")
+            local success, textOriginal = getFromGitHub(applications[i].url,"/tmp/systemchecker.tmp")
             if text == textOriginal then
               print(applications[i].path .. " true")
             else
@@ -129,6 +128,18 @@ end
           end
         end
       end
+
+
+write("\nFlashing bios...\n")
+
+local eeprom = component.eeprom
+local data = component.filesystem.address
+local file = io.open("/UOS/UBIOS.lua","r")
+local eepromCode = file:read(4097)
+file:close()
+eeprom.set(eepromCode)
+eeprom.setData(data)
+
 
 write("\nInstallation completed!\n")
 
