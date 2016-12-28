@@ -74,4 +74,8 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 name="recovery.init.lua",
 path="/recovery/recovery.init.lua",
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/UBIOS.lua",
+name="UniversalBIOS",
+path="/UOS/UBIOS.lua",
 }
