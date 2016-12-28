@@ -21,7 +21,6 @@ package.loaded.event.shouldSoftInterrupt = _G.eventSoftInterruptBackup
 end
 end
 dI()
-dofile("/init.d/mics.lua")
 
 local w,h = gpu.getResolution()
 local function centerText(y, text)
