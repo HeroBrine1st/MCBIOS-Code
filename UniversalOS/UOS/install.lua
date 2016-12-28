@@ -130,15 +130,7 @@ end
       end
 
 
-write("\nFlashing bios...\n")
-
-local eeprom = component.eeprom
-local data = component.filesystem.address
-local file = io.open("/UOS/UBIOS.lua","r")
-local eepromCode = file:read(4097)
-file:close()
-eeprom.set(eepromCode)
-eeprom.setData(data)
+  
 
 
 write("\nInstallation completed!\n")
