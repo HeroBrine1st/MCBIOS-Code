@@ -36,7 +36,7 @@ local function centerText(y, text, color)
 
 w, h = boot_invoke(gpu,"getResolution")
 centerText(h/2-1,"UniversalOS",0xFFFFFF)
-centerText(h/2,"Booting kernel...",0xFFFFFF)
+centerText(h/2,"Booting recovery kernel...",0xFFFFFF)
 
 
 do
