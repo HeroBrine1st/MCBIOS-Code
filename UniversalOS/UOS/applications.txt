@@ -30,16 +30,6 @@ name="install.lua",
 path="/bin/install.lua",
 },
 {
-url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/init.d/mics.lua",
-path="/init.d/mics.lua",
-name="mics.lua",
-},
-{
-url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/dev/block/mics",
-path="/dev/block/mics",
-name="mics",
-},
-{
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/bin/reboot.lua",
 path="/bin/reboot.lua",
 name="reboot.lua",
