@@ -77,7 +77,7 @@ while true do
 end
 
 if b == 2 then
-	local success, reason = pcall(boot,ee.getData(),"/init.lua",)
+	local success, reason = pcall(boot,ee.getData(),"/init.lua")
 	if success == false then
 		error(reason)
 	end
