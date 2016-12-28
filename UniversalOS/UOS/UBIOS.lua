@@ -1,4 +1,12 @@
 local pr,cm,ls,ps=component.proxy,computer,component.list,computer.pullSignal
+local eeprom = ls("eeprom")()
+computer.getBootAddress = function()
+  return component.invoke(eeprom, "getData")
+end
+computer.setBootAddress = function(address)
+  return component.invoke(eeprom, "setData", address)
+end
+
 
 local rom = {}
   function rom.invoke(method, ...)
