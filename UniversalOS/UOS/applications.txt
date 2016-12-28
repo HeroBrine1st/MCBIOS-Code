@@ -83,5 +83,5 @@ name="recovery.pic",
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/recovery/recovery.init.lua",
 name="recovery.init.lua",
 path="/recovery/recovery.init.lua",
-}
+},
 }
