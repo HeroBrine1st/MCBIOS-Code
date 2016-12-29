@@ -164,7 +164,7 @@ centerText(h/2,"Booting recovery")
 while true do
   local recovery, reason = loadfile("/recovery/recovery.init.lua")
   if recovery then
-    local result, reason = pcall(loadfile)
+    local result, reason = pcall(recovery)
     if reason then
       gpu.set(reason)
       os.sleep(1)
