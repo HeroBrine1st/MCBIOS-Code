@@ -148,7 +148,7 @@ local function centerText(y, text, color)
   end
 local function mics()
   local gpu = component.proxy(component.list("gpu")())
-  gpu.set(1,1,"Select what to boot:")
+  gpu.set(1,1,"Select what to boot")
   gpu.set(1,2,"System")
   gpu.set(1,3,"Recovery")
   local event = pcall(loadfile("/lib/event.lua"))
