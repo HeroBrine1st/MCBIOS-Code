@@ -178,6 +178,7 @@ local function mics()
     end
   end
 end
+mics()
 w, h = boot_invoke(gpu,"getResolution")
 centerText(h/2-1,"UniversalOS",0xFFFFFF)
 centerText(h/2,"Booting kernel...",0xFFFFFF)
