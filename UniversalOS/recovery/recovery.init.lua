@@ -185,8 +185,6 @@ do
 
   status("Initializing system...")
 boot_invoke(gpu,"fill",w,h," ")
-
-while true do
 local success, reason = pcall(loadfile("/recovery/recovery.lua"))
 if not success then
 io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
@@ -195,7 +193,6 @@ io.write("Press any key to continue.\n")
     require("event").pull("key")
   end
   require("term").clear()
-end
 
   require("term").clear()
   os.sleep(0.1) -- Allow init processing.
