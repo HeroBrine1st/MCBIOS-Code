@@ -147,7 +147,7 @@ local function centerText(y, text, color)
   end
   end
 local function mics()
-  local gpu = component.proxy(component.list("gpu"))
+  local gpu = component.proxy(component.list("gpu")())
   gpu.set(1,1,"Select what to boot:")
   gpu.set(1,2,"System")
   gpu.set(1,3,"Recovery")
@@ -178,7 +178,12 @@ local function mics()
     end
   end
 end
-mics()
+do
+local success, reason = pcall(mics)
+if not success then
+boot_invoke(gpu,"set",1,1,reason)
+end
+end
 w, h = boot_invoke(gpu,"getResolution")
 centerText(h/2-1,"UniversalOS",0xFFFFFF)
 centerText(h/2,"Booting kernel...",0xFFFFFF)
