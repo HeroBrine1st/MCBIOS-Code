@@ -168,7 +168,6 @@ local function mics()
     local touch = pullFilteredSignal("touch")
     if touch[4] == 2 then
       centerText(h/2,"Booting system")
-      os.sleep(0.3)
       break
     end
     if touch[4] == 3 then
