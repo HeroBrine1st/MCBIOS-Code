@@ -281,5 +281,3 @@ while true do
   end
   require("term").clear()
 end
-end
-end
