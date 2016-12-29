@@ -147,35 +147,36 @@ local function centerText(y, text, color)
   end
   end
 local function mics()
-local gpu = component.proxy(component.list("gpu"))
-gpu.set(1,1,"Select what to boot:")
-gpu.set(1,2,"System")
-gpu.set(1,3,"Recovery")
-local event = pcall(loadfile("/lib/event.lua"))
-while true do
-local touch = {event.pull("touch")}
-if touch[4] == 2 then
-centerText(h/2,"Booting system")
-os.sleep(0.3)
-break
-end
-if touch[4] == 3 then
-centerText(h/2,"Booting recovery")
-while true do
-  local recovery, reason = loadfile("/recovery/recovery.init.lua")
-  if recovery then
-    local result, reason = pcall(recovery)
-    if reason then
-      gpu.set(reason)
-      os.sleep(1)
+  local gpu = component.proxy(component.list("gpu"))
+  gpu.set(1,1,"Select what to boot:")
+  gpu.set(1,2,"System")
+  gpu.set(1,3,"Recovery")
+  local event = pcall(loadfile("/lib/event.lua"))
+  while true do
+    local touch = {event.pull("touch")}
+    if touch[4] == 2 then
+      centerText(h/2,"Booting system")
+      os.sleep(0.3)
+      break
+    end
+    if touch[4] == 3 then
+      centerText(h/2,"Booting recovery")
+      while true do
+        local recovery, reason = loadfile("/recovery/recovery.init.lua")
+        if recovery then
+          local result, reason = pcall(recovery)
+          if reason then
+            gpu.set(reason)
+            os.sleep(1)
+          end
+        end
+        if reason then
+          gpu.set(reason)
+          os.sleep(1)
+        end
+      end
     end
   end
-  if reason then
-    gpu.set(reason)
-    os.sleep(1)
-  end
-end
-end
 end
 w, h = boot_invoke(gpu,"getResolution")
 centerText(h/2-1,"UniversalOS",0xFFFFFF)
@@ -279,4 +280,5 @@ while true do
     require("event").pull("key")
   end
   require("term").clear()
+end
 end
