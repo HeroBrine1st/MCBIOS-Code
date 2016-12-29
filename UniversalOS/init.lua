@@ -151,7 +151,7 @@ local function mics()
   gpu.set(1,1,"Select what to boot")
   gpu.set(1,2,"System")
   gpu.set(1,3,"Recovery")
-  local event = pcall(loadfile("/lib/event.lua"))
+  local success, event = pcall(loadfile("/lib/event.lua"))
   while true do
     local touch = {event.pull("touch")}
     if touch[4] == 2 then
