@@ -186,11 +186,6 @@ do
   status("Initializing system...")
 boot_invoke(gpu,"fill",w,h," ")
 
-
-
-  require("term").clear()
-  os.sleep(0.1) -- Allow init processing.
-runlevel = 1
 while true do
 local success, reason = pcall(loadfile("/recovery/recovery.lua"))
 if not success then
@@ -201,4 +196,9 @@ io.write("Press any key to continue.\n")
   end
   require("term").clear()
 end
+
+  require("term").clear()
+  os.sleep(0.1) -- Allow init processing.
+runlevel = 1
+
 end
