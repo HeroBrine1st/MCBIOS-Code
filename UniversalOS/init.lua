@@ -146,14 +146,26 @@ local function centerText(y, text, color)
     boot_invoke(gpu, "setForeground", oldcolors)
   end
   end
+
+local function pullFilteredSignal(name)
+local result
+while true do
+local signal = {computer.pullSignal()}
+if signal[1] == name then
+result = signal
+break
+end
+end
+return result
+end
+
 local function mics()
   local gpu = component.proxy(component.list("gpu")())
   gpu.set(1,1,"Select what to boot")
   gpu.set(1,2,"System")
   gpu.set(1,3,"Recovery")
-  local success, event = pcall(loadfile("/lib/event.lua"))
   while true do
-    local touch = {event.pull("touch")}
+    local touch = pullFilteredSignal("touch")
     if touch[4] == 2 then
       centerText(h/2,"Booting system")
       os.sleep(0.3)
