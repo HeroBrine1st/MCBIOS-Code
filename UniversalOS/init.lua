@@ -24,22 +24,9 @@ boot_invoke(gpu,"setBackground",0x000000)
 boot_invoke(gpu,"fill",1,1,w,h," ")
 
 
-  
-local function centerText(y, text, color)
-      local lenght = unicode.len(text)
-      local x = math.floor(w / 2 - lenght / 2)
-      local oldcolors = boot_invoke(gpu,"getForeground")
-      boot_invoke(gpu, "setForeground", color)
-      boot_invoke(gpu, "set", x, y, text)
-      boot_invoke(gpu, "setForeground", oldcolors)
-  end
-
-w, h = boot_invoke(gpu,"getResolution")
-centerText(h/2-1,"UniversalOS",0xFFFFFF)
-centerText(h/2,"Booting kernel...",0xFFFFFF)
 
 do
-  _G._OSVERSION = "UniversalOS"
+  _G._OSVERSION = "OpenOS 1.5"
 
   local component = component
   local computer = computer
@@ -116,6 +103,83 @@ do
       error(reason)
     end
   end
+
+local component_invoke = component.invoke
+function boot_invoke(address, method, ...)
+  local result = table.pack(pcall(component_invoke, address, method, ...))
+  if not result[1] then
+    return nil, result[2]
+  else
+    return table.unpack(result, 2, result.n)
+  end
+end
+
+local gpu = component.list("gpu", true)()
+local w, h
+  if gpu and screen then
+    component.invoke(gpu, "bind", screen)
+    w, h = component.invoke(gpu, "getResolution")
+    component.invoke(gpu, "setResolution", w, h)
+    component.invoke(gpu, "setBackground", 0x000000)
+    component.invoke(gpu, "setForeground", 0xFFFFFF)
+    component.invoke(gpu, "fill", 1, 1, w, h, " ")
+  end
+
+w, h = boot_invoke(gpu,"getResolution")
+boot_invoke(gpu,"setBackground",0x000000)
+boot_invoke(gpu,"fill",1,1,w,h," ")
+
+
+
+
+  
+local function centerText(y, text, color)
+  local lenght = unicode.len(text)
+  local x = math.floor(w / 2 - lenght / 2)
+  local oldcolors
+  if color then
+    oldcolors = boot_invoke(gpu,"getForeground")
+    boot_invoke(gpu, "setForeground", color)
+  end
+    boot_invoke(gpu, "set", x, y, text)
+  if color then
+    boot_invoke(gpu, "setForeground", oldcolors)
+  end
+  end
+local function mics()
+local gpu = component.proxy(component.list("gpu"))
+gpu.set(1,1,"Select what to boot:")
+gpu.set(1,2,"System")
+gpu.set(1,3,"Recovery")
+local event = pcall(loadfile("/lib/event.lua"))
+while true do
+local touch = {event.pull("touch")}
+if touch[4] == 2 then
+centerText(h/2,"Booting system")
+os.sleep(0.3)
+break
+end
+if touch[4] == 3 then
+centerText(h/2,"Booting recovery")
+while true do
+  local recovery, reason = loadfile("/recovery/recovery.init.lua")
+  if recovery then
+    local result, reason = pcall(loadfile)
+    if reason then
+      gpu.set(reason)
+      os.sleep(1)
+    end
+  end
+  if reason then
+    gpu.set(reason)
+    os.sleep(1)
+  end
+end
+end
+end
+w, h = boot_invoke(gpu,"getResolution")
+centerText(h/2-1,"UniversalOS",0xFFFFFF)
+centerText(h/2,"Booting kernel...",0xFFFFFF)
 
   status("Initializing package management...")
 
@@ -202,6 +266,8 @@ local function motd()
     f:close()
   end
 end
+
+boot_invoke(gpu,"fill",w,h," ")
 
 while true do
   motd()
