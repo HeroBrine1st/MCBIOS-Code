@@ -166,7 +166,7 @@ do
   for i = 1, #scripts do
     dofile(scripts[i])
   end
-local success, reason = pcall(loadfile("/recovery/recovery.lua"))
+
   status("Initializing components...")
 
   local primaries = {}
@@ -181,6 +181,17 @@ local success, reason = pcall(loadfile("/recovery/recovery.lua"))
     component.setPrimary(t, c.address)
   end
   
+  while true do
+  local result, reason = pcall(loadfile("/recovery/recovery.lua"))
+  if not result then
+    io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
+    io.write("Press any key to continue.\n")
+    os.sleep(0.5)
+    require("event").pull("key")
+  end
+  require("term").clear()
+end
+
   os.sleep(0.5) -- Allow signal processing by libraries.
   computer.pushSignal("init") -- so libs know components are initialized.
 
