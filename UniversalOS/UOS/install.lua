@@ -6,7 +6,27 @@ local serialization = require("serialization")
 local shell = require("shell")
 local event = require("event")
 local term = require("term")
+local gpu = component.gpu
+local unicode = require("unicode")
+local w,h = gpu.maxResolution()
+gpu.setResolution(w,h)
 local GitHubUrl = "https://raw.githubusercontent.com/"
+term.clear()
+
+print("Проверка на соответствие системным требованиям")
+print(" ")
+
+local array = {}
+
+if computer.totalMemory()/1024 < 2048 then table.insert(array,"UOS требуется 2048 КБ оперативной памяти") end
+if component.isAvailable("tablet") then table.insert(array,"UOS не поддерживает планшеты") end
+if w < 150 then table.insert(array,"UOS необходимы экран и видеокарта 3го уровня") end
+if fs.get("/").isReadOnly() then table.insert(array,"Установите OpenOS на жёсткий диск перед установкой UOS") end
+
+if #array > 0 then
+for i = 1, #array do print(array[i]) end
+return
+end
 
 local function internetRequest(url)
   local success, response = pcall(component.internet.request, url)
@@ -45,16 +65,16 @@ local function getFromGitHub(url,filepath)
  end
 end
 
-write("Downloading file list    ")
+write("Загрузка таблицы файлов    ")
 local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
 
 local dfile
 local applications
 if success == true then
 dfile = "return " .. string.gsub(reason,"\n","")
-write("Success\n\n")
+write("Успешно\n\n")
 else
-error("Error. Reason: " .. reason)
+error(reason)
 end
 reason = nil
 success = nil
@@ -64,74 +84,43 @@ file:close()
 applications = dofile("/UOS/apps.lua")
 
 for i = 1, #applications do
-write("Downloading \"" .. applications[i].name .. "\"...     ")
-local success, reason = getFromGitHub(applications[i].url, applications[i].path)
-if success == true then
-io.write("Success\n")
+  if applications[i].preLoad == true then
+    write("Загрузка \"" .. applications[i].name .. "\"...     ")
+    local success, reason = getFromGitHub(applications[i].url, applications[i].path)
+    if success == true then
+      io.write("Успешно\n")
+    else
+      io.stderr:write("Ошибка: " .. reason .. "\n")
+    end
+  end
 end
-if success == false then
-io.stderr("Error. Reason: " .. reason)
+
+local image = require("image")
+local api = require("HB1API")
+term.clear()
+gpu.set(1,1,"Установить UniversalOS?")
+gpu.set(1,2,"Установить")
+gpu.set(1,3,"Не устанавливать")
+while true do
+local touch = {event.pull("touch")}
+if touch[4] == 2 then
+break
+elseif touch[4]==3 then
+term.clear()
+write("Returning to shell\n")
+return
 end
 end
 
-write("\nCheck downloaded files...\n\n")
-
-write("Downloading file list...    ")
-
-local success, reason = getFromGitHub("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/applications.txt","/UOS/applications.txt")
-
-  
-  local applications
+for i = 1, #applications do
+  write("Загрузка \"" .. applications[i].name .. "\"...     ")
+  local success, reason = getFromGitHub(applications[i].url, applications[i].path)
   if success == true then
-dfile = "return " .. string.gsub(reason,"\n","")
-write("Success\n\n")
-else
-error("Error. Reason: " .. reason)
+    io.write("Успешно\n")
+  else
+    io.stderr:write("Ошибка: " .. reason .. "\n")
+  end
 end
-
-  local file = io.open("/UOS/apps.lua","w") 
-  file:write(dfile)
-  file:close()
-  applications = dofile("/UOS/apps.lua")
-  local result = "y"
-  io.write("\n")
-    if not result or result == "" or result:sub(1, 1):lower() == "y" then
-      for i = 1, #applications do
-        print("Check " .. applications[i].path)
-        local size = fs.size(applications[i].path)
-          if fs.exists(applications[i].path) == true then
-            local file = io.open(applications[i].path,"r")
-            local text = file:read(size+1)
-            file:close()
-            local success, textOriginal = getFromGitHub(applications[i].url,"/tmp/systemchecker.tmp")
-            if text == textOriginal then
-              print(applications[i].path .. " true")
-            else
-              write("Downloading " .. applications[i].path .. "    ")
-              local success, reason = getFromGitHub(applications[i].url,applications[i].path)
-              if success == true then
-				io.write("Success")
-				end
-				if success == false then
-				io.stderr("error. Reason: " .. reason)
-				end
-            end
-          else
-            write("Downloading " .. applications[i].path .. "    ")
-              local success, reason =  getFromGitHub(applications[i].url,applications[i].path)
-              if success == true then
-io.write("Success")
-end
-if success == false then
-io.stderr("Error. Reason: " .. reason)
-end
-          end
-        end
-      end
-
-
-  
-
 
 write("\nInstallation completed!\n")
 
