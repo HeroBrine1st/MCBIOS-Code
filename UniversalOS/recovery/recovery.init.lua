@@ -166,7 +166,7 @@ do
   for i = 1, #scripts do
     dofile(scripts[i])
   end
-
+local success, reason = pcall(loadfile("/recovery/recovery.lua"))
   status("Initializing components...")
 
   local primaries = {}
@@ -180,7 +180,7 @@ do
   for t, c in pairs(primaries) do
     component.setPrimary(t, c.address)
   end
-  local success, reason = pcall(loadfile("/recovery/recovery.lua"))
+  
   os.sleep(0.5) -- Allow signal processing by libraries.
   computer.pushSignal("init") -- so libs know components are initialized.
 
