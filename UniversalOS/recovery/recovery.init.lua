@@ -181,15 +181,32 @@ do
     component.setPrimary(t, c.address)
   end
   
-  while true do
-  local result, reason = pcall(loadfile("/recovery/recovery.lua"))
-  if not result then
-    io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
-    io.write("Press any key to continue.\n")
-    os.sleep(0.5)
-    require("event").pull("key")
-  end
-  require("term").clear()
+gpu = require("component").gpu
+local function err(msg)
+local Math = math
+gpu.setResolution(40,12)
+gpu.setBackground(0x0000FF)
+local w,h = gpu.getResolution()
+gpu.fill(1,1,w,h," ")
+gpu.set(8,3,":(")
+local str = "Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you."
+gpu.set(8,4,string.sub(str,1,28))
+gpu.set(8,5,string.sub(str,29,56))
+gpu.set(8,6,string.sub(str,57,84))
+gpu.set(8,7,string.sub(str,85,112))
+gpu.set(8,8,string.sub(str,113,140))
+gpu.set(8,10,"Error code: " .. string.sub(msg,1,16))
+gpu.set(8,11,string.sub(msg,17))
+
+while true do
+require("computer").pullSignal()
+end
+end
+
+ 
+local result, reason = pcall(loadfile("/recovery/recovery.lua"))
+if not result then
+  err(reason)
 end
 
   os.sleep(0.5) -- Allow signal processing by libraries.
