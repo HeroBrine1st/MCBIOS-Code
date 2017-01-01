@@ -95,4 +95,10 @@ name="HB1API.lua",
 path="/lib/HB1API.lua",
 preLoad=true,
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/UOS/UBIOS.lua",
+name="UBIOS.lua",
+path="/UOS/UBIOS.lua",
+preLoad=false,
+}
 }
