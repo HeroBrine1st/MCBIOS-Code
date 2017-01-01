@@ -26,7 +26,7 @@ boot_invoke(gpu,"fill",1,1,w,h," ")
 
 
 do
-  _G._OSVERSION = "OpenOS 1.5"
+  _G._OSVERSION = "UniversalOS"
 
   local component = component
   local computer = computer
