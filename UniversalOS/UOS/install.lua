@@ -128,16 +128,16 @@ for i = 1, #applications do
 end
 
 io.write("Прошиваем BIOS...    ")
-loxal data 
+local data 
 local file = io.open("/UOS/UBIOS.lua","r")
 if file then
 data = file:read(4097)
 file:close()
 local eeprom = component.eeprom
 eeprom.set(data)
-write("Успешно")
+write("Успешно\n")
 else
-io.write("Ошибка")
+io.write("Ошибка\n")
 end
 
 write("\nInstallation completed!\n")
