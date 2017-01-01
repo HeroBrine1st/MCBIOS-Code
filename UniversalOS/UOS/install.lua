@@ -97,7 +97,12 @@ end
 
 local image = require("image")
 local api = require("HB1API")
-term.clear()
+gpu.setBackground(0x808080)
+gpu.fill(1,1,w,h," ")
+gpu.setBackground(0xCCCCCC)
+gpu.fill(20,20,w-40,h-40," ")
+gpu.setBackground(0xBFFF00)
+--[[term.clear()
 gpu.set(1,1,"Установить UniversalOS?")
 gpu.set(1,2,"Установить")
 gpu.set(1,3,"Не устанавливать")
@@ -111,7 +116,7 @@ write("Returning to shell\n")
 return
 end
 end
-
+]]
 for i = 1, #applications do
   write("Загрузка \"" .. applications[i].name .. "\"...     ")
   local success, reason = getFromGitHub(applications[i].url, applications[i].path)
@@ -120,6 +125,19 @@ for i = 1, #applications do
   else
     io.stderr:write("Ошибка: " .. reason .. "\n")
   end
+end
+
+io.write("Прошиваем BIOS...    ")
+loxal data 
+local file = io.open("/UOS/UBIOS.lua","r")
+if file then
+data = file:read(4097)
+file:close()
+local eeprom = component.eeprom
+eeprom.set(data)
+write("Успешно")
+else
+io.write("Ошибка")
 end
 
 write("\nInstallation completed!\n")
