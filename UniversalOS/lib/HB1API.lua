@@ -31,7 +31,7 @@ end
 return false
 end
 
-local function hbfirst.waitForClick(x,y,x2,y2)
+function hbfirst.waitForClick(x,y,x2,y2)
 	local event = require("event")
 	while true do
 		local touch = {event.pull("touch")}
