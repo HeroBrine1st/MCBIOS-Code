@@ -100,5 +100,10 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 name="UBIOS.lua",
 path="/UOS/UBIOS.lua",
 preLoad=false,
-}
+},
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/init.d/init.OS.lua",
+name="init.OS.lua",
+path="/init.d/init.OS.lua",
+},
 }
