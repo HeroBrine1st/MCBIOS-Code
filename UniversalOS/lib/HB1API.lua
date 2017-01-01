@@ -31,6 +31,17 @@ end
 return false
 end
 
+local function hbfirst.waitForClick(x,y,x2,y2)
+	local event = require("event")
+	while true do
+		local touch = {event.pull("touch")}
+		local clicked = api.clickedAtArea(x,y,x2,y2,touch[3],touch[4])
+		if clicked then
+			break
+		end
+	end
+end
+
 
 
 
