@@ -83,7 +83,7 @@ file:write(dfile)
 file:close()
 applications = dofile("/UOS/apps.lua")
 
-for i = 1, #applications do
+--[[for i = 1, #applications do
   if applications[i].preLoad == true then
     write("Загрузка \"" .. applications[i].name .. "\"...     ")
     local success, reason = getFromGitHub(applications[i].url, applications[i].path)
@@ -100,22 +100,10 @@ local api = require("HB1API")
 gpu.setBackground(0x808080)
 gpu.fill(1,1,w,h," ")
 gpu.setBackground(0xCCCCCC)
-gpu.fill(20,20,w-40,h-40," ")
-gpu.setBackground(0xBFFF00)
---[[term.clear()
-gpu.set(1,1,"Установить UniversalOS?")
-gpu.set(1,2,"Установить")
-gpu.set(1,3,"Не устанавливать")
-while true do
-local touch = {event.pull("touch")}
-if touch[4] == 2 then
-break
-elseif touch[4]==3 then
-term.clear()
-write("Returning to shell\n")
-return
-end
-end
+gpu.fill(20,10,w-40,h-20," ")
+api.drawButton(70,75,20,10,"Начать установку",0x08FF00,0xFFFFFF)
+os.sleep(0.1)
+--api.waitForClick(70,75,90,85)
 ]]
 for i = 1, #applications do
   write("Загрузка \"" .. applications[i].name .. "\"...     ")
