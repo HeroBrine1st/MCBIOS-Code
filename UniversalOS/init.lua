@@ -160,6 +160,7 @@ return result
 end
 
 
+
 local function err(msg)
 local Math = math
 local gp = component.proxy(component.list("gpu")())
@@ -286,6 +287,27 @@ centerText(h/2,"Booting kernel...",0xFFFFFF)
   computer.pushSignal("init") -- so libs know components are initialized.
 
   status("Initializing system...")
+  os.error = function(msg)
+  local Math = math
+local gp = component.proxy(component.list("gpu")())
+gp.setResolution(40,12)
+gp.setBackground(0x0000FF)
+local w,h = gp.getResolution()
+gp.fill(1,1,w,h," ")
+gp.set(8,3,":(")
+local str = "Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you."
+gp.set(8,4,string.sub(str,1,28))
+gp.set(8,5,string.sub(str,29,56))
+gp.set(8,6,string.sub(str,57,84))
+gp.set(8,7,string.sub(str,85,112))
+gp.set(8,8,string.sub(str,113,140))
+gp.set(8,10,"Error code: " .. string.sub(msg,1,16))
+gp.set(8,11,string.sub(msg,17))
+
+while true do
+computer.pullSignal()
+end
+end
   require("term").clear()
   os.sleep(0.1) -- Allow init processing.
   runlevel = 1
