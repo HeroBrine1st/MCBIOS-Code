@@ -295,7 +295,7 @@ gp.setBackground(0x0000FF)
 local w,h = gp.getResolution()
 gp.fill(1,1,w,h," ")
 gp.set(8,3,":(")
-local str = "Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you."
+local str = "Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you. (0%)"
 gp.set(8,4,string.sub(str,1,27))
 gp.set(8,5,string.sub(str,28,55))
 gp.set(8,6,string.sub(str,56,82))
@@ -304,9 +304,14 @@ gp.set(8,8,string.sub(str,112,138))
 gp.set(8,10,"Error code: " .. string.sub(msg,1,16))
 gp.set(8,11,string.sub(msg,17))
 
-while true do
-computer.pullSignal()
-end
+local fs = require("filesystem")
+fs.makeDirectory("/BSoD-logs/")
+local date = os.date("!t")
+local file = io.open("/BSoD-logs/bsod-"..date.day.."."..date.month.."."..date.year.."-"..date.hour.."."..date.min.."."..date.sec..".log")
+file:write("BSoD log\nYour PC ran into a problem. Error code: "..msg)
+gp.set(8,8,"for you. (100%). Rebooting...")
+os.sleep(0.2)
+require("computer").shutdown(true)
 end
   require("term").clear()
   os.sleep(0.1) -- Allow init processing.
