@@ -309,7 +309,7 @@ end
 local fs = require("filesystem")
 fs.makeDirectory("/BSoD-logs/")
 local date = os.date("!t")
-local file = io.open("/BSoD-logs/bsod-"..date.day.."."..date.month.."."..date.year.."-"..date.hour.."."..date.min.."."..date.sec..".log")
+local file = io.open("/BSoD-logs/bsod-"..os.time..".log")
 file:write("BSoD log\nYour PC ran into a problem. Error code: "..msg)
 gp.set(8,8,"for you. (100%). Rebooting...")
 os.sleep(0.2)
