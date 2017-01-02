@@ -303,7 +303,9 @@ gp.set(8,7,string.sub(str,83,110))
 gp.set(8,8,string.sub(str,112,138))
 gp.set(8,10,"Error code: " .. string.sub(msg,1,16))
 gp.set(8,11,string.sub(msg,17))
-
+for i = 0, 80 do
+gp.set(8,8,"for you. (" .. i .. ")")
+end
 local fs = require("filesystem")
 fs.makeDirectory("/BSoD-logs/")
 local date = os.date("!t")
