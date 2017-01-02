@@ -225,6 +225,11 @@ gpu.set(79-len,1,str)
 gpu.set(80,1,"%")
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
+if energy < 6 then
+require("term").clear()
+print("Not enough energy! Shutdown tablet... ")
+require("computer").shutdown()
+end
 end
 local timerID
 local function drawStatusBar()
