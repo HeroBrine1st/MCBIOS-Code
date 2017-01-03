@@ -56,6 +56,10 @@ local downloads = {
   url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/ECSAPI.lua",
   path="/lib/ECSAPI.lua",
 },
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/monitorOnline.lua",
+  path="/apps/monitorOnline.lua"
+}
 }
 
 for i = 1, #downloads do
