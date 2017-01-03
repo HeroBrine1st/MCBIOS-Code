@@ -36,6 +36,8 @@ local languagePackages = {
 	reboot="Reboot",
 	language="Language",
 	selLanguage="Select language",
+	monitorOnline="Monitor",
+	enterNickname="Enter nickname:"
 	},
 	ru={
 	settings="Настройки",
@@ -43,6 +45,8 @@ local languagePackages = {
 	reboot="Перезагрузить",
 	language="Язык",
 	selLanguage="Выберите язык",
+	monitorOnline="Монитор",
+	enterNickname="Введите никнейм игрока:",
 	}
 }
 local function saveSettings()
@@ -62,6 +66,7 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	gpu.set(1,24,languagePackages[language].shutdown)
 	gpu.set(1,23,languagePackages[language].reboot)
 	gpu.set(1,22,languagePackages[language].settings)
+	gpu.set(1,21,languagePackages[language].monitorOnline)
 	gpu.setForeground(oldf)
 	gpu.setBackground(oldb)
 end
@@ -73,7 +78,6 @@ return true
 end 
 return false
 end
-
 local function startClickListenerM()
 	while true do
 		local touch = {event.pull("touch")}
@@ -84,6 +88,14 @@ local function startClickListenerM()
 				computer.shutdown(true)
 			elseif touch[4] == 22 then
 				apps.settings()
+				gpu.setBackground(0x610B5E)
+				gpu.setForeground(0xFFFFFF)
+				gpu.fill(1,1,70,1," ")
+				gpu.setBackground(0x000000)
+				gpu.fill(1,2,80,23," ")
+				break
+			elseif touch[4] == 21 then
+				apps.mO()
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
@@ -106,6 +118,8 @@ local function centerText(y,text)
 local x = Math.floor(w/2-unicode.len(text)/2)
 gpu.set(x,y,text)
 end
+
+
 
 function apps.settings()
 gpu.setBackground(0x610B5E)
@@ -180,7 +194,29 @@ local doReturn = false
 		end
 	end
 
-
+function apps.mO()
+local function requirePlayer(name)
+local online, reason = computer.addUser(name)
+computer.removeUser(name)
+return online, reason
+end
+term.setCursor(1,2)
+io.write(languagePackages[language].enterNickname)
+local nickname = io.read()
+while true do
+local online = requirePlayer(nickname)
+local str
+if online then
+str = "Online"
+computer.beep(500,0.5)
+else
+str="Offline"
+end
+gpu.fill(1,2,80,23," ")
+gpu.set(1,2,str)
+os.sleep(0.1)
+end
+end
 
 
 
@@ -190,7 +226,7 @@ local doReturn = false
 
 
 while true do
-	local touch = {event.pull(touch)}
+	local touch = {event.pull("touch")}
 	if doReturn == true then
 		break
 	end
@@ -244,12 +280,14 @@ end
 drawStatusBar()
 drawBar()
 
-
 while true do
 	local touch = {event.pull(touch)}
 	if touch[3] == 1 and touch[4] == 25 then
+		local oldPixelsM = {}
+		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
 		startClickListenerM()
+		ecs.drawOldPixels(oldPixelsM)
 	elseif touch[3] == 45 and touch[4] == 25 then
 		event.cancel(timerID)
 		term.clear()
