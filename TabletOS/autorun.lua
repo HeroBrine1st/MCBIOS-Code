@@ -95,27 +95,7 @@ local function startClickListenerM()
 				gpu.fill(1,2,80,23," ")
 				break
 			elseif touch[4] == 21 then
-				load("local function requirePlayer(name)
-local online, reason = computer.addUser(name)
-computer.removeUser(name)
-return online, reason
-end
-term.setCursor(1,2)
-io.write(languagePackages[language].enterNickname)
-local nickname = io.read()
-while true do
-local online = requirePlayer(nickname)
-local str
-if online then
-str = \"Online\"
-computer.beep(500,0.5)
-else
-str=\"Offline\"
-end
-gpu.fill(1,2,80,23," ")
-gpu.set(1,2,str)
-os.sleep(0.1)
-end")()
+				dofile("/apps/monitorOnline.lua")
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
@@ -214,9 +194,6 @@ local doReturn = false
 		end
 	end
 
-function apps.mO()
-
-end
 
 
 
