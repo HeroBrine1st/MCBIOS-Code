@@ -66,3 +66,5 @@ for i = 1, #downloads do
 print("Downloading " .. downloads[i].path)
 getFromGitHub(downloads[i].url,downloads[i].path)
 end
+
+print("Made by HeroBrine1. vk.com/herobrine1_mcpe")
