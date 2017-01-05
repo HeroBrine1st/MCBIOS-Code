@@ -38,7 +38,7 @@ local languagePackages = {
 	selLanguage="Select language",
 	monitorOnline="Monitor",
 	enterNickname="Enter nickname:",
-	shutdown="Shut down your computer.."
+	shutdownI="Shut down your computer.."
 	},
 	ru={
 	settings="Настройки",
@@ -48,7 +48,7 @@ local languagePackages = {
 	selLanguage="Выберите язык",
 	monitorOnline="Монитор",
 	enterNickname="Введите никнейм игрока:",
-	shutdown="Завершение работы"
+	shutdownI="Завершение работы"
 	}
 }
 local function saveSettings()
@@ -80,6 +80,29 @@ return true
 end 
 return false
 end
+
+local function shutdown(reboot)
+local computer = require("computer")
+local component = require("component")
+local gpu = component.gpu
+local function centerText(y,text)
+local x = Math.floor(w/2-unicode.len(text)/2)
+gpu.set(x,y,text)
+end
+gpu.setBackground(0x0000FF)
+gpu.fill(1,1,w,h," ")
+centerText(h/2,languagePackages[language].shutdownI)
+saveSettings()
+languagePackages = nil
+apps = nil
+language = nil
+_G = nil
+io = nil
+os = nil
+package = nil
+computer.shutdown(reboot)
+end
+
 local function startClickListenerM()
 	while true do
 		local touch = {event.pull("touch")}
@@ -224,27 +247,7 @@ end
 end
 
 
-local function shutdown(reboot)
-local computer = require("computer")
-local component = require("component")
-local gpu = component.gpu
-local function centerText(y,text)
-local x = Math.floor(w/2-unicode.len(text)/2)
-gpu.set(x,y,text)
-end
-gpu.setBackground(0x0000FF)
-gpu.fill(1,1,w,h," ")
-centerText(h/2,languagePackages[language].shutdown)
-saveSettings()
-languagePackages = nil
-apps = nil
-language = nil
-_G = nil
-io = nil
-os = nil
-package = nil
-computer.shutdown(reboot)
-end
+
 
 
 
