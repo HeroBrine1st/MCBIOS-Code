@@ -102,7 +102,7 @@ os = nil
 package = nil
 gpu.setBackground(0x000000)
 gpu.fill(1,1,80,25," ")
-centerText("Shutting down...")
+centerText(h/2,"Shutting down...")
 os.sleep(0.4)
 computer.shutdown(reboot)
 end
