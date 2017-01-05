@@ -37,7 +37,8 @@ local languagePackages = {
 	language="Language",
 	selLanguage="Select language",
 	monitorOnline="Monitor",
-	enterNickname="Enter nickname:"
+	enterNickname="Enter nickname:",
+	shutdown="Shut down your computer.."
 	},
 	ru={
 	settings="Настройки",
@@ -47,6 +48,7 @@ local languagePackages = {
 	selLanguage="Выберите язык",
 	monitorOnline="Монитор",
 	enterNickname="Введите никнейм игрока:",
+	shutdown="Завершение работы"
 	}
 }
 local function saveSettings()
@@ -83,9 +85,9 @@ local function startClickListenerM()
 		local touch = {event.pull("touch")}
 		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
 			if touch[4] == 24 then
-				computer.shutdown()
+				shutdown()
 			elseif touch[4] == 23 then
-				computer.shutdown(true)
+				shutdown(true)
 			elseif touch[4] == 22 then
 				apps.settings()
 				gpu.setBackground(0x610B5E)
@@ -222,7 +224,27 @@ end
 end
 
 
-
+local function shutdown(reboot)
+local computer = require("computer")
+local component = require("component")
+local gpu = component.gpu
+local function centerText(y,text)
+local x = Math.floor(w/2-unicode.len(text)/2)
+gpu.set(x,y,text)
+end
+gpu.setBackground(0x0000FF)
+gpu.fill(1,1,w,h," ")
+centerText(h/2,languagePackages[language].shutdown)
+saveSettings()
+languagePackages = nil
+apps = nil
+language = nil
+_G = nil
+io = nil
+os = nil
+package = nil
+computer.shutdown(reboot)
+end
 
 
 
