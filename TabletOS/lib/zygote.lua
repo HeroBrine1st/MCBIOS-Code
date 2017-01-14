@@ -1,6 +1,6 @@
 --http://computercraft.ru/topic/1016-oc-lyogkaia-biblioteka-gui/
 
-ocal gpu=require("component").gpu
+local gpu=require("component").gpu
 local isPrimary=require("component").isPrimary
 local event=require("event")
 local len=require("unicode").len
