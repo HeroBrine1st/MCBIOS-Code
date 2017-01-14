@@ -313,7 +313,7 @@ local value = view.items[view.index]
 print(value)
 if fs.isDirectory(value) then
 	currentPath = value
-	list:clear()
+	view:clear()
 	for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
