@@ -300,6 +300,9 @@ form.W=80
 form.H=23
 form.color=0xCCCCCC
 
+local function setACtiveForm()
+form:setActive()
+end
 local function stopForm(view)
 zygote.stop(form)
 end
@@ -326,13 +329,12 @@ windowList = windowForm:addList(30,25/2-5,function(view)
 local valueL = view.items[view.index]
 if valueL == 0 then
 shell.execute("edit " .. value)
-
 elseif valueL == 1 then
 shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
 end
-form:setActive()
+setACtiveForm()
 end)
 windowList:insert("Edit",0)
 windowList:insert("Execute",1)
