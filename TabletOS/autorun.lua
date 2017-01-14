@@ -309,8 +309,6 @@ button.W = 4
 
 
 local list = form:addList(1,1,function(view)
-	list.W = 80
-	list.H = 22
 local value = view.items[view.index]
 print(value)
 if fs.isDirectory(value) then
@@ -343,6 +341,8 @@ windowList:insert("Remove",2)
 zygote.run(windowForm)
 end
 end)
+list.W = 80
+list.H = 22
 
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
