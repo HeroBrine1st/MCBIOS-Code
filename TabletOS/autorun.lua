@@ -313,7 +313,7 @@ button.W = 80
 
 
 
-
+local oldFormPixels
 local list = form:addList(1,1,function(view)
 local value = view.items[view.index]
 if fs.isDirectory(value) then
@@ -323,6 +323,7 @@ if fs.isDirectory(value) then
 view:insert(name,currentPath .. name)
 end
 elseif fs.exists(value) then
+oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 local windowForm = zygote.addForm()
 windowForm.left = 38
 windowForm.top = 25/2-2
@@ -348,6 +349,7 @@ end)
 
 
 zygote.run(windowForm)
+ecs.drawOldPixels(oldFormPixels)
 end
 end)
 
