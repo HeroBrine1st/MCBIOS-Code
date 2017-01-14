@@ -293,6 +293,8 @@ end
 drawStatusBar()
 drawBar()
 
+
+function apps.fileManager()
 local form = zygote.addForm()
 form.left=1
 form.top=2
@@ -374,6 +376,9 @@ list.H = 22
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
+
+zygote.run(form)
+end
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
@@ -388,6 +393,6 @@ while true do
 		break
 	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
 		computer.pushSignal(table.unpack(touch))
-		zygote.run(form)
+		apps.fileManager()
 	end
 end
