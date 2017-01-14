@@ -325,34 +325,28 @@ end
 elseif fs.exists(value) then
 local windowForm = zygote.addForm()
 windowForm.left = 30
-windowForm.top = 25/2-5
+windowForm.top = 25/2-2
 windowForm.W = 20
-windowForm.H = 10
+windowForm.H = 4
 
-
-
-
-
-windowList = windowForm:addList(1,1,function(view)
-local valueL = view.items[view.index]
-if valueL == 0 then
+windowButton1 = windowForm:addButton(1,1,"Edit",function()
 shell.execute("edit " .. value)
-elseif valueL == 1 then
+end)
+windowButton2 = windowForm:addButton(1,2,"Execute",function()
 shell.execute(value)
-elseif valueL == 2 then
-fs.remove(value)
-elseif valueL == 3 then
-	
+end)
+windowButton3 = windowForm:addButton(1,3,"Remove",function()
+shell.execute("rm " .. value)
+end)
+local function stopFormS()
+zygote.stop(windowForm)
 end
+windowButton4 = windowForm:addButton(1,4,"Exit",function()
+stopFormS()
 setActiveForm()
 end)
 
 
-
-windowList:insert("Edit",0)
-windowList:insert("Execute",1)
-windowList:insert("Remove",2)
-windowList:insert("Exit",3)
 zygote.run(windowForm)
 end
 end)
