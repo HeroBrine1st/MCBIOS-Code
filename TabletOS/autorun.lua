@@ -318,15 +318,12 @@ local list = form:addList(1,1,function(view)
 local value = view.items[view.index]
 if fs.isDirectory(value) then
 	oldPath = currentPath
-	if not value == currentPath then
 	currentPath = value
 	view:clear()
 	view:insert("..",oldPath)
-end
 	for name in fs.list(currentPath) do
 view:insert(name,currentPath .. name)
 end
-view:insert("-",currentPath)
 elseif fs.exists(value) then
 oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 local windowForm = zygote.addForm()
