@@ -310,7 +310,6 @@ button.W = 4
 
 local list = form:addList(1,1,function(view)
 local value = view.items[view.index]
-print(value)
 if fs.isDirectory(value) then
 	currentPath = value
 	view:clear()
@@ -323,7 +322,7 @@ windowForm.X = 30
 windowForm.Y = 25/2-5
 windowForm.W = 20
 windowForm.H = 10
-windowList = windowForm:addList(1,1,function(view)
+windowList = windowForm:addList(30,25/2-5,function(view)
 local valueL = view.items[view.index]
 if valueL == 0 then
 shell.execute("edit " .. value)
@@ -333,7 +332,7 @@ shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
 end
-zygote.setActive(form)
+form:setActive()
 end)
 windowList:insert("Edit",0)
 windowList:insert("Execute",1)
