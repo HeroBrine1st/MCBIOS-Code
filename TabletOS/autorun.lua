@@ -324,9 +324,9 @@ view:insert(name,currentPath .. name)
 end
 elseif fs.exists(value) then
 local windowForm = zygote.addForm()
-windowForm.left = 30
+windowForm.left = 38
 windowForm.top = 25/2-2
-windowForm.W = 20
+windowForm.W = 4
 windowForm.H = 4
 
 windowButton1 = windowForm:addButton(1,1,"Edit",function()
