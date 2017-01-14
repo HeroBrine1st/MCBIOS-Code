@@ -309,10 +309,16 @@ button.W = 4
 
 
 local list = form:addList(1,1,function(view)
+	list.W = 80
+	list.H = 22
 local value = view.items[view.index]
 print(value)
 if fs.isDirectory(value) then
 	currentPath = value
+	list:clear()
+	for name in fs.list(currentPath) do
+list:insert(name,currentPath .. name)
+end
 elseif fs.exists(value) then
 local windowForm = zygote.addForm()
 windowForm.X = 30
@@ -323,6 +329,7 @@ windowList = windowForm:addList(1,1,function(view)
 local valueL = view.items[view.index]
 if valueL == 0 then
 shell.execute("edit " .. value)
+
 elseif valueL == 1 then
 shell.execute(value)
 elseif valueL == 2 then
