@@ -299,6 +299,11 @@ form.W=80
 form.H=23
 form.color=0xCCCCCC
 
+local function stopForm()
+zygote.stop(form)
+end
+local button = form:addButton(1,2,"Stop",stopForm)
+
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
@@ -313,6 +318,6 @@ while true do
 		break
 	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
 		computer.pushSignal(table.unpack(touch))
-		run(form)
+		zygote.run(form)
 	end
 end
