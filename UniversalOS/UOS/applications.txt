@@ -105,10 +105,12 @@ preLoad=false,
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/init.d/init.OS.lua",
 name="init.OS.lua",
 path="/init.d/init.OS.lua",
+preLoad=false,
 },
 {
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/lib/zygote.lua",
 path="/lib/zygote.lua",
 name="zygote.lua",
+preLoad=false,
 }
 }
