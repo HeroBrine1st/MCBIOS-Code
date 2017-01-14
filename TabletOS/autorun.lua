@@ -9,6 +9,7 @@ local unicode = require("unicode")
 local zygote = require("zygote")
 local Math = math
 local apps = {}
+local shell =  require("shell")
 term.clear()
 local w,h = gpu.getResolution()
 local function drawBar()
@@ -299,10 +300,43 @@ form.W=80
 form.H=23
 form.color=0xCCCCCC
 
-local function stopForm()
+local function stopForm(view)
 zygote.stop(form)
 end
-local button = form:addButton(1,2,"Stop",stopForm)
+local currentPath = "/"
+local button = form:addButton(1,23,"Exit",stopForm)
+button.W = 4
+
+
+local list = form:addList(1,1,function(view)
+local value = view.items[view.index]
+if fs.isDirectory(value) then
+	currentPath = value
+elseif fs.exists(value) then
+local windowForm = zygote.addForm()
+windowForm.X = 30
+windowForm.Y = 25/2-5
+windowForm.W = 20
+windowForm.H = 10
+windowList = windowForm:addList(1,1,function(view)
+local valueL = view.items[view.index]
+if valueL = 0 then
+shell.execute("edit " .. value)
+elseif valueL == 1 then
+shell.execute(value)
+elseif valueL == 2 then
+fs.remove(value)
+end
+end)
+windowList:insert("Edit",0)
+windowList:insert("Execute",1)
+windowList:insert("Remove",2)
+end
+end)
+
+for name in fs.list(currentPath) do
+list:insert(name,currentPath .. name)
+end
 
 while true do
 	local touch = {event.pull("touch")}
