@@ -301,14 +301,15 @@ form.H=23
 form.color=0xCCCCCC
 
 local function setACtiveForm()
-form:setActive()
+zygote.stop(form)
+zygote.run(form)
 end
 local function stopForm(view)
 zygote.stop(form)
 end
 local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
-button.W = 4
+button.W = 80
 
 
 local list = form:addList(1,1,function(view)
