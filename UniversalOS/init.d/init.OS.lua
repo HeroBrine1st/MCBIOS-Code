@@ -1,9 +1,9 @@
-_G.component = require("component")
-_G.computer = require("computer")
-_G.unicode = require("unicode")
-_G.gpu = component.gpu
-_G.fs = require("filesystem")
-_G.term = require("term")
+local component = require("component")
+local computer = require("computer")
+local unicode = require("unicode")
+local gpu = component.gpu
+local fs = require("filesystem")
+local term = require("term")
 local function dI()
 _G.eventInterruptBackup = package.loaded.event.shouldInterrupt 
 _G.eventSoftInterruptBackup = package.loaded.event.shouldSoftInterrupt 
@@ -41,12 +41,19 @@ local function status(msg)
 end
 
 
-
-
-
-
-
+status("Loading modules")
+_G.zygote = require("zygote")
+_G.computer = computer
+_G.component = component
+_G.term = term
+_G.fs = fs
+status("Success")
+os.sleep(1)
 status("Booting " .. _OSVERSION)
+
+
+
+
 
 os.sleep(4) 
 
