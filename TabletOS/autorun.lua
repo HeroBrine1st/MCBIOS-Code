@@ -311,7 +311,7 @@ while true do
 		event.cancel(timerID)
 		term.clear()
 		break
-	elseif clickedAtArea(1,2,80,24) then
+	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
 		computer.pushSignal(table.unpack(touch))
 		run(form)
 	end
