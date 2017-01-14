@@ -320,6 +320,7 @@ if fs.isDirectory(value) then
 	oldPath = currentPath
 	currentPath = value
 	view:clear()
+	view:insert("/","/")
 	view:insert("..",oldPath)
 	for name in fs.list(currentPath) do
 view:insert(name,currentPath .. name)
