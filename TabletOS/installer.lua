@@ -60,7 +60,7 @@ local downloads = {
   path="/apps/monitorOnline.lua"
 },
 {
-  url="pastebin.com/raw/iKzRve2g",
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua",
   path="/lib/zygote.lua",
 }
 }
