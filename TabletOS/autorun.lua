@@ -6,6 +6,7 @@ local fs = require("filesystem")
 local ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
+local zygote = require("zygote")
 local Math = math
 local apps = {}
 term.clear()
@@ -38,7 +39,8 @@ local languagePackages = {
 	selLanguage="Select language",
 	monitorOnline="Monitor",
 	enterNickname="Enter nickname:",
-	shutdownI="Shut down your computer.."
+	logout="Logout",
+	shutdownI="Shutting down",
 	},
 	ru={
 	settings="Настройки",
@@ -48,7 +50,8 @@ local languagePackages = {
 	selLanguage="Выберите язык",
 	monitorOnline="Монитор",
 	enterNickname="Введите никнейм игрока:",
-	shutdownI="Завершение работы"
+	logout="Завершение сеанса",
+	shutdownI="Завершение работы",
 	}
 }
 local function saveSettings()
@@ -91,7 +94,7 @@ gpu.set(x,y,text)
 end
 gpu.setBackground(0x0000FF)
 gpu.fill(1,1,w,h," ")
-centerText(h/2,languagePackages[language].shutdownI)
+centerText(h/2,languagePackages[language].logout)
 saveSettings()
 languagePackages = nil
 apps = nil
@@ -100,9 +103,8 @@ _G = nil
 io = nil
 os = nil
 package = nil
-gpu.setBackground(0x000000)
 gpu.fill(1,1,80,25," ")
-centerText(h/2,"Shutting down...")
+centerText(h/2,languagePackages[language].shutdownI)
 os.sleep(0.4)
 computer.shutdown(reboot)
 end
@@ -233,9 +235,6 @@ local doReturn = false
 
 while true do
 	local touch = {event.pull("touch")}
-	if doReturn == true then
-		break
-	end
 	if touch[3] == 1 and touch[4] == 25 then
 		drawMenu()
 		startClickListenerM()
@@ -247,13 +246,16 @@ while true do
 	elseif touch[3] == 35 and touch[4] == 25 then
 		break
 	end
+	if doReturn == true then
+		break
+	end
 end
 end
 
 
 
 
-
+_G.oldEnergy = 100
 
 local function statusBar()
 local component = require("component")
@@ -272,6 +274,10 @@ require("term").clear()
 print("Not enough energy! Shutdown tablet... ")
 require("computer").shutdown()
 end
+if not energy == oldEnergy then
+computer.pushSignal("energyChange",oldEnergy,energy)
+end
+oldEnergy = energy
 end
 local timerID
 local function drawStatusBar()
@@ -286,8 +292,15 @@ end
 drawStatusBar()
 drawBar()
 
+local form = zygote.addForm()
+form.left=1
+form.top=2
+form.W=80
+form.H=23
+form.color=0xCCCCCC
+
 while true do
-	local touch = {event.pull(touch)}
+	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
 		local oldPixelsM = {}
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
@@ -298,5 +311,8 @@ while true do
 		event.cancel(timerID)
 		term.clear()
 		break
+	elseif clickedAtArea(1,2,80,24) then
+		computer.pushSignal(table.unpack(touch))
+		run(form)
 	end
 end
