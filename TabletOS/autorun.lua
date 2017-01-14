@@ -320,7 +320,7 @@ windowForm.W = 20
 windowForm.H = 10
 windowList = windowForm:addList(1,1,function(view)
 local valueL = view.items[view.index]
-if valueL = 0 then
+if valueL == 0 then
 shell.execute("edit " .. value)
 elseif valueL == 1 then
 shell.execute(value)
