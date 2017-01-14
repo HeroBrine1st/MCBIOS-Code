@@ -335,11 +335,16 @@ shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
 end
+elseif valueL == 3 then
+zygote.stop(view)
+end
+zygote.stop(view)
 setACtiveForm()
 end)
 windowList:insert("Edit",0)
 windowList:insert("Execute",1)
 windowList:insert("Remove",2)
+windowList:insert("Exit",3)
 zygote.run(windowForm)
 end
 end)
