@@ -106,4 +106,9 @@ url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/Univers
 name="init.OS.lua",
 path="/init.d/init.OS.lua",
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/UniversalOS/lib/zygote.lua",
+path="/lib/zygote.lua",
+name="zygote.lua",
+}
 }
