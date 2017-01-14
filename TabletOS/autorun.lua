@@ -310,6 +310,7 @@ button.W = 4
 
 local list = form:addList(1,1,function(view)
 local value = view.items[view.index]
+print(value)
 if fs.isDirectory(value) then
 	currentPath = value
 elseif fs.exists(value) then
@@ -327,17 +328,18 @@ shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
 end
+zygote.setActive(form)
 end)
 windowList:insert("Edit",0)
 windowList:insert("Execute",1)
 windowList:insert("Remove",2)
+zygote.run(windowForm)
 end
 end)
 
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
-
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
