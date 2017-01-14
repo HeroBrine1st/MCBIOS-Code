@@ -334,7 +334,6 @@ elseif valueL == 1 then
 shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
-end
 elseif valueL == 3 then
 zygote.stop(view)
 end
