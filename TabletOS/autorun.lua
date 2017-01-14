@@ -332,12 +332,15 @@ windowForm.H = 4
 
 windowButton1 = windowForm:addButton(1,1,"Edit",function()
 shell.execute("edit " .. value)
+setActiveForm()
 end)
 windowButton2 = windowForm:addButton(1,2,"Execute",function()
 shell.execute(value)
+setActiveForm()
 end)
 windowButton3 = windowForm:addButton(1,3,"Remove",function()
 shell.execute("rm " .. value)
+setActiveForm()
 end)
 local function stopFormS()
 zygote.stop(windowForm)
@@ -350,6 +353,7 @@ end)
 
 zygote.run(windowForm)
 ecs.drawOldPixels(oldFormPixels)
+setActiveForm()
 end
 end)
 
