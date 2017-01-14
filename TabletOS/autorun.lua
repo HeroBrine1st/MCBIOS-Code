@@ -318,7 +318,7 @@ if fs.isDirectory(value) then
 	currentPath = value
 	view:clear()
 	for name in fs.list(currentPath) do
-list:insert(name,currentPath .. name)
+view:insert(name,currentPath .. name)
 end
 elseif fs.exists(value) then
 local windowForm = zygote.addForm()
