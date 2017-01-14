@@ -322,11 +322,11 @@ view:insert(name,currentPath .. name)
 end
 elseif fs.exists(value) then
 local windowForm = zygote.addForm()
-windowForm.X = 30
-windowForm.Y = 25/2-5
+windowForm.left = 30
+windowForm.top = 25/2-5
 windowForm.W = 20
 windowForm.H = 10
-windowList = windowForm:addList(30,25/2-5,function(view)
+windowList = windowForm:addList(1,1,function(view)
 local valueL = view.items[view.index]
 if valueL == 0 then
 shell.execute("edit " .. value)
