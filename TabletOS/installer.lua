@@ -2,7 +2,6 @@ local filesystem = require("filesystem")
 local component = require("component")
 local computer = require("computer")
 local fs = require("filesystem")
-local internet = require("internet")
 local serialization = require("serialization")
 local shell = require("shell")
 local EEPROMCode
@@ -59,6 +58,10 @@ local downloads = {
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/monitorOnline.lua",
   path="/apps/monitorOnline.lua"
+},
+{
+  url="pastebin.com/raw/iKzRve2g",
+  path="/lib/zygote.lua",
 }
 }
 
