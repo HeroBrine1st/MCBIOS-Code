@@ -300,9 +300,8 @@ form.W=80
 form.H=23
 form.color=0xCCCCCC
 
-local function setACtiveForm()
-zygote.stop(form)
-zygote.run(form)
+local function setActiveForm()
+form:setActive()
 end
 local function stopForm(view)
 zygote.stop(form)
@@ -310,6 +309,9 @@ end
 local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
 button.W = 80
+
+
+
 
 
 local list = form:addList(1,1,function(view)
@@ -326,6 +328,11 @@ windowForm.left = 30
 windowForm.top = 25/2-5
 windowForm.W = 20
 windowForm.H = 10
+
+
+
+
+
 windowList = windowForm:addList(1,1,function(view)
 local valueL = view.items[view.index]
 if valueL == 0 then
@@ -335,11 +342,13 @@ shell.execute(value)
 elseif valueL == 2 then
 fs.remove(value)
 elseif valueL == 3 then
-zygote.stop(view)
+	
 end
-zygote.stop(view)
-setACtiveForm()
+setActiveForm()
 end)
+
+
+
 windowList:insert("Edit",0)
 windowList:insert("Execute",1)
 windowList:insert("Remove",2)
@@ -347,6 +356,10 @@ windowList:insert("Exit",3)
 zygote.run(windowForm)
 end
 end)
+
+
+
+
 list.W = 80
 list.H = 22
 
