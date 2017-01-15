@@ -309,6 +309,8 @@ drawBar()
 
 function apps.fileManager()
 local fileManagerPixels = ecs.rememberOldPixels(1,1,80,25)
+gpu.setBackground(0x610B5E)
+gpu.setForeground(0xFFFFFF)
 gpu.set(1,1,languagePackages[language].fileManager)
 local form = zygote.addForm()
 form.left=1
