@@ -44,6 +44,7 @@ local languagePackages = {
 	shutdownI="Shutting down",
 	newFolder="New folder",
 	newFile="New file",
+	updateFileList="Update files",
 	},
 	ru={
 	settings="Настройки",
@@ -57,6 +58,7 @@ local languagePackages = {
 	shutdownI="Завершение работы",
 	newFolder="Новая папка",
 	newFile="Новый файл",
+	updateFileList="Обновить"
 	}
 }
 local function saveSettings()
@@ -437,6 +439,9 @@ newFolder.W = 20
 		zygote.run(windowForm)
 	end)
 newFile.W = 20
+
+local updateButton = form:addButton(41,1,languagePackages[language].updateFileList,updateFileList)
+updateButton.W = 20
 zygote.run(form)
 end
 
