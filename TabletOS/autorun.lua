@@ -372,13 +372,15 @@ end)
 
 list.W = 80
 list.H = 22
-
+list.color = 0xCCCCCC
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
 
 zygote.run(form)
 end
+
+
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
