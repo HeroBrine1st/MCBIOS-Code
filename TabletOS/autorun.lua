@@ -305,9 +305,6 @@ drawStatusBar()
 drawBar()
 
 
---Apps loaders
-
-apps.fileManager = loadFile("/apps/fileManager.lua")
 
 
 while true do
@@ -323,6 +320,6 @@ while true do
 		term.clear()
 		break
 	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
-		apps.fileManager()
+		dofile("/apps/fileManager.lua")
 	end
 end
