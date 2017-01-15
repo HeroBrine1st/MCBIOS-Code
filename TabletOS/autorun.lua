@@ -245,8 +245,6 @@ local doReturn = false
 
 
 
-
-
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
@@ -307,7 +305,9 @@ drawStatusBar()
 drawBar()
 
 
+--Apps loaders
 
+apps.fileManager = loadFile("/apps/fileManager.lua")
 
 
 while true do
