@@ -306,6 +306,8 @@ drawBar()
 
 
 function apps.fileManager()
+local fileManagerPixels = ecs.rememberOldPixels(1,1,80,25)
+gpu.set(1,1,languagePackages[language].fileManager)
 local form = zygote.addForm()
 form.left=1
 form.top=2
@@ -318,6 +320,7 @@ form:setActive()
 end
 local function stopForm(view)
 zygote.stop(form)
+ecs.drawOldPixels(fileManagerPixels)
 end
 local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
