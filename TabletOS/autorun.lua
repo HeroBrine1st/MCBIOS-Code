@@ -143,6 +143,7 @@ local function startClickListenerM()
 				break
 			elseif touch[4] == 20 then
 				apps.fileManager()
+				break
 			end
 		else
 			gpu.setForeground(0xFFFFFF)
