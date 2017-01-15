@@ -362,7 +362,7 @@ newFile.W = 20
 
 
 
-
+end)
 
 
 local list = form:addList(1,2,function(view)
