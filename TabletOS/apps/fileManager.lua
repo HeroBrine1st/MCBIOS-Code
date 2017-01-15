@@ -1,5 +1,6 @@
 local event = require("event")
 local fs = require("filesystem")
+local component = require("component")
 local gpu = component.gpu
 local ecs = require("ECSAPI")
 local term = require("term")
