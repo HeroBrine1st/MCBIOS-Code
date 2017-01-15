@@ -350,9 +350,9 @@ end
 elseif fs.exists(value) then
 oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 local windowForm = zygote.addForm()
-windowForm.left = 38
+windowForm.left = 35
 windowForm.top = 25/2-2
-windowForm.W = 4
+windowForm.W = 10
 windowForm.H = 4
 
 windowButton1 = windowForm:addButton(1,1,"Edit",function()
@@ -379,7 +379,10 @@ stopFormS()
 ecs.drawOldPixels(oldFormPixels)
 setActiveForm()
 end)
-
+windowButton1.W=10
+windowButton2.W=10
+windowButton3.W=10
+windowButton4.W=10
 
 zygote.run(windowForm)
 
