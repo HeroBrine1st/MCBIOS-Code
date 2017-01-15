@@ -45,6 +45,7 @@ local languagePackages = {
 	newFolder="New folder",
 	newFile="New file",
 	updateFileList="Update files",
+	fileManager="File Manager"
 	},
 	ru={
 	settings="Настройки",
@@ -58,7 +59,8 @@ local languagePackages = {
 	shutdownI="Завершение работы",
 	newFolder="Новая папка",
 	newFile="Новый файл",
-	updateFileList="Обновить"
+	updateFileList="Обновить",
+	fileManager="Файлы",
 	}
 }
 local function saveSettings()
@@ -79,6 +81,7 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	gpu.set(1,23,languagePackages[language].reboot)
 	gpu.set(1,22,languagePackages[language].settings)
 	gpu.set(1,21,languagePackages[language].monitorOnline)
+	gpu.set(1,20,languagePackages[language].fileManager)
 	gpu.setForeground(oldf)
 	gpu.setBackground(oldb)
 end
@@ -138,6 +141,8 @@ local function startClickListenerM()
 				gpu.setBackground(0x000000)
 				gpu.fill(1,2,80,23," ")
 				break
+			elseif touch[4] == 20 then
+				apps.fileManager()
 			end
 		else
 			gpu.setForeground(0xFFFFFF)
