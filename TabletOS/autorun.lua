@@ -10,6 +10,7 @@ local zygote = require("zygote")
 local Math = math
 local apps = {}
 local shell =  require("shell")
+local oldPixelsM = {}
 term.clear()
 local w,h = gpu.getResolution()
 local function drawBar()
@@ -142,6 +143,7 @@ local function startClickListenerM()
 				gpu.fill(1,2,80,23," ")
 				break
 			elseif touch[4] == 20 then
+				ecs.drawOldPixels(oldPixelsM)
 				apps.fileManager()
 				break
 			end
@@ -460,7 +462,7 @@ end
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
-		local oldPixelsM = {}
+		
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
 		startClickListenerM()
@@ -470,7 +472,6 @@ while true do
 		term.clear()
 		break
 	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
-		
 		apps.fileManager()
 	end
 end
