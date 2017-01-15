@@ -314,47 +314,48 @@ local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
 button.W = 80
 local oldFormPixels
-local newFolder = form:addButton(1,1,languagePackages[language].newFolder,function()
-oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
-local windowForm = zygote.addForm()
-windowForm.left = 30
-windowForm.top = 25/2-2
-windowForm.W = 20
-windowForm.H = 4
+	local newFolder = form:addButton(1,1,languagePackages[language].newFolder,function()
+		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+		local windowForm = zygote.addForm()
+		windowForm.left = 30
+		windowForm.top = 25/2-2
+		windowForm.W = 20
+		windowForm.H = 4
 
-local editor = windowsForm:addEdit(1,1,function(view)
-local value = view.text
-if value then
-local newFolder = currentPath + value
-fs.makeDirectory(newFolder)
-ecs.drawOldPixels(oldFormPixels)
-setActiveForm()
-end
+		local editor = windowsForm:addEdit(1,1,function(view)
+			local value = view.text
+			if value then
+				local newFolder = currentPath + value
+				fs.makeDirectory(newFolder)
+				ecs.drawOldPixels(oldFormPixels)
+				setActiveForm()
+			end
+		end)
 end)
-
 newFolder.W = 20
 
-local newFile = form:addButton(1,1,languagePackages[language].newFile,function()
-oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
-local windowForm = zygote.addForm()
-windowForm.left = 30
-windowForm.top = 25/2-2
-windowForm.W = 20
-windowForm.H = 4
+	local newFile = form:addButton(1,1,languagePackages[language].newFile,function()
+		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+		local windowForm = zygote.addForm()
+		windowForm.left = 30
+		windowForm.top = 25/2-2
+		windowForm.W = 20
+		windowForm.H = 4
 
-local editor = windowsForm:addEdit(21,1,function(view)
-local value = view.text
-if value then
-local newFile = currentPath + value
-local f = io.open(newFile,"w")
-if f then
-f:write("")
-f:close()
-end
-ecs.drawOldPixels(oldFormPixels)
-setActiveForm()
-end
-end)
+		local editor = windowsForm:addEdit(21,1,function(view)
+			local value = view.text
+			if value then
+				local newFile = currentPath + value
+				local f = io.open(newFile,"w")
+				if f then
+					f:write("")
+					f:close()
+				end
+				ecs.drawOldPixels(oldFormPixels)
+				setActiveForm()
+			end
+		end)
+	end)
 newFile.W = 20
 
 
