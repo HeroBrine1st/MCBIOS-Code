@@ -355,7 +355,16 @@ end)
 windowButton3 = windowForm:addButton(1,3,"Remove",function()
 shell.execute("rm " .. value)
 ecs.drawOldPixels(oldFormPixels)
-updateFileList()
+
+local listBackup = list
+list:clear()
+list:insert("/","/")
+list:insert("..",listBackup.items[2])
+for name in fs.list(currentPath) do
+list:insert(name,currentPath .. name)
+end
+listBackup = nil
+
 setActiveForm()
 end)
 local function stopFormS()
