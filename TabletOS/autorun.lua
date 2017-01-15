@@ -364,7 +364,6 @@ newFile.W = 20
 
 
 
-end
 
 local list = form:addList(1,2,function(view)
 local value = view.items[view.index]
