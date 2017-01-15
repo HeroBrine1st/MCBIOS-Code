@@ -144,7 +144,7 @@ local function startClickListenerM()
 				break
 			elseif touch[4] == 20 then
 				ecs.drawOldPixels(oldPixelsM)
-				apps.fileManager()
+				dofile("/apps/fileManager.lua")
 				break
 			end
 		else
