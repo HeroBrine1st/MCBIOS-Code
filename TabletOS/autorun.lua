@@ -314,51 +314,7 @@ local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
 button.W = 80
 local oldFormPixels
-	local newFolder = form:addButton(1,1,languagePackages[language].newFolder,function()
-		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
-		local windowForm = zygote.addForm()
-		windowForm.left = 30
-		windowForm.top = 25/2-2
-		windowForm.W = 20
-		windowForm.H = 4
-
-		local editor = windowForm:addEdit(1,1,function(view)
-			local value = view.text
-			if value then
-				local newFolder = currentPath + value
-				fs.makeDirectory(newFolder)
-				ecs.drawOldPixels(oldFormPixels)
-				setActiveForm()
-			end
-		end)
-		zygote.run(windowForm)
-end)
-newFolder.W = 20
-
-	local newFile = form:addButton(21,1,languagePackages[language].newFile,function()
-		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
-		local windowForm = zygote.addForm()
-		windowForm.left = 30
-		windowForm.top = 25/2-2
-		windowForm.W = 20
-		windowForm.H = 4
-
-		local editor = windowForm:addEdit(21,1,function(view)
-			local value = view.text
-			if value then
-				local newFile = currentPath + value
-				local f = io.open(newFile,"w")
-				if f then
-					f:write("")
-					f:close()
-				end
-				ecs.drawOldPixels(oldFormPixels)
-				setActiveForm()
-			end
-		end)
-		zygote.run(windowForm)
-	end)
-newFile.W = 20
+	
 
 
 
@@ -423,10 +379,64 @@ list.H = 21
 list.color = 0xCCCCCC
 list.fontColor = (0xFFFFFF - 0xCCCCCC)
 list.border = 0
+local function updateFileList()
+local listBackup = list
+list:clear()
+list:insert("/","/")
+list:insert("..",listBackup.items[2])
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
+listBackup = nil
+end
+local newFolder = form:addButton(1,1,languagePackages[language].newFolder,function()
+		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+		local windowForm = zygote.addForm()
+		windowForm.left = 30
+		windowForm.top = 25/2-2
+		windowForm.W = 20
+		windowForm.H = 4
 
+		local editor = windowForm:addEdit(1,1,function(view)
+			local value = view.text
+			if value then
+				local newFolder = currentPath .. value
+				fs.makeDirectory(newFolder)
+				ecs.drawOldPixels(oldFormPixels)
+				setActiveForm()
+				updateFileList()
+			end
+		end)
+		zygote.run(windowForm)
+end)
+newFolder.W = 20
+
+
+	local newFile = form:addButton(21,1,languagePackages[language].newFile,function()
+		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+		local windowForm = zygote.addForm()
+		windowForm.left = 30
+		windowForm.top = 25/2-2
+		windowForm.W = 20
+		windowForm.H = 4
+
+		local editor = windowForm:addEdit(21,1,function(view)
+			local value = view.text
+			if value then
+				local newFile = currentPath .. value
+				local f = io.open(newFile,"w")
+				if f then
+					f:write("")
+					f:close()
+				end
+				ecs.drawOldPixels(oldFormPixels)
+				setActiveForm()
+				updateFileList()
+			end
+		end)
+		zygote.run(windowForm)
+	end)
+newFile.W = 20
 zygote.run(form)
 end
 
