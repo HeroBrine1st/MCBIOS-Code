@@ -145,6 +145,7 @@ local function startClickListenerM()
 			gpu.fill(1,10,10,15," ")
 			ecs.drawOldPixels(oldPixels)
 			oldPixels = {}
+			computer.pushSignal(table.unpack(touch))
 			break
 		end
 	end
@@ -422,7 +423,7 @@ newFolder.W = 20
 		windowForm.W = 20
 		windowForm.H = 4
 
-		local editor = windowForm:addEdit(21,1,function(view)
+		local editor = windowForm:addEdit(1,1,function(view)
 			local value = view.text
 			if value then
 				local newFile = currentPath .. value
@@ -460,7 +461,7 @@ while true do
 		term.clear()
 		break
 	elseif clickedAtArea(1,2,80,24,touch[3],touch[4]) then
-		computer.pushSignal(table.unpack(touch))
+		
 		apps.fileManager()
 	end
 end
