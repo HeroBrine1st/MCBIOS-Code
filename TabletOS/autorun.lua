@@ -331,6 +331,7 @@ local oldFormPixels
 				setActiveForm()
 			end
 		end)
+		zygote.run(windowForm)
 end)
 newFolder.W = 20
 
@@ -355,6 +356,7 @@ newFolder.W = 20
 				setActiveForm()
 			end
 		end)
+		zygote.run(windowForm)
 	end)
 newFile.W = 20
 
