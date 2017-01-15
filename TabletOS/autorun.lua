@@ -97,9 +97,7 @@ gpu.setBackground(0x0000FF)
 gpu.fill(1,1,w,h," ")
 centerText(h/2,languagePackages[language].logout)
 saveSettings()
-languagePackages = nil
 apps = nil
-language = nil
 _G = nil
 io = nil
 os = nil
