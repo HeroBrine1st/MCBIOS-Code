@@ -42,6 +42,8 @@ local languagePackages = {
 	enterNickname="Enter nickname:",
 	logout="Logout",
 	shutdownI="Shutting down",
+	newFolder="New folder",
+	newFile="New file",
 	},
 	ru={
 	settings="Настройки",
@@ -53,6 +55,8 @@ local languagePackages = {
 	enterNickname="Введите никнейм игрока:",
 	logout="Завершение сеанса",
 	shutdownI="Завершение работы",
+	newFolder="Новая папка",
+	newFile="Новый файл",
 	}
 }
 local function saveSettings()
@@ -295,7 +299,7 @@ drawBar()
 function apps.fileManager()
 local form = zygote.addForm()
 form.left=1
-form.top=2
+form.top=3
 form.W=80
 form.H=23
 form.color=0xCCCCCC
@@ -309,12 +313,60 @@ end
 local currentPath = "/"
 local button = form:addButton(1,23,"Exit",stopForm)
 button.W = 80
-
-
-
-
 local oldFormPixels
-local list = form:addList(1,1,function(view)
+local newFolder = form:addButton(1,1,languagePackages[language].newFolder,function()
+oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+local windowForm = zygote.addForm()
+windowForm.left = 30
+windowForm.top = 25/2-2
+windowForm.W = 20
+windowForm.H = 4
+
+local editor = windowsForm:addEdit(1,1,function(view)
+local value = view.text
+if value then
+local newFolder = currentPath + value
+fs.makeDirectory(newFolder)
+ecs.drawOldPixels(oldFormPixels)
+setActiveForm()
+end
+end)
+
+newFolder.W = 20
+
+local newFile = form:addButton(1,1,languagePackages[language].newFile,function()
+oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
+local windowForm = zygote.addForm()
+windowForm.left = 30
+windowForm.top = 25/2-2
+windowForm.W = 20
+windowForm.H = 4
+
+local editor = windowsForm:addEdit(21,1,function(view)
+local value = view.text
+if value then
+local newFile = currentPath + value
+local f = io.open(newFile,"w")
+if f then
+f:write("")
+f:close()
+end
+ecs.drawOldPixels(oldFormPixels)
+setActiveForm()
+end
+end)
+newFile.W = 20
+
+
+
+
+
+
+
+
+end
+
+local list = form:addList(1,2,function(view)
 local value = view.items[view.index]
 if fs.isDirectory(value) then
 	oldPath = currentPath
@@ -369,7 +421,7 @@ end)
 
 
 list.W = 80
-list.H = 22
+list.H = 21
 list.color = 0xCCCCCC
 list.fontColor = (0xFFFFFF - 0xCCCCCC)
 list.border = 0
