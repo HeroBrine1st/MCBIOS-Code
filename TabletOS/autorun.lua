@@ -299,7 +299,7 @@ drawBar()
 function apps.fileManager()
 local form = zygote.addForm()
 form.left=1
-form.top=3
+form.top=2
 form.W=80
 form.H=23
 form.color=0xCCCCCC
@@ -322,7 +322,7 @@ local oldFormPixels
 		windowForm.W = 20
 		windowForm.H = 4
 
-		local editor = windowsForm:addEdit(1,1,function(view)
+		local editor = windowForm:addEdit(1,1,function(view)
 			local value = view.text
 			if value then
 				local newFolder = currentPath + value
@@ -334,7 +334,7 @@ local oldFormPixels
 end)
 newFolder.W = 20
 
-	local newFile = form:addButton(1,1,languagePackages[language].newFile,function()
+	local newFile = form:addButton(21,1,languagePackages[language].newFile,function()
 		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 		local windowForm = zygote.addForm()
 		windowForm.left = 30
@@ -342,7 +342,7 @@ newFolder.W = 20
 		windowForm.W = 20
 		windowForm.H = 4
 
-		local editor = windowsForm:addEdit(21,1,function(view)
+		local editor = windowForm:addEdit(21,1,function(view)
 			local value = view.text
 			if value then
 				local newFile = currentPath + value
