@@ -5,7 +5,6 @@ local term = require("term")
 local unicode = require("unicode")
 local zygote = require("zygote")
 local Math = math
-local apps = {}
 local shell =  require("shell")
 local oldPixelsM = {}
 local w,h = gpu.getResolution()
