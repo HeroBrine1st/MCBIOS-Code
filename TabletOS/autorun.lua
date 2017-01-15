@@ -373,6 +373,8 @@ end)
 list.W = 80
 list.H = 22
 list.color = 0xCCCCCC
+list.fontColor = (0xFFFFFF - 0xCCCCCC)
+list.border = 0
 for name in fs.list(currentPath) do
 list:insert(name,currentPath .. name)
 end
