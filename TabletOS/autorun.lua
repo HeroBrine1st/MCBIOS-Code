@@ -355,6 +355,7 @@ end)
 windowButton3 = windowForm:addButton(1,3,"Remove",function()
 shell.execute("rm " .. value)
 ecs.drawOldPixels(oldFormPixels)
+updateFileList()
 setActiveForm()
 end)
 local function stopFormS()
@@ -442,6 +443,7 @@ newFile.W = 20
 
 local updateButton = form:addButton(41,1,languagePackages[language].updateFileList,updateFileList)
 updateButton.W = 20
+updateFileList()
 zygote.run(form)
 end
 
