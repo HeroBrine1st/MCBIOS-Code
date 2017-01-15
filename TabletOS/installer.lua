@@ -66,6 +66,10 @@ local downloads = {
 {
   url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/advancedLua.lua",
   path="/lib/advancedLua.lua"
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/fileManager.lua",
+  path="/apps/fileManager.lua"
 }
 }
 
