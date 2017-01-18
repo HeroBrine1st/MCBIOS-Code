@@ -1,4 +1,4 @@
-local computer = require("computer")
+\local computer = require("computer")
 local component = require("component")
 local gpu = component.gpu
 local event = require("event")
@@ -46,7 +46,8 @@ _G.languagePackages = {
 	newFolder="New folder",
 	newFile="New file",
 	updateFileList="Update files",
-	fileManager="File Manager"
+	fileManager="File Manager",
+	power="Sleep",
 	},
 	ru={
 	settings="Настройки",
@@ -62,6 +63,7 @@ _G.languagePackages = {
 	newFile="Новый файл",
 	updateFileList="Обновить",
 	fileManager="Файлы",
+	power="Сон"
 	}
 }
 local function saveSettings()
@@ -296,6 +298,11 @@ local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,80,1," ")
+local power = languagePackages[language].power
+local len = unicode.len(power)
+gpu.setBackground(0xFFFF00)
+gpu.setForeground(0x610B5E)
+gpu.set(1,76-len,power)
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 timerID = event.timer(1,statusBar,math.huge)
