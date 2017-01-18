@@ -302,7 +302,7 @@ local power = languagePackages[language].power
 local len = unicode.len(power)
 gpu.setBackground(0xFFFF00)
 gpu.setForeground(0x610B5E)
-gpu.set(1,76-len,power)
+gpu.set(76-len,1,power)
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 timerID = event.timer(1,statusBar,math.huge)
