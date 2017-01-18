@@ -1,4 +1,4 @@
-\local computer = require("computer")
+local computer = require("computer")
 local component = require("component")
 local gpu = component.gpu
 local event = require("event")
