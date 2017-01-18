@@ -263,6 +263,13 @@ while true do
 	if doReturn == true then
 		break
 	end
+	local power = languagePackages[language].power
+	local len = unicode.len(power)
+	gpu.setBackground(0xFFFF00)
+	gpu.setForeground(0x610B5E)
+	gpu.set(76-len,1,power)
+	gpu.setBackground(0x000000)
+	gpu.setForeground(0xFFFFFF)
 end
 end
 
@@ -326,5 +333,13 @@ while true do
 		event.cancel(timerID)
 		term.clear()
 		break
+	end
+	local power = languagePackages[language].power
+	local len = unicode.len(power)
+	if clickedAtArea(76-len,1,76,1,touch[3],touch[4]) then
+		local oldPixelsScreen = ecs.rememberOldPixels(1,1,80,25)
+		ecs.clearScreen(0x000000)
+		ecs.waitForTouchOrClick()
+		ecs.drawOldPixels(oldPixelsScreen)
 	end
 end
