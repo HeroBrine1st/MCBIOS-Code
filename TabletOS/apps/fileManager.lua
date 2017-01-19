@@ -54,7 +54,7 @@ elseif fs.exists(value) then
 oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 local windowForm = zygote.addForm()
 windowForm.left = 35
-windowForm.top = 25/2-2
+windowForm.top = 12-2
 windowForm.W = 10
 windowForm.H = 4
 
