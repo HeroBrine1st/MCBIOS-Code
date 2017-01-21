@@ -4,8 +4,6 @@ local computer = require("computer")
 local fs = require("filesystem")
 local serialization = require("serialization")
 local shell = require("shell")
-local EEPROMCode
-local GitHubUrl = "https://raw.githubusercontent.com/"
 
 local function internetRequest(url)
   local success, response = pcall(component.internet.request, url)
@@ -29,10 +27,15 @@ local function internetRequest(url)
 end
  local write = io.write
 local read = io.read
+local gpu = component.gpu
+local w,h = gpu.maxResolution()
+if w > 80 or w < 80 then 
+  print("TabletOS requires resolution 80,25.") 
+  return
+end
 
 
-
-local function getFromGitHub(url,filepath)
+local function getFile(url,filepath)
  local success, reason = internetRequest(url)
  if success then
    fs.makeDirectory(fs.path(filepath) or "")
@@ -42,7 +45,7 @@ local function getFromGitHub(url,filepath)
    file:close()
    return reason
  else
-   error("error")
+   error(reason)
  end
 end
 
@@ -65,17 +68,27 @@ local downloads = {
 },
 {
   url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/advancedLua.lua",
-  path="/lib/advancedLua.lua"
+  path="/lib/advancedLua.lua",
 },
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/fileManager.lua",
-  path="/apps/fileManager.lua"
+  path="/apps/fileManager.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/boot/90_filesystem.lua",
+  path="/boot/90_filesystem.lua"
 }
 }
 
+--getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua","/lib/zygote.lua")
+
+
+--local zygote = require("zygote")
+
+
 for i = 1, #downloads do
 print("Downloading " .. downloads[i].path)
-getFromGitHub(downloads[i].url,downloads[i].path)
+getFile(downloads[i].url,downloads[i].path)
 end
 
 print("Made by HeroBrine1. vk.com/herobrine1_mcpe")
