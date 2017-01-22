@@ -25,6 +25,8 @@ while true do
 result = io.read()
 if result ~= nil and result ~= "" then
 break
+else
+io.stderr:write("Root@TabletOS".. path .. "#")
 end
 end
 io.write("\n")
