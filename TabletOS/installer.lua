@@ -76,7 +76,11 @@ local downloads = {
 },
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/shell.lua",
-  path="/apps/shell.lua"
+  path="/apps/shell.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/init.lua",
+  path="/init.lua"
 }
 }
 
