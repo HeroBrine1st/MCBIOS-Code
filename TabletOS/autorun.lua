@@ -12,6 +12,7 @@ local apps = {}
 local shell =  require("shell")
 local oldPixelsM = {}
 term.clear()
+os.setfenv("SHELL","/apps/shell.lua")
 local w,h = gpu.getResolution()
 local function drawBar()
 gpu.setBackground(0x610B5E)
@@ -338,10 +339,8 @@ while true do
 	local len = unicode.len(power)
 	if clickedAtArea(76-len,1,76,1,touch[3],touch[4]) then
 		local oldPixelsScreen = ecs.rememberOldPixels(1,1,80,25)
-		event.cancel(timerID)
 		ecs.clearScreen(0x000000)
 		ecs.waitForTouchOrClick()
-		timerID = event.timer(1,statusBar,math.huge)
 		ecs.drawOldPixels(oldPixelsScreen)
 	end
 end
