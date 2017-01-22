@@ -75,8 +75,8 @@ local downloads = {
   path="/apps/fileManager.lua",
 },
 {
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/boot/90_filesystem.lua",
-  path="/boot/90_filesystem.lua"
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/shell.lua",
+  path="/apps/shell.lua"
 }
 }
 
