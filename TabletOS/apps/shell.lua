@@ -29,10 +29,8 @@ else
 io.stderr:write("Root@TabletOS".. path .. "#")
 end
 end
-io.write("\n")
 local success, reason = execute(result)
 if not success then
 io.stderr:write(reason)
-io.write("\n")
 end
 end
