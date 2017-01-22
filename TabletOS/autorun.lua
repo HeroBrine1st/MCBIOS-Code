@@ -12,7 +12,6 @@ local apps = {}
 local shell =  require("shell")
 local oldPixelsM = {}
 term.clear()
-os.setfenv("SHELL","/apps/shell.lua")
 local w,h = gpu.getResolution()
 local function drawBar()
 gpu.setBackground(0x610B5E)
@@ -333,6 +332,17 @@ while true do
 	elseif touch[3] == 45 and touch[4] == 25 then
 		event.cancel(timerID)
 		term.clear()
+		while true do
+  local result, reason = xpcall(loadfile("/apps/shell.lua"), function(msg)
+    return tostring(msg).."\n"..debug.traceback()
+  end)
+  if not result then
+    io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
+    io.write("Press any key to continue.\n")
+    os.sleep(0.5)
+    require("event").pull("key")
+  end
+end
 		break
 	end
 	local power = languagePackages[language].power
