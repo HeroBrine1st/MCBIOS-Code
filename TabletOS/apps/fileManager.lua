@@ -30,8 +30,6 @@ zygote.stop(form)
 ecs.drawOldPixels(fileManagerPixels)
 end
 local currentPath = "/"
-local button = form:addButton(1,23,"Exit",stopForm)
-button.W = 80
 local oldFormPixels
 	
 
@@ -97,7 +95,7 @@ end)
 
 
 list.W = 80
-list.H = 21
+list.H = 22
 list.color = 0xCCCCCC
 list.fontColor = (0xFFFFFF - 0xCCCCCC)
 list.border = 0
