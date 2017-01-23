@@ -74,7 +74,7 @@ local function saveSettings()
 end
 
 local oldPixels = {}
-local function drawMenu()
+function drawMenu()
 oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	local oldb = gpu.setBackground(0xFFFFFF)
 	local oldf = gpu.setForeground(0x000000)
@@ -120,7 +120,7 @@ os.sleep(0.4)
 computer.shutdown(reboot)
 end
 
-local function startClickListenerM()
+function startClickListenerM()
 	while true do
 		local touch = {event.pull("touch")}
 		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
