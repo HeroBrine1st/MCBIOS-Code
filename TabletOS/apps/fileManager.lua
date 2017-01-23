@@ -163,4 +163,10 @@ newFile.W = 20
 local updateButton = form:addButton(41,1,languagePackages[language].updateFileList,updateFileList)
 updateButton.W = 20
 updateFileList()
+local function eventListener(_,_,x,y,button,_)
+	if button == 0 and (x == 40 or x == 35) and y == 25 then
+		pcall(stopForm)
+	end
+end
+form:addEvent("touch",eventListener)
 zygote.run(form)
