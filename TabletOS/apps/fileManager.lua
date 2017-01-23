@@ -161,9 +161,24 @@ newFile.W = 20
 local updateButton = form:addButton(41,1,languagePackages[language].updateFileList,updateFileList)
 updateButton.W = 20
 updateFileList()
+local oldPixelsM
 local function eventListener(_,_,x,y,button,_)
 	if button == 0 and (x == 40 or x == 35) and y == 25 then
 		pcall(stopForm)
+	end
+	local power = languagePackages[language].power
+	local len = unicode.len(power)
+	if ecs.clickedAtArea(76-len,1,76,1,x,y) then
+		local oldPixelsScreen = ecs.rememberOldPixels(1,1,80,25)
+		ecs.clearScreen(0x000000)
+		ecs.waitForTouchOrClick()
+		ecs.drawOldPixels(oldPixelsScreen)
+	end
+	if x == 1 and y == 25 then
+		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
+		drawMenu()
+		startClickListenerM()
+		ecs.drawOldPixels(oldPixelsM)
 	end
 end
 form:addEvent("touch",eventListener)
