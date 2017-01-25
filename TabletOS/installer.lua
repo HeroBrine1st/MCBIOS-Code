@@ -41,8 +41,10 @@ local function getFile(url,filepath)
    fs.makeDirectory(fs.path(filepath) or "")
    fs.remove(filepath)
    local file = io.open(filepath, "w")
+   if file then
    file:write(reason)
    file:close()
+    end
    return reason
  else
    error(reason)
@@ -78,6 +80,10 @@ local downloads = {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/shell.lua",
   path="/apps/shell.lua",
 },
+{
+  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/image.lua",
+  path="/lib/image.lua",
+}
 }
 
 --getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua","/lib/zygote.lua")
