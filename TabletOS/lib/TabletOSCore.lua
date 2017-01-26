@@ -120,7 +120,7 @@ function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 		if success then
 			for i = 1, #fileList do
 				core.getFile(fileList[i].url,fileList[i].path)
-				if debug then print("Downloading " .. fileList[i].path)
+				if debug then print("Downloading " .. fileList[i].path) end
 			end
 		else error(fileList)
 	else error(string) end
