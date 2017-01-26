@@ -51,45 +51,14 @@ local function getFile(url,filepath)
  end
 end
 
-local downloads = {
-  {
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/autorun.lua",
-  path="/autorun.lua",
-},
-{
-  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/ECSAPI.lua",
-  path="/lib/ECSAPI.lua",
-},
-{
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/monitorOnline.lua",
-  path="/apps/monitorOnline.lua"
-},
-{
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua",
-  path="/lib/zygote.lua",
-},
-{
-  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/advancedLua.lua",
-  path="/lib/advancedLua.lua",
-},
-{
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/fileManager.lua",
-  path="/apps/fileManager.lua",
-},
-{
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/shell.lua",
-  path="/apps/shell.lua",
-},
-{
-  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/image.lua",
-  path="/lib/image.lua",
-},
-{
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/localizationCore.lua",
-  path="localizationCore.lua",
-}
-}
-
+io.write("Downloading file list    ")
+local uptime = computer.uptime()
+local success, downloads = pcall(load("return" .. getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/applications.txt","/tmp/1.tmp")))
+if not success then
+io.stderr:write("Failed. Total time: " .. tostring(computer.uptime()-uptime) .. " Reason: " .. reason .. "\n")
+return
+end
+io.write("Success. Total time: " .. tostring(computer.uptime()-uptime) .. "\n")
 --getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua","/lib/zygote.lua")
 
 
