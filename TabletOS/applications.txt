@@ -1,0 +1,38 @@
+{
+  {
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/autorun.lua",
+  path="/autorun.lua",
+},
+{
+  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/ECSAPI.lua",
+  path="/lib/ECSAPI.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/monitorOnline.lua",
+  path="/apps/monitorOnline.lua"
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/zygote.lua",
+  path="/lib/zygote.lua",
+},
+{
+  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/advancedLua.lua",
+  path="/lib/advancedLua.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/fileManager.lua",
+  path="/apps/fileManager.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/shell.lua",
+  path="/apps/shell.lua",
+},
+{
+  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/image.lua",
+  path="/lib/image.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/localizationCore.lua",
+  path="localizationCore.lua",
+},
+}
