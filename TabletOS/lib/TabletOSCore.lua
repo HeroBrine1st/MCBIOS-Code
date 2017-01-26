@@ -110,6 +110,7 @@ function core.getFile(url,filepath)
    error(reason)
  end
 end
+--Загрузка списка файлов и загрузка файлов в нем. Маст-хев функция
 
 function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 	if debug then print("Downloading file list") end
@@ -122,7 +123,7 @@ function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 				core.getFile(fileList[i].url,fileList[i].path)
 				if debug then print("Downloading " .. fileList[i].path) end
 			end
-		else error(fileList)
+		else error(fileList) end
 	else error(string) end
 end
 
