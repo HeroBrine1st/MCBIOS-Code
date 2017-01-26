@@ -3,11 +3,13 @@ local component = require("component")
 local gpu = component.gpu
 local event = require("event")
 local fs = require("filesystem")
-local ecs = require("ECSAPI")
+_G.ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
 local zygote = require("zygote")
-local Math = math
+local core = require("TabletOSCore")
+_G.Math = math
+local image = require("image")
 local apps = {}
 local shell =  require("shell")
 local oldPixelsM = {}
@@ -25,52 +27,26 @@ gpu.set(1,25,"M")
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 end
-_G.language = "en"
 
-local f, r = io.open("/.tabletos","r")
-if f then
-	language = f:read(fs.size("/.tabletos")+1)
-	f:close()
-end
-_G.languagePackages = {
-	en={
-	settings="Settings",
-	shutdown="Shutdown",
-	reboot="Reboot",
-	language="Language",
-	selLanguage="Select language",
-	monitorOnline="Monitor",
-	enterNickname="Enter nickname:",
-	logout="Logout",
-	shutdownI="Shutting down",
-	newFolder="New folder",
-	newFile="New file",
-	updateFileList="Update files",
-	fileManager="File Manager",
-	power="Sleep",
+local core = require("localiztionCore")
+event.listen("changeLanguage",function(_,_,language)
+	_G.language = core.getLanguage()
+end)
+_G.language = core.getLanguage()
+_G.languagePackages=core.languagePackages
+_G.objects={
+	mainMenu={
+	
 	},
-	ru={
-	settings="Настройки",
-	shutdown="Выключить",
-	reboot="Перезагрузить",
-	language="Язык",
-	selLanguage="Выберите язык",
-	monitorOnline="Монитор",
-	enterNickname="Введите никнейм игрока:",
-	logout="Завершение сеанса",
-	shutdownI="Завершение работы",
-	newFolder="Новая папка",
-	newFile="Новый файл",
-	updateFileList="Обновить",
-	fileManager="Файлы",
-	power="Сон"
-	}
 }
-local function saveSettings()
-	fs.remove("/.tabletos")
-	local f = io.open("/.tabletos","w")
-	f:write(language)
-	f:close()
+
+function executeTouch(touchX,touchY,massiv)
+	for i = 1, #massiv do
+		if ecs.clickedAtArea(massiv.x1,massiv.y1,massiv.x2,massiv.y2,touchX,touchY) then
+			local success, reason = xpcall(massiv.callback,debug.traceback)
+			return success, reason
+		end
+	end
 end
 
 local oldPixels = {}
@@ -80,11 +56,11 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	local oldf = gpu.setForeground(0x000000)
 
 	gpu.fill(1,10,15,15," ")
-	gpu.set(1,24,languagePackages[language].shutdown)
-	gpu.set(1,23,languagePackages[language].reboot)
-	gpu.set(1,22,languagePackages[language].settings)
-	gpu.set(1,21,languagePackages[language].monitorOnline)
-	gpu.set(1,20,languagePackages[language].fileManager)
+	gpu.set(1,24,core.getLanguagePackages().shutdown)
+	gpu.set(1,23,core.getLanguagePackages().reboot)
+	gpu.set(1,22,core.getLanguagePackages().settings)
+	gpu.set(1,21,core.getLanguagePackages().monitorOnline)
+	gpu.set(1,20,core.getLanguagePackages().fileManager)
 	gpu.setForeground(oldf)
 	gpu.setBackground(oldb)
 end
@@ -107,7 +83,7 @@ gpu.set(x,y,text)
 end
 gpu.setBackground(0x0000FF)
 gpu.fill(1,1,w,h," ")
-centerText(h/2,languagePackages[language].logout)
+centerText(h/2,core.getLanguagePackages().logout)
 saveSettings()
 apps = nil
 _G = nil
@@ -115,7 +91,7 @@ io = nil
 os = nil
 package = nil
 gpu.fill(1,1,80,25," ")
-centerText(h/2,languagePackages[language].shutdownI)
+centerText(h/2,core.getLanguagePackages().shutdownI)
 os.sleep(0.4)
 computer.shutdown(reboot)
 end
@@ -171,11 +147,11 @@ end
 function apps.settings()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
-gpu.set(1,1,languagePackages[language].settings)
+gpu.set(1,1,core.getLanguagePackages().settings)
 gpu.setBackground(0xCCCCCC)
 gpu.fill(1,2,80,23," ")
 gpu.setForeground(0xFFFFFF)
-gpu.set(1,2,languagePackages[language].language)
+gpu.set(1,2,core.getLanguagePackages().language)
 local oldPixelsSettings = {}
 local doReturn = false
 	local function selectLanguage()
@@ -183,32 +159,34 @@ local doReturn = false
 		gpu.setBackground(0xCCCCCC)
 		gpu.setForeground(0xFFFFFF)
 		gpu.fill(1,2,80,23," ")
-		centerText(2,languagePackages[language].selLanguage)
+		centerText(2,core.getLanguagePackages().selLanguage)
 		centerText(3,"English")
 		centerText(4,"Русский")
 		while true do
 			local touch = {event.pull("touch")}
 			if touch[4] == 3 then
 				language = "en"
+				core.changeLanguage(language)
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
-				gpu.set(1,1,languagePackages[language].settings)
+				gpu.set(1,1,core.getLanguagePackages().settings)
 				gpu.setBackground(0xCCCCCC)
 				gpu.fill(1,2,80,23," ")
 				gpu.setForeground(0xFFFFFF)
-				gpu.set(1,2,languagePackages[language].language)
+				gpu.set(1,2,core.getLanguagePackages().language)
 				break
 			elseif touch[4] == 4 then
 				language = "ru"
+				core.changeLanguage(language)
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
-				gpu.set(1,1,languagePackages[language].settings)
+				gpu.set(1,1,core.getLanguagePackages().settings)
 				gpu.setBackground(0xCCCCCC)
 				gpu.fill(1,2,80,23," ")
 				gpu.setForeground(0xFFFFFF)
-				gpu.set(1,2,languagePackages[language].language)
+				gpu.set(1,2,core.getLanguagePackages().language)
 				ecs.drawOldPixels(oldPixelsSettings)
 				break
 			elseif touch[3] == 1 and touch[4] == 25 then
@@ -219,22 +197,22 @@ local doReturn = false
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
-				gpu.set(1,1,languagePackages[language].settings)
+				gpu.set(1,1,core.getLanguagePackages().settings)
 				gpu.setBackground(0xCCCCCC)
 				gpu.fill(1,2,80,23," ")
 				gpu.setForeground(0xFFFFFF)
-				gpu.set(1,2,languagePackages[language].language)
+				gpu.set(1,2,core.getLanguagePackages().language)
 				ecs.drawOldPixels(oldPixelsSettings)
 				break
 			elseif touch[3] == 35 and touch[4] == 25 then
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
-				gpu.set(1,1,languagePackages[language].settings)
+				gpu.set(1,1,core.getLanguagePackages().settings)
 				gpu.setBackground(0xCCCCCC)
 				gpu.fill(1,2,80,23," ")
 				gpu.setForeground(0xFFFFFF)
-				gpu.set(1,2,languagePackages[language].language)
+				gpu.set(1,2,core.getLanguagePackages().language)
 				ecs.drawOldPixels(oldPixelsSettings)
 				break
 			end
@@ -263,7 +241,7 @@ while true do
 	if doReturn == true then
 		break
 	end
-	local power = languagePackages[language].power
+	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
 	gpu.setBackground(0xFFFF00)
 	gpu.setForeground(0x610B5E)
@@ -305,7 +283,7 @@ local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
 gpu.fill(1,1,80,1," ")
-local power = languagePackages[language].power
+local power = core.getLanguagePackages().power
 local len = unicode.len(power)
 gpu.setBackground(0xFFFF00)
 gpu.setForeground(0x610B5E)
@@ -315,6 +293,8 @@ gpu.setForeground(0xFFFFFF)
 timerID = event.timer(1,statusBar,math.huge)
 end
 
+local function drawWorkTable()
+end
 drawStatusBar()
 drawBar()
 
@@ -324,7 +304,6 @@ drawBar()
 while true do
 	local touch = {event.pull("touch")}
 	if touch[3] == 1 and touch[4] == 25 then
-		
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
 		startClickListenerM()
@@ -345,7 +324,7 @@ while true do
 end
 		break
 	end
-	local power = languagePackages[language].power
+	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
 	if clickedAtArea(76-len,1,76,1,touch[3],touch[4]) then
 		local oldPixelsScreen = ecs.rememberOldPixels(1,1,80,25)
