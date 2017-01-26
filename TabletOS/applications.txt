@@ -35,4 +35,8 @@
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/TabletOSCore.lua",
   path="/lib/TabletOSCore.lua",
 },
+{
+  url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/colorlib.lua",
+  path="/lib/colorlib.lua",
+}
 }
