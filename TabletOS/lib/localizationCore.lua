@@ -35,26 +35,41 @@ core.languagePackages = {
 	}
 }
 
-function core.getLanguagePackages( ... )
-	local language
+core.language = "en"
+
+function core.getLanguage()
 	local f, r = io.open("/.tabletos","r")
 	if f then
 		language = f:read(fs.size("/.tabletos")+1)
 		f:close()
-		return core.languagePackages[language]
+		return language
 	else
 		local f = io.open("/.tabletos","w")
 		f:write("en")
 		f:close()
-		local language
-		do
-			local f, r = io.open("/.tabletos","r")
-			if f then
-				language = f:read(fs.size("/.tabletos")+1)
-				f:close()
-				return core.languagePackages[language]
-			end
-		end
+		return "en"
 	end
 end
 
+function core.saveLanguage()
+	fs.remove("/.tabletos")
+	local f = io.open("/.tabletos","w")
+	f:write(core.language)
+	f:close()
+end
+
+function core.changeLanguage(language)
+	if language then
+		computer.pushSignal("changeLanguage",core.language,language)
+		core.language = language
+		core.saveLanguage()
+	end
+end
+
+
+
+function core.getLanguagePackages()
+	return core.languagePackages[core.getLanguage()]
+end
+
+return core
