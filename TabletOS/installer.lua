@@ -83,6 +83,10 @@ local downloads = {
 {
   url="https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/image.lua",
   path="/lib/image.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/localizationCore.lua",
+  path="localizationCore.lua",
 }
 }
 
