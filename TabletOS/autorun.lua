@@ -84,7 +84,6 @@ end
 gpu.setBackground(0x0000FF)
 gpu.fill(1,1,w,h," ")
 centerText(h/2,core.getLanguagePackages().logout)
-saveSettings()
 apps = nil
 _G = nil
 io = nil
@@ -232,7 +231,7 @@ while true do
 		startClickListenerM()
 	elseif touch[4] == 2 then
 		selectLanguage()
-		saveSettings()	
+		core.language = language	
 	elseif touch[3] == 40 and touch[4] == 25 then
 		break
 	elseif touch[3] == 35 and touch[4] == 25 then
