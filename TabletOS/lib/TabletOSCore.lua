@@ -74,4 +74,56 @@ function core.getLanguagePackages()
 	return core.languagePackages[core.getLanguage()]
 end
 
+function core.internetRequest(url)
+local success, response = pcall(component.internet.request, url)
+if success then
+local responseData = ""
+while true do
+local data, responseChunk = response.read()
+if data then
+responseData = responseData .. data
+else
+if responseChunk then
+return false, responseChunk
+else
+return true, responseData
+end
+end
+end
+else
+return false, reason
+end
+end
+
+function core.getFile(url,filepath)
+ local success, reason = core.internetRequest(url)
+ if success then
+   fs.makeDirectory(fs.path(filepath) or "")
+   fs.remove(filepath)
+   local file = io.open(filepath, "w")
+   if file then
+   file:write(reason)
+   file:close()
+    end
+   return reason
+ else
+   error(reason)
+ end
+end
+
+function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
+	if debug then print("Downloading file list") end
+	local success, string = core.getFile(fileListUrl,"/tmp/jdddajsldkasjads.tmp")
+	if success then
+		local fileListLoader = load("return " .. string)
+		local success, fileList = pcall(fileListLoader)
+		if success then
+			for i = 1, #fileList do
+				core.getFile(fileList[i].url,fileList[i].path)
+				if debug then print("Downloading " .. fileList[i].path)
+			end
+		else error(fileList)
+	else error(string) end
+end
+
 return core
