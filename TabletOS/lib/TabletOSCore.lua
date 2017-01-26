@@ -110,10 +110,12 @@ function core.getFile(url,filepath)
    error(reason)
  end
 end
---Загрузка списка файлов и загрузка файлов в нем. Маст-хев функция
+
 
 function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
-	if debug then print("Downloading file list") end
+	if debug then	
+		print("Downloading file list") 
+	end
 	local success, string = core.getFile(fileListUrl,"/tmp/jdddajsldkasjads.tmp")
 	if success then
 		local fileListLoader = load("return " .. string)
@@ -121,10 +123,16 @@ function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 		if success then
 			for i = 1, #fileList do
 				core.getFile(fileList[i].url,fileList[i].path)
-				if debug then print("Downloading " .. fileList[i].path) end
+				if debug then 
+					print("Downloading " .. fileList[i].path) 
+				end
 			end
-		else error(fileList) end
-	else error(string) end
+		else 
+			error(fileList) 
+		end
+	else 
+		error(string) 
+	end
 end
 
 return core
