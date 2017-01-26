@@ -10,7 +10,7 @@ local Math = math
 local shell =  require("shell")
 local oldPixelsM = {}
 local w,h = gpu.getResolution()
-
+local languagePackages = require("TabletOSCore").getLanguagePackages()
 local fileManagerPixels = ecs.rememberOldPixels(1,1,80,25)
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
@@ -176,7 +176,7 @@ local function eventListener(_,_,x,y,button,_)
 		ecs.drawOldPixels(oldPixelsScreen)
 		zygote.run(form)
 	end
-	if x == 1 and y == 25 then
+	if button == 0 and x == 1 and y == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
 		startClickListenerM()
