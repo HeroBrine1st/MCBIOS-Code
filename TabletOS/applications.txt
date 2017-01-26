@@ -33,6 +33,6 @@
 },
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/localizationCore.lua",
-  path="localizationCore.lua",
+  path="/lib/localizationCore.lua",
 },
 }
