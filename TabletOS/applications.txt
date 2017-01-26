@@ -32,7 +32,7 @@
   path="/lib/image.lua",
 },
 {
-  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/localizationCore.lua",
-  path="/lib/localizationCore.lua",
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/TabletOSCore.lua",
+  path="/lib/TabletOSCore.lua",
 },
 }
