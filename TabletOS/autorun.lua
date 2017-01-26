@@ -28,7 +28,7 @@ gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 end
 
-local core = require("localiztionCore")
+
 event.listen("changeLanguage",function(_,_,language)
 	_G.language = core.getLanguage()
 end)
