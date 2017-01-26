@@ -1,5 +1,7 @@
 local core = {}
-
+local fs = require("filesystem")
+local computer = require("computer")
+local component = require("component")
 core.languagePackages = {
 	en={
 	settings="Settings",
