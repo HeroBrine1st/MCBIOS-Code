@@ -4,7 +4,8 @@ local handle, reason = filesystem.open(file,"r")
 if not handle then error(reason) end
 local readed = ""
 repeat
-	local data = filesystem.read(handle,math.huge)
+	local data, reason = filesystem.read(handle,math.huge)
+	if not data and reason then error(reason) end
 	readed = readed .. data
 until not data
 return load(readed)
