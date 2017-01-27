@@ -29,11 +29,7 @@ gpu.setForeground(0xFFFFFF)
 end
 
 
-event.listen("changeLanguage",function(_,_,language)
-	_G.language = core.getLanguage()
-end)
-_G.language = core.getLanguage()
-_G.languagePackages=core.languagePackages
+
 _G.objects={
 	mainMenu={
 	
@@ -164,8 +160,7 @@ local doReturn = false
 		while true do
 			local touch = {event.pull("touch")}
 			if touch[4] == 3 then
-				language = "en"
-				core.changeLanguage(language)
+				core.changeLanguage("en")
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
@@ -176,8 +171,7 @@ local doReturn = false
 				gpu.set(1,2,core.getLanguagePackages().language)
 				break
 			elseif touch[4] == 4 then
-				language = "ru"
-				core.changeLanguage(language)
+				core.changeLanguage("ru")
 				gpu.setBackground(0x610B5E)
 				gpu.setForeground(0xFFFFFF)
 				gpu.fill(1,1,70,1," ")
@@ -231,7 +225,7 @@ while true do
 		startClickListenerM()
 	elseif touch[4] == 2 then
 		selectLanguage()
-		core.language = language	
+		core.language = core.getLanguage()	
 	elseif touch[3] == 40 and touch[4] == 25 then
 		break
 	elseif touch[3] == 35 and touch[4] == 25 then
@@ -293,6 +287,8 @@ timerID = event.timer(1,statusBar,math.huge)
 end
 
 local function drawWorkTable()
+	gpu.setBackground()
+	gpu.fill(1,2,80,23," ")
 end
 drawStatusBar()
 drawBar()
