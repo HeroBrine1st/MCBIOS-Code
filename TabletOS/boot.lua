@@ -170,9 +170,7 @@ do
 end
 
 while true do
-  local result, reason = xpcall(require("shell").getShell(), function(msg)
-    return tostring(msg).."\n"..debug.traceback()
-  end)
+  local result, reason = xpcall(os.getenv("SHELL"), debug.traceback)
   if not result then
     io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
     io.write("Press any key to continue.\n")
