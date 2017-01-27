@@ -41,6 +41,10 @@
 },
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/init.lua",
-  path="init.lua",
+  path="/init.lua",
+},
+{
+  url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/boot.lua",
+  path="/boot.lua",
 }
 }
