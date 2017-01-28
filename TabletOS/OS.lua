@@ -44,7 +44,12 @@ function executeTouch(touchX,touchY,massiv)
 		end
 	end
 end
-
+local function clickedAtArea(x,y,x2,y2,touchX,touchY)
+if (touchX >= x) and (touchX <= x2) and (touchY >= y) and (touchY <= y2) then 
+return true 
+end 
+return false
+end
 local oldPixels = {}
 function drawMenu()
 	local objects = {
@@ -73,10 +78,12 @@ function drawMenu()
 
 	local function checkTouch(y)
 		for i = 1, #objects do
+			print(i)
 			if y == objects[i].y then
 				return true, objects[i].callback
 			end
 		end
+		return false, function() return false end
 	end
 
 oldPixels = ecs.rememberOldPixels(1,10,15,24)
@@ -91,13 +98,13 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	gpu.setBackground(oldb)
 		while true do
 		local touch = {event.pull("touch")}
-		if ecs.clickedAtArea(1,10,15,24,touch[3],touch[4]) then
-			local success, callback = checkTouch(touch[4])
-			if success then
+		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
+			local success1, callback1 = checkTouch(touch[4])
+			print(tostring(success) .. "ldffds")
+			if success1 then
 				ecs.drawOldPixels(oldPixelsM)
 				local oldPixelsMS = ecs.rememberOldPixels(1,1,80,25)
-				local success, reason = pcall(callback)
-				if not success then pcall(event.onError,reason) end
+				callback1()
 				ecs.drawOldPixels(oldPixelsMS)
 				break
 			end
@@ -114,12 +121,7 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 end
 
 
-local function clickedAtArea(x,y,x2,y2,touchX,touchY)
-if (touchX >= x) and (touchX <= x2) and (touchY >= y) and (touchY <= y2) then 
-return true 
-end 
-return false
-end
+
 
 local function shutdown(reboot)
 local computer = require("computer")
@@ -141,11 +143,6 @@ gpu.fill(1,1,80,25," ")
 centerText(h/2,core.getLanguagePackages().shutdownI)
 os.sleep(0.4)
 computer.shutdown(reboot)
-end
-
-local function centerText(y,text)
-local x = Math.floor(w/2-unicode.len(text)/2)
-gpu.set(x,y,text)
 end
 
 
