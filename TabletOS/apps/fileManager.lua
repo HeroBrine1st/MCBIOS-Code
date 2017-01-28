@@ -1,4 +1,3 @@
-local event = require("event")
 local fs = require("filesystem")
 local component = require("component")
 local gpu = component.gpu
@@ -10,11 +9,11 @@ local Math = math
 local shell =  require("shell")
 local oldPixelsM = {}
 local w,h = gpu.getResolution()
-local languagePackages = require("TabletOSCore").getLanguagePackages()
+local core = require("TabletOSCore")
 local fileManagerPixels = ecs.rememberOldPixels(1,1,80,25)
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
-gpu.set(1,1,languagePackages.fileManager)
+gpu.set(1,1,core.getLanguagePackages().fileManager)
 local form = zygote.addForm()
 form.left=1
 form.top=2
@@ -109,7 +108,7 @@ list:insert(name,currentPath .. name)
 end
 listBackup = nil
 end
-local newFolder = form:addButton(1,1,languagePackages.newFolder,function()
+local newFolder = form:addButton(1,1,core.getLanguagePackages().newFolder,function()
 		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 		local windowForm = zygote.addForm()
 		windowForm.left = 30
@@ -132,7 +131,7 @@ end)
 newFolder.W = 20
 
 
-	local newFile = form:addButton(21,1,languagePackages.newFile,function()
+	local newFile = form:addButton(21,1,core.getLanguagePackages().newFile,function()
 		oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 		local windowForm = zygote.addForm()
 		windowForm.left = 30
@@ -158,7 +157,7 @@ newFolder.W = 20
 	end)
 newFile.W = 20
 
-local updateButton = form:addButton(41,1,languagePackages.updateFileList,updateFileList)
+local updateButton = form:addButton(41,1,core.getLanguagePackages().updateFileList,updateFileList)
 updateButton.W = 20
 updateFileList()
 local oldPixelsM
@@ -166,7 +165,7 @@ local function eventListener(_,_,x,y,button,_)
 	if button == 0 and (x == 40 or x == 35) and y == 25 then
 		pcall(stopForm)
 	end
-	local power = languagePackages.power
+	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
 	if ecs.clickedAtArea(76-len,1,76,1,x,y) then
 		stopForm()
