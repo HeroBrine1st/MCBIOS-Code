@@ -2,6 +2,8 @@ local core = {}
 local fs = require("filesystem")
 local computer = require("computer")
 local component = require("component")
+local ecs = require("ECSAPI")
+local gpu = component.gpu
 core.languagePackages = {
 	en={
 	settings="Settings",
@@ -75,24 +77,24 @@ function core.getLanguagePackages()
 end
 
 function core.internetRequest(url)
-local success, response = pcall(component.internet.request, url)
-if success then
-local responseData = ""
-while true do
-local data, responseChunk = response.read()
-if data then
-responseData = responseData .. data
-else
-if responseChunk then
-return false, responseChunk
-else
-return true, responseData
-end
-end
-end
-else
-return false, reason
-end
+	local success, response = pcall(component.internet.request, url)
+	if success then
+		local responseData = ""
+		while true do
+			local data, responseChunk = response.read()
+			if data then
+				responseData = responseData .. data
+			else
+				if responseChunk then
+					return false, responseChunk
+				else
+					return true, responseData
+				end
+			end
+		end
+	else
+		return false, reason
+	end
 end
 
 function core.getFile(url,filepath)
@@ -133,6 +135,29 @@ function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 	else 
 		error(string) 
 	end
+end
+
+function core.saveDisplayAndCallFunction(callback)
+local w, h = component.gpu.getResolution()
+local oldPixels = ecs.rememberOldPixels(1,1,w,h)
+local result = {pcall(callback)}
+ecs.drawOldPixels(oldPixels)
+return table.unpack(result)
+end
+
+local core.gui = {}
+
+function core.gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress)
+colorEmpty = colorEmpty or 0x000000
+colorFilled = colorFilled or 0xFFFFFF
+progress = progress or 0
+maxProgress = maxProgress or 100
+local h = 1
+local coff = w/maxProgress
+local celoe, drobnoe = math.modf(coff*progress)
+local progressVCordax
+if drobnoe > 0.5 then progressVCordax = celoe+1 else progressVCordax = celoe end
+gpu.fill(x,y,progressVCordax)
 end
 
 return core
