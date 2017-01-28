@@ -47,18 +47,69 @@ end
 
 local oldPixels = {}
 function drawMenu()
+	local objects = {
+	{y=20,name=core.getLanguagePackages().fileManager,callback=function() 	
+		ecs.drawOldPixels(oldPixelsM)
+		dofile("/apps/fileManager.lua") end},
+	{y=21,name=core.getLanguagePackages().monitorOnline,callback=function() 
+		dofile("/apps/monitorOnline.lua")
+		gpu.setBackground(0x610B5E)
+		gpu.setForeground(0xFFFFFF)
+		gpu.fill(1,1,70,1," ")
+		gpu.setBackground(0x000000)
+		gpu.fill(1,2,80,23," ")
+	end},
+	{y=22,name=core.getLanguagePackages().settings,callback=function()
+		apps.settings()
+		gpu.setBackground(0x610B5E)
+		gpu.setForeground(0xFFFFFF)
+		gpu.fill(1,1,70,1," ")
+		gpu.setBackground(0x000000)
+		gpu.fill(1,2,80,23," ")
+	 end},
+	 {y=23,name=core.getLanguagePackages().reboot,callback=function() shutdown(true) end},
+	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() shutdown() end},
+	}
+
+	local function checkTouch(y)
+		for i = 1, #objects do
+			if y == objects[i].y then
+				return true, objects[i].callback
+			end
+		end
+	end
+
 oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	local oldb = gpu.setBackground(0xFFFFFF)
 	local oldf = gpu.setForeground(0x000000)
 
 	gpu.fill(1,10,15,15," ")
-	gpu.set(1,24,core.getLanguagePackages().shutdown)
-	gpu.set(1,23,core.getLanguagePackages().reboot)
-	gpu.set(1,22,core.getLanguagePackages().settings)
-	gpu.set(1,21,core.getLanguagePackages().monitorOnline)
-	gpu.set(1,20,core.getLanguagePackages().fileManager)
+	for i = 1, #objects do
+		gpu.set(1,objects[i].y,objects[i].name)
+	end
 	gpu.setForeground(oldf)
 	gpu.setBackground(oldb)
+		while true do
+		local touch = {event.pull("touch")}
+		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
+			local success, callback = checkTouch(touch[4])
+			if success then
+				ecs.drawOldPixels(oldPixelsM)
+				local oldPixelsMS = ecs.rememberOldPixels(1,1,80,25)
+				local success, reason = pcall(callback)
+				if not success then pcall(event.onError,reason) end
+				ecs.drawOldPixels(oldPixelsMS)
+			end
+		else
+			gpu.setForeground(0xFFFFFF)
+			gpu.setBackground(0x000000)
+			gpu.fill(1,10,10,15," ")
+			ecs.drawOldPixels(oldPixels)
+			oldPixels = {}
+			computer.pushSignal(table.unpack(touch))
+			break
+		end
+	end
 end
 
 
@@ -89,47 +140,6 @@ gpu.fill(1,1,80,25," ")
 centerText(h/2,core.getLanguagePackages().shutdownI)
 os.sleep(0.4)
 computer.shutdown(reboot)
-end
-
-function startClickListenerM()
-	while true do
-		local touch = {event.pull("touch")}
-		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
-			if touch[4] == 24 then
-				shutdown()
-			elseif touch[4] == 23 then
-				shutdown(true)
-			elseif touch[4] == 22 then
-				apps.settings()
-				gpu.setBackground(0x610B5E)
-				gpu.setForeground(0xFFFFFF)
-				gpu.fill(1,1,70,1," ")
-				gpu.setBackground(0x000000)
-				gpu.fill(1,2,80,23," ")
-				break
-			elseif touch[4] == 21 then
-				dofile("/apps/monitorOnline.lua")
-				gpu.setBackground(0x610B5E)
-				gpu.setForeground(0xFFFFFF)
-				gpu.fill(1,1,70,1," ")
-				gpu.setBackground(0x000000)
-				gpu.fill(1,2,80,23," ")
-				break
-			elseif touch[4] == 20 then
-				ecs.drawOldPixels(oldPixelsM)
-				dofile("/apps/fileManager.lua")
-				break
-			end
-		else
-			gpu.setForeground(0xFFFFFF)
-			gpu.setBackground(0x000000)
-			gpu.fill(1,10,10,15," ")
-			ecs.drawOldPixels(oldPixels)
-			oldPixels = {}
-			computer.pushSignal(table.unpack(touch))
-			break
-		end
-	end
 end
 
 local function centerText(y,text)
