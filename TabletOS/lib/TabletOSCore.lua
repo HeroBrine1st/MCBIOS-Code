@@ -157,7 +157,11 @@ local coff = w/maxProgress
 local celoe, drobnoe = math.modf(coff*progress)
 local progressVCordax
 if drobnoe > 0.5 then progressVCordax = celoe+1 else progressVCordax = celoe end
-gpu.fill(x,y,progressVCordax)
+local oldBackground = gpu.setBackground(colorEmpty)
+gpu.fill(x,y,w,1," ")
+gpu.setBackground(colorFilled)
+gpu.fill(x,y,progressVCordax,1," ")
+gpu.setBackground(oldBackground)
 end
 
 return core
