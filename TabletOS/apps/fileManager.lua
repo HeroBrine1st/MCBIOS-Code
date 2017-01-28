@@ -179,7 +179,6 @@ local function eventListener(_,_,x,y,button,_)
 	if button == 0 and x == 1 and y == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
-		startClickListenerM()
 		ecs.drawOldPixels(oldPixelsM)
 	end
 end
