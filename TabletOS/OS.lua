@@ -9,7 +9,6 @@ local unicode = require("unicode")
 local zygote = require("zygote")
 local core = require("TabletOSCore")
 _G.Math = math
-local image = require("image")
 local apps = {}
 local shell =  require("shell")
 local oldPixelsM = {}
@@ -277,7 +276,7 @@ computer.pushSignal("energyChange",oldEnergy,energy)
 end
 oldEnergy = energy
 end
-_G.timerID
+local timerID
 local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
