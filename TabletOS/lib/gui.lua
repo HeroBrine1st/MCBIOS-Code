@@ -30,10 +30,30 @@ gpu.setBackground(oldBackground)
 end
 
 function gui.animatedProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress,oldProgress)
-for i = oldProgress, progress do
-gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,i,maxProgress)
-os.sleep(0.1)
+colorEmpty = colorEmpty or 0x000000
+colorFilled = colorFilled or 0xFFFFFF
+progress = progress or 0
+maxProgress = maxProgress or 100
+local h = 1
+local coff = w/maxProgress
+local celoe, drobnoe = math.modf(coff*progress)
+local progressVCordax
+if drobnoe > 0.5 then progressVCordax = celoe+1 else progressVCordax = celoe end
+--
+local coff1 = w/maxProgress
+local celoe1, drobnoe1 = math.modf(coff1*oldProgress)
+local progressVCordax1
+if drobnoe1 > 0.5 then progressVCordax1 = celoe1+1 else progressVCordax1 = celoe1 end
+--
+local oldBackground = gpu.setBackground(colorEmpty)
+
+gpu.fill(x,y,w,1," ")
+gpu.setBackground(colorFilled)
+for i = progressVCordax1, progressVCordax do
+gpu.fill(x,y,i,1," ")
+os.sleep(0.06)
 end
+gpu.setBackground(oldBackground)
 end
 
 
