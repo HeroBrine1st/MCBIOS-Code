@@ -145,7 +145,7 @@ ecs.drawOldPixels(oldPixels)
 return table.unpack(result)
 end
 
-local core.gui = {}
+core.gui = {}
 
 function core.gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress)
 colorEmpty = colorEmpty or 0x000000
