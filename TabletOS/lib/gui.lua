@@ -29,6 +29,13 @@ gpu.fill(x,y,progressVCordax,1," ")
 gpu.setBackground(oldBackground)
 end
 
+function gui.animatedProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress,oldProgress)
+for i = oldProgress, progress do
+gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,i,maxProgress)
+os.sleep(0.1)
+end
+end
+
 
 function gui.drawButton(x,y,w,h,text,buttonColor,textColor)
 local oldBackground, oldForeground = gui.setColors(buttonColor,textColor)
