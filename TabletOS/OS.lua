@@ -99,6 +99,7 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 				local success, reason = pcall(callback)
 				if not success then pcall(event.onError,reason) end
 				ecs.drawOldPixels(oldPixelsMS)
+				break
 			end
 		else
 			gpu.setForeground(0xFFFFFF)
