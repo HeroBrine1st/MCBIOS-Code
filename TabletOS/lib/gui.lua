@@ -1,3 +1,5 @@
+local component = require("component")
+local gpu = require("gpu")
 local gui = {}
 
 function gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress)
