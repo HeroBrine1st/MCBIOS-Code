@@ -168,13 +168,14 @@ do
   os.sleep(0.1) -- Allow init processing.
   runlevel = 1
 end
-
+require("term").clear()
 while true do
-  local result, reason = xpcall(loadfile(os.getenv("SHELL")), debug.traceback)
+  local result, reason = xpcall(loadfile("/bin/sh.lua"), debug.traceback)
   if not result then
     io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
     io.write("Press any key to continue.\n")
     os.sleep(0.5)
     require("event").pull("key")
+    require("term").clear()
   end
 end
