@@ -311,7 +311,6 @@ while true do
 	if touch[3] == 1 and touch[4] == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
-		startClickListenerM()
 		ecs.drawOldPixels(oldPixelsM)
 	elseif touch[3] == 45 and touch[4] == 25 then
 		event.cancel(timerID)
