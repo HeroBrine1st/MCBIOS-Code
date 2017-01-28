@@ -1,6 +1,16 @@
 local component = require("component")
 local gpu = require("gpu")
+local unicode = require("unicode")
 local gui = {}
+
+function gui.centerText(x,y,text)
+local x1 = x - math.floor(unicode.len(text)/2)
+gpu.set(x1,y,text)
+end
+
+function gui.setColors(background,foreground)
+return gpu.setBackground(background),gpu.setForeground(foreground)
+end
 
 function gui.drawProgressBar(x,y,w,colorEmpty,colorFilled,progress,maxProgress)
 colorEmpty = colorEmpty or 0x000000
@@ -17,4 +27,25 @@ gpu.fill(x,y,w,1," ")
 gpu.setBackground(colorFilled)
 gpu.fill(x,y,progressVCordax,1," ")
 gpu.setBackground(oldBackground)
+end
+
+
+function gui.drawButton(x,y,w,h,text,buttonColor,textColor)
+local oldBackground, oldForeground = gui.setColors(buttonColor,textColor)
+gpu.fill(x,y,w,h," ")
+
+local textX = x + math.floor(w/2)
+local textY = y + math.floor(h/2)
+gui.centerText(textX,textY,text)
+gui.setColors(oldBackground,oldForeground)
+local function checkTouch(touchX,touchY)
+local x,y,w,h = x,y,w,h
+local x2 = x+w
+local y2 = y+h
+if (touchX >= x) and (touchX <= x2) and (touchY >= y) and (touchY <= y2) then 
+return true
+end
+return false
+end
+return checkTouch
 end
