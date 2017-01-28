@@ -78,7 +78,6 @@ function drawMenu()
 
 	local function checkTouch(y)
 		for i = 1, #objects do
-			print(i)
 			if y == objects[i].y then
 				return true, objects[i].callback
 			end
@@ -100,7 +99,6 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 		local touch = {event.pull("touch")}
 		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
 			local success1, callback1 = checkTouch(touch[4])
-			print(tostring(success) .. "ldffds")
 			if success1 then
 				ecs.drawOldPixels(oldPixelsM)
 				local oldPixelsMS = ecs.rememberOldPixels(1,1,80,25)
@@ -279,7 +277,7 @@ computer.pushSignal("energyChange",oldEnergy,energy)
 end
 oldEnergy = energy
 end
-local timerID
+_G.timerID
 local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
