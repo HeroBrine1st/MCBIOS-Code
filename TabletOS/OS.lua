@@ -91,7 +91,7 @@ oldPixels = ecs.rememberOldPixels(1,10,15,24)
 	gpu.setBackground(oldb)
 		while true do
 		local touch = {event.pull("touch")}
-		if clickedAtArea(1,10,15,24,touch[3],touch[4]) then
+		if ecs.clickedAtArea(1,10,15,24,touch[3],touch[4]) then
 			local success, callback = checkTouch(touch[4])
 			if success then
 				ecs.drawOldPixels(oldPixelsM)
