@@ -53,7 +53,7 @@ local windowForm = zygote.addForm()
 windowForm.left = 35
 windowForm.top = 12-2
 windowForm.W = 10
-windowForm.H = 4
+windowForm.H = 5
 
 windowButton1 = windowForm:addButton(1,1,"Edit",function()
 shell.execute("edit " .. value)
@@ -75,7 +75,12 @@ end)
 local function stopFormS()
 zygote.stop(windowForm)
 end
-windowButton4 = windowForm:addButton(1,4,"Exit",function()
+windowButton4 = windowForm:addButton(1,4,"To workTable",function()
+shell.execute("cp " .. value .. " /usr/table/" .. value)
+ecs.drawOldPixels(oldFormPixels)
+setActiveForm()
+end)
+windowButton5 = windowForm:addButton(1,5,"Exit",function()
 stopFormS()
 ecs.drawOldPixels(oldFormPixels)
 setActiveForm()
@@ -84,7 +89,7 @@ windowButton1.W=10
 windowButton2.W=10
 windowButton3.W=10
 windowButton4.W=10
-
+windowButton5.W=10
 zygote.run(windowForm)
 
 setActiveForm()
