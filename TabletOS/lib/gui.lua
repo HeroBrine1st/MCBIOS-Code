@@ -52,7 +52,7 @@ gpu.fill(x,y,w,1," ")
 gpu.setBackground(colorFilled)
 for i = progressVCordax1, progressVCordax do
 gpu.fill(x,y,i,1," ")
-os.sleep(math.random(0.05,0.1))
+os.sleep(0.05)
 end
 gpu.setBackground(oldBackground)
 end
