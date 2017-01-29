@@ -318,9 +318,9 @@ local function drawWorkTable()
 	end
 
 end
-drawWorkTable()
 drawStatusBar()
 drawBar()
+drawWorkTable()
 
 
 local listener = function(...)
@@ -355,3 +355,13 @@ end
 end
 
 _G.eventListener = event.listen("touch",listener)
+
+while true do
+	local touch = {event.pull("touch")}
+	for i = 1, #workTable do
+		local button = workTable[i]
+		if clickedAtArea(button.x,button.y,button.x+button.w-1,button.y+button.h-1,touch[3],touch[4]) do
+			pcall(button.callback)
+		end
+	end
+end
