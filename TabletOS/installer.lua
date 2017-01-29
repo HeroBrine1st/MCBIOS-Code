@@ -34,6 +34,7 @@ if w > 80 or w < 80 then
 end
 
 
+
 local function getFile(url,filepath)
  local success, reason = internetRequest(url)
  if success then
@@ -90,17 +91,32 @@ local component = require("component")
 local gpu = component.gpu
 gpu.setBackground(0xCCCCCC)
 require("term").clear()
+
+local speedTestUrl = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/unnamed.txt"
+local function getInternetSpeed()
+local uptime = computer.uptime()
+internetRequest(fileUrl)
+local time = computer.uptime() - uptime
+local speed = 1024/time
+gui.drawProgressBar(1,1,80,0xFF0000,0x00FF00,speed,100000)
+local ob = gpu.setBackground(0x00FF00)
+gpu.set(1,1,"0")
+gpu.setBackground(0xFF0000)
+gpu.set(73,1,"100 000")
+gui.centerText(40,1,tostring(math.floor(speed)) .. " byte/sec")
+gpu.setBackground(ob)
+end
 local checkTouch1 = gui.drawButton(20,7,40,11,"Install TabletOS",0xFFFFFF-0xCCCCCC,0xFFFFFF)
-gui.drawProgressBar(1,25,80,0xFF0000,0x00FF00,0,#downloads*2)
+gui.drawProgressBar(1,25,80,0xFF0000,0x00FF00,0,#downloads)
 while true do
-  local _, _, x, y, _, _ = event.pull(touch)
+  local _, _, x, y, _, _ = event.pull("touch")
   if checkTouch1(x,y) then break end
 end
 gpu.fill(1,1,80,24," ")
 gpu.setForeground(0xFFFFFF-0xCCCCCC)
-
+require("event").timer(0.5,getInternetSpeed,math.huge)
 for i = 1, #downloads do
-gpu.fill(1,1,80,24," ")
+gpu.fill(1,2,80,22," ")
 gui.centerText(40,13,"Downloading " .. downloads[i].path)
 getFile(downloads[i].url,downloads[i].path)
 gui.animatedProgressBar(1,25,80,0xFF0000,0x00FF00,i,#downloads,i-1)
@@ -112,6 +128,6 @@ gui.centerText(40,6,"Installation completed")
 local checkTouch2 = gui.drawButton(20,7,40,11,"Reboot",0xFFFFFF-0xCCCCCC,0xFFFFFF)
 
 while true do
-  local _, _, x, y, _, _ = event.pull(touch)
+  local _, _, x, y, _, _ = event.pull("touch")
   if checkTouch2(x,y) then require("computer").shutdown(true) end
 end
