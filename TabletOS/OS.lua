@@ -298,7 +298,7 @@ local function drawWorkTable()
 	end
 	local files = getFilesTable()
 	for i = 1, #files do
-		local stroka = math.ceil(i/8)
+		local stroka = math.ceil(i/8)+1
 		local w = 10
 		local h = 1
 		local xCoord = ((i-1)*w+1) - ((stroka - 1)*(w*8))
@@ -360,7 +360,7 @@ while true do
 	local touch = {event.pull("touch")}
 	for i = 1, #workTable do
 		local button = workTable[i]
-		if clickedAtArea(button.x,button.y,button.x+button.w-1,button.y+button.h-1,touch[3],touch[4]) do
+		if clickedAtArea(button.x,button.y,button.x+button.w-1,button.y+button.h-1,touch[3],touch[4]) then
 			pcall(button.callback)
 		end
 	end
