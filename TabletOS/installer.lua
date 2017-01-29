@@ -91,7 +91,7 @@ local gpu = component.gpu
 gpu.setBackground(0xCCCCCC)
 require("term").clear()
 local checkTouch1 = gui.drawButton(20,7,40,11,"Install TabletOS",0xFFFFFF-0xCCCCCC,0xFFFFFF)
-gui.drawProgressBar(1,25,80,0xFF0000,0x00FF00,0,#downloads)
+gui.drawProgressBar(1,25,80,0xFF0000,0x00FF00,0,#downloads*2)
 while true do
   local _, _, x, y, _, _ = event.pull(touch)
   if checkTouch1(x,y) then break end
@@ -103,7 +103,7 @@ for i = 1, #downloads do
 gpu.fill(1,1,80,24," ")
 gui.centerText(40,13,"Downloading " .. downloads[i].path)
 getFile(downloads[i].url,downloads[i].path)
-gui.drawProgressBar(1,25,80,0xFF0000,0x00FF00,i,#downloads)
+gui.animatedProgressBar(1,25,80,0xFF0000,0x00FF00,i,#downloads,i-1)
 end
 
 gui.centerText(40,4,"Made by HeroBrine1. github.com/HeroBrine1st vk.com/herobrine1_mcpe")
