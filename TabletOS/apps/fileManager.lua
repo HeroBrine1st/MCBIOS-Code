@@ -77,7 +77,7 @@ zygote.stop(windowForm)
 end
 windowButton4 = windowForm:addButton(1,4,"To workTable",function()
 local file = io.open("/usr/table/" .. fs.name(value),"w")
-file:write("dofile(" .. value .. ")")
+file:write("dofile(\"" .. value .. "\")")
 file:close()
 ecs.drawOldPixels(oldFormPixels)
 setActiveForm()
