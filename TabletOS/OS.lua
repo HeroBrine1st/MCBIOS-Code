@@ -65,7 +65,7 @@ function drawMenu()
 		gpu.fill(1,2,80,23," ")
 	 end},
 	 {y=23,name=core.getLanguagePackages().reboot,callback=function() computer.shutdown(true) end},
-	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() shutdown() end},
+	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() computer.shutdown() end},
 	}
 
 	local function checkTouch(y)
