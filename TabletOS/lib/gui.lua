@@ -1,6 +1,7 @@
 local component = require("component")
 local gpu = component.gpu
 local unicode = require("unicode")
+local event = require("event")
 local gui = {}
 
 function gui.centerText(x,y,text)
@@ -51,11 +52,15 @@ gpu.fill(x,y,w,1," ")
 gpu.setBackground(colorFilled)
 for i = progressVCordax1, progressVCordax do
 gpu.fill(x,y,i,1," ")
-os.sleep(0.06)
+os.sleep(math.random(0.05,0.1))
 end
 gpu.setBackground(oldBackground)
 end
 
+function gui.clickedAtArea(x,y,x2,y2,touchX,touchY)
+if (touchX >= x) and (touchX <= x2) and (touchY >= y) and (touchY <= y2) then return true end
+return false
+end
 
 function gui.drawButton(x,y,w,h,text,buttonColor,textColor)
 local oldBackground, oldForeground = gui.setColors(buttonColor,textColor)
@@ -70,11 +75,31 @@ local x,y,w,h = x,y,w,h
 local x2 = x+w
 local y2 = y+h
 if (touchX >= x) and (touchX <= x2) and (touchY >= y) and (touchY <= y2) then 
-return true
-end
-return false
+		return true 
+	end
+	return false
 end
 return checkTouch
+end
+
+
+function gui.setOnClickListener(x,y,x2,y2,callback)
+	local function listener(_,_,x,y,_,_)
+		if gui.clickedAtArea(x,y,x2,y2,touchX,touchY) then
+
+		 pcall(callback) end
+	end
+	local eventListener = event.listen("touch",listener)
+	return eventListener	
+end
+
+function gui.callbackButton(x,y,w,h,text,buttonColor,textColor,callback)
+gui.drawButton(x,y,w,h,text,buttonColor,textColor)
+return gui.setOnClickListener(x,y,x+w,y+h,callback)
+end
+
+function gui.ignoreListener(listener)
+	event.ignore(listener)
 end
 
 return gui
