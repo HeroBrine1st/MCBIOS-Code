@@ -64,7 +64,7 @@ function drawMenu()
 		gpu.setBackground(0x000000)
 		gpu.fill(1,2,80,23," ")
 	 end},
-	 {y=23,name=core.getLanguagePackages().reboot,callback=function() shutdown(true) end},
+	 {y=23,name=core.getLanguagePackages().reboot,callback=function() computer.shutdown(true) end},
 	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() shutdown() end},
 	}
 
