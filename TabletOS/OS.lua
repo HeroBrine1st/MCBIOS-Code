@@ -6,8 +6,8 @@ local fs = require("filesystem")
 local ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
-local zygote = require("zygote")
 local core = require("TabletOSCore")
+local gui = require("gui")
 _G.Math = math
 local apps = {}
 local shell =  require("shell")
@@ -27,13 +27,6 @@ gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 end
 
-
-
-_G.objects={
-	mainMenu={
-	
-	},
-}
 
 function executeTouch(touchX,touchY,massiv)
 	for i = 1, #massiv do
@@ -290,19 +283,48 @@ gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 timerID = event.timer(1,statusBar,math.huge)
 end
-
+local workTable={}
 local function drawWorkTable()
-	gpu.setBackground()
-	gpu.fill(1,2,80,23," ")
+	local function getFilesTable()
+		local tableFolder = "/usr/table/"
+		fs.makeDirectory(tableFolder)
+		local files = {}
+		for elem in fs.list(tableFolder) do
+			if fs.exists(tableFolder .. elem) and not fs.isDirectory(tableFolder .. elem) then
+				table.insert(files,tableFolder .. elem)
+			end
+		end
+		return files
+	end
+	local files = getFilesTable()
+	for i = 1, #files do
+		local stroka = math.ceil(i/8)
+		local w = 10
+		local h = 1
+		local xCoord = ((i-1)*w+1) - ((stroka - 1)*(w*8))
+		local yCoord = stroka
+		local callback = function() shell.execute(files[i]) end
+		local color1 = math.random(0x000000,0xFFFFFF)
+		local color2 = 0xFFFFFF - color1
+		gui.drawButton(xCoord,yCoord,w,h,fs.name(files[i]),color1,color2)
+		local insertTable = {
+		x = xCoord,
+		y = yCoord,
+		w = w,
+		h = h,
+		callback = callback,
+		}
+		table.insert(workTable,insertTable)
+	end
+
 end
+drawWorkTable()
 drawStatusBar()
 drawBar()
 
 
-
-
-while true do
-	local touch = {event.pull("touch")}
+local listener = function(...)
+	local touch = {...}
 	if touch[3] == 1 and touch[4] == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
 		drawMenu()
@@ -321,7 +343,6 @@ while true do
     require("event").pull("key")
   end
 end
-		break
 	end
 	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
@@ -332,3 +353,5 @@ end
 		ecs.drawOldPixels(oldPixelsScreen)
 	end
 end
+
+_G.eventListener = event.listen("touch",listener)
