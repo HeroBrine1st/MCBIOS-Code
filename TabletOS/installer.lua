@@ -47,6 +47,7 @@ local function getFile(url,filepath)
     end
    return reason
  else
+    print("")
    error(reason)
  end
 end
@@ -95,7 +96,7 @@ require("term").clear()
 local speedTestUrl = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/unnamed.txt"
 local function getInternetSpeed()
 local uptime = computer.uptime()
-internetRequest(fileUrl)
+internetRequest(speedTestUrl)
 local time = computer.uptime() - uptime
 local speed = 1024/time
 gui.drawProgressBar(1,1,80,0xFF0000,0x00FF00,speed,100000)
