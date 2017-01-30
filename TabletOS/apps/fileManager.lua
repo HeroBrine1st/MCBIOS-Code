@@ -50,9 +50,9 @@ end
 elseif fs.exists(value) then
 oldFormPixels = ecs.rememberOldPixels(1,1,80,25)
 local windowForm = zygote.addForm()
-windowForm.left = 25
+windowForm.left = 30
 windowForm.top = 12-2
-windowForm.W = 15
+windowForm.W = 20
 windowForm.H = 5
 
 windowButton1 = windowForm:addButton(1,1,"Edit",function()
@@ -87,11 +87,11 @@ stopFormS()
 ecs.drawOldPixels(oldFormPixels)
 setActiveForm()
 end)
-windowButton1.W=15
-windowButton2.W=15
-windowButton3.W=15
-windowButton4.W=15
-windowButton5.W=15
+windowButton1.W=20
+windowButton2.W=20
+windowButton3.W=20
+windowButton4.W=20
+windowButton5.W=20
 zygote.run(windowForm)
 
 setActiveForm()
@@ -171,7 +171,12 @@ updateFileList()
 local oldPixelsM
 local function eventListener(_,_,x,y,button,_)
 	if button == 0 and (x == 40 or x == 35) and y == 25 then
-		pcall(stopForm)
+		local success, reason = pcall(stopForm)
+		if not success then
+			if reason then
+				ecs.error("Unable to exit program:" .. reason)
+			end
+		end
 	end
 	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
