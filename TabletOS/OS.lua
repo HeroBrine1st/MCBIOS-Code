@@ -64,8 +64,8 @@ function drawMenu()
 		gpu.setBackground(0x000000)
 		gpu.fill(1,2,80,23," ")
 	 end},
-	 {y=23,name=core.getLanguagePackages().reboot,callback=function() shutdown(true) end},
-	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() shutdown() end},
+	 {y=23,name=core.getLanguagePackages().reboot,callback=function() computer.shutdown(true) end},
+	 {y=24,name=core.getLanguagePackages().shutdown,callback=function() computer.shutdown() end},
 	}
 
 	local function checkTouch(y)
@@ -250,15 +250,15 @@ _G.oldEnergy = 100
 local function statusBar()
 local component = require("component")
 local gpu = component.gpu
-gpu.setBackground(0x610B5E)
-gpu.setForeground(0xFFFFFF)
 local energy = Math.floor((computer.energy()/computer.maxEnergy())*100)
 local str = string.gsub(string.format("%q",math.floor(computer.energy()/computer.maxEnergy()*100)),"\"","")
 local len = Math.floor(unicode.len(str)/2)
+local oldBackground = gpu.setBackground(0x610B5E)
+local oldForeground = gpu.setForeground(0xFFFFFF)
 gpu.set(79-len,1,str)
 gpu.set(80,1,"%")
-gpu.setBackground(0x000000)
-gpu.setForeground(0xFFFFFF)
+gpu.setBackground(oldBackground)
+gpu.setForeground(oldForeground)
 if energy < 6 then
 require("term").clear()
 print("Not enough energy! Shutdown tablet... ")
