@@ -107,9 +107,9 @@ function core.getFile(url,filepath)
    file:write(reason)
    file:close()
     end
-   return reason
+   return true, reason
  else
-   error(reason)
+   return false, reason
  end
 end
 
@@ -137,10 +137,10 @@ function core.downloadFileListAndDownloadFiles(fileListUrl,debug)
 	end
 end
 
-function core.saveDisplayAndCallFunction(callback)
+function core.saveDisplayAndCallFunction(...)
 local w, h = component.gpu.getResolution()
 local oldPixels = ecs.rememberOldPixels(1,1,w,h)
-local result = {pcall(callback)}
+local result = {pcall(...)}
 ecs.drawOldPixels(oldPixels)
 return table.unpack(result)
 end
