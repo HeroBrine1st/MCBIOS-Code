@@ -3,6 +3,7 @@ local fs = require("filesystem")
 local computer = require("computer")
 local component = require("component")
 local ecs = require("ECSAPI")
+local term = require("termr")
 local gpu = component.gpu
 core.languagePackages = {
 	en={
