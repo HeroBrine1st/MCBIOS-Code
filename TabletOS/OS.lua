@@ -269,7 +269,6 @@ computer.pushSignal("energyChange",oldEnergy,energy)
 end
 oldEnergy = energy
 end
-_G.timerID
 local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
