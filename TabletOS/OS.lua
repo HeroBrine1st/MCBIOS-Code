@@ -364,7 +364,7 @@ while true do
 			local success, reason = core.saveDisplayAndCallFunction(button.callback)
 			if (not success) and reason then
 				event.cancel(timerID)
-				event.ignore(eventListener)
+				event.ignore("touch",listener)
 				core.saveDisplayAndCallFunction(ecs.error,reason)
 				timerID = event.timer(1,statusBar,math.huge)
 				eventListener = event.listen("touch",listener)
