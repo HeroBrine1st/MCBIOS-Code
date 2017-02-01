@@ -140,6 +140,7 @@ end
 function core.saveDisplayAndCallFunction(...)
 local w, h = component.gpu.getResolution()
 local oldPixels = ecs.rememberOldPixels(1,1,w,h)
+term.clear()
 local result = {pcall(...)}
 ecs.drawOldPixels(oldPixels)
 return table.unpack(result)
