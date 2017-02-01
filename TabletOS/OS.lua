@@ -306,7 +306,7 @@ local function drawWorkTable()
 		local callback = function() shell.execute(files[i]) end
 		local color1 = math.random(0x000000,0xFFFFFF)
 		local color2 = 0xFFFFFF - color1
-		gui.drawButton(xCoord,yCoord,w,h,fs.name(files[i]),color1,color2)
+		gui.drawButton(xCoord+1,yCoord,w,h,fs.name(files[i]),color1,color2)
 		local insertTable = {
 		x = xCoord,
 		y = yCoord,
