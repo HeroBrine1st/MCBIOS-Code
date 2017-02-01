@@ -285,6 +285,7 @@ timerID = event.timer(1,statusBar,math.huge)
 end
 _G.workTable={}
 function drawWorkTable()
+	workTable = {}
 	gui.setColors(0x000000,0xFFFFFF)
 	gpu.fill(1,2,80,23," ")
 	local function getFilesTable()
