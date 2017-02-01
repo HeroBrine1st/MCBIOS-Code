@@ -269,7 +269,7 @@ computer.pushSignal("energyChange",oldEnergy,energy)
 end
 oldEnergy = energy
 end
-local timerID
+_G.timerID
 local function drawStatusBar()
 gpu.setBackground(0x610B5E)
 gpu.setForeground(0xFFFFFF)
@@ -281,7 +281,7 @@ gpu.setForeground(0x610B5E)
 gpu.set(76-len,1,power)
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
-timerID = event.timer(1,statusBar,math.huge)
+_G.timerID = event.timer(1,statusBar,math.huge)
 end
 local workTable={}
 local function drawWorkTable()
