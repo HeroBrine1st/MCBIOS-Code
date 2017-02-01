@@ -363,7 +363,11 @@ while true do
 		if clickedAtArea(button.x,button.y,button.x+button.w-1,button.y+button.h-1,touch[3],touch[4]) then
 			local success, reason = core.saveDisplayAndCallFunction(button.callback)
 			if (not success) and reason then
+				event.cancel(timerID)
+				event.ignore(eventListener)
 				core.saveDisplayAndCallFunction(ecs.error,reason)
+				timerID = event.timer(1,statusBar,math.huge)
+				eventListener = event.listen("touch",listener)
 			end
 
 
