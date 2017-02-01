@@ -281,7 +281,7 @@ gpu.setForeground(0x610B5E)
 gpu.set(76-len,1,power)
 gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
-_G.timerID = event.timer(1,statusBar,math.huge)
+timerID = event.timer(1,statusBar,math.huge)
 end
 _G.workTable={}
 function drawWorkTable()
@@ -325,7 +325,7 @@ drawBar()
 drawWorkTable()
 
 
-_G.listener = function(...)
+listener = function(...)
 	local touch = {...}
 	if touch[3] == 1 and touch[4] == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
