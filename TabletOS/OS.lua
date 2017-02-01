@@ -284,7 +284,7 @@ _G.timerID = event.timer(1,statusBar,math.huge)
 end
 _G.workTable={}
 function drawWorkTable()
-	gpu.fill(1,2,80,23)
+	gpu.fill(1,2,80,23," ")
 	local function getFilesTable()
 		local tableFolder = "/usr/table/"
 		fs.makeDirectory(tableFolder)
