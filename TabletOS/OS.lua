@@ -283,8 +283,9 @@ gpu.setBackground(0x000000)
 gpu.setForeground(0xFFFFFF)
 _G.timerID = event.timer(1,statusBar,math.huge)
 end
-local workTable={}
-local function drawWorkTable()
+_G.workTable={}
+function drawWorkTable()
+	gpu.fill(1,2,80,23)
 	local function getFilesTable()
 		local tableFolder = "/usr/table/"
 		fs.makeDirectory(tableFolder)
@@ -323,7 +324,7 @@ drawBar()
 drawWorkTable()
 
 
-local listener = function(...)
+_G.listener = function(...)
 	local touch = {...}
 	if touch[3] == 1 and touch[4] == 25 then
 		oldPixelsM = ecs.rememberOldPixels(1,2,80,24)
@@ -352,6 +353,7 @@ end
 		ecs.waitForTouchOrClick()
 		ecs.drawOldPixels(oldPixelsScreen)
 	end
+	drawWorkTable()
 end
 
 _G.eventListener = event.listen("touch",listener)
