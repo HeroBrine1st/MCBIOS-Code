@@ -2,7 +2,6 @@ local computer = require("computer")
 local component = require("component")
 local gpu = component.gpu
 local event = require("event")
-local fs = require("filesystem")
 local ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
@@ -233,6 +232,9 @@ while true do
 	if doReturn == true then
 		break
 	end
+	gpu.setBackground(0x610B5E)
+	gpu.setForeground(0xFFFFFF)
+	gpu.fill(1,1,77,1," ")
 	local power = core.getLanguagePackages().power
 	local len = unicode.len(power)
 	gpu.setBackground(0xFFFF00)
