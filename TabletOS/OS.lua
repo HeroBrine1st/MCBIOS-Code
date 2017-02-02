@@ -5,6 +5,7 @@ local event = require("event")
 local ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
+local fs = require("filesystem")
 local core = require("TabletOSCore")
 local gui = require("gui")
 _G.Math = math
