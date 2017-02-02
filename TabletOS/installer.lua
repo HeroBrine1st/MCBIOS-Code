@@ -54,12 +54,14 @@ end
 
 io.write("Downloading file list    ")
 local uptime = computer.uptime()
-local success, downloads = pcall(load("return" .. getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/applications.txt","/tmp/1.tmp")))
+local success1, string = internetRequest("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/applications.txt")
+if not success1 then error(string) end
+local success, downloads = pcall(load("return" .. string))
 if not success then
 io.stderr:write("Failed. Total time: " .. tostring(computer.uptime()-uptime) .. " Reason: " .. reason .. "\n")
 return
 end
-io.write("Success. Total time: " .. tostring(computer.uptime()-uptime) .. "\n")
+io.write("Success. Total time: " .. tostring(computer.uptime()-uptime) .. "s\n")
 
 local function sortTable()
 local apps, libraries, other = {}, {}, {}
