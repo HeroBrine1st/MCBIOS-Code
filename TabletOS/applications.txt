@@ -42,5 +42,9 @@
 {
   url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/lib/gui.lua",
   path="/lib/gui.lua",
+},
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/autorun.lua",
+path="autorun.lua",
 }
 }
