@@ -1,0 +1,1 @@
+{["navScaleY"]=8,["navScaleX"]=4,["currentWorldType"]="space",["lock"]=false,["autopilotEnabled"]=false,["firstLaunch"]=false}
