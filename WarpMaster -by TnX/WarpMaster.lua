@@ -10,7 +10,6 @@ local libraries = {
 	buffer = "doubleBuffering",
 	ecs = "ECSAPI",
 	event = "event",
-	image = "image",
 	unicode = "unicode",
 	warpdrive = "libwarp",
 	GUI = "GUI",
@@ -644,8 +643,6 @@ end
 
 function WGUI.DrawLoadScreen() 
 	ecs.emptyWindow(30,15,40,20,"Warp Navigation Master")
-	WGUI.logo = image.load("MineOS/Applications/WarpMaster.app/Resources/WarpMasterIcon.pic")
-	image.draw(35,16,WGUI.logo)
 end
 
 function WGUI.DrawShipSizeWindow()
