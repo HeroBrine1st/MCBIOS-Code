@@ -16,7 +16,8 @@ local libraries = {
 	GUI = "GUI",
 	serialization = "serialization",
 	filesystem = "filesystem",
-	computer = "computer"
+	computer = "computer",
+	fs = "filesystem"
 }
 for library in pairs(libraries) do if not _G[library] then _G[library] = require(libraries[library]) end end; libraries = nil
 
