@@ -1,4 +1,4 @@
---Укажете папку на другой файловой системе - не будет работать. найти прокси корневой (в которой все работает) - fs.get("/")
+--Укажете папку на другой файловой системе - не будет работать. найти прокси корневой (в которой все работает) - fs.get("/"). если сначала смонтировать файловую систему в корень, то можно с любого накопителя монтировать папки
 
 local filesystem = require("filesystem")
 local fs = require("filesystem")
@@ -90,6 +90,7 @@ if not filesystem.isDirectory(otkyda) 	then error("Bad argument #1 (Directory ex
 	proxy.list = function(path)
 		return rootFS.list(proxy.convertPath(path))
 	end
+	proxy.lastModified = function(path) return rootFS.lastModified(proxy.convertPath(path)) end
 	fs.umount(kyda)
 	fs.mount(proxy,kyda)
 	return proxy
