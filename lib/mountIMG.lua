@@ -1,3 +1,5 @@
+--Укажете папку на другой файловой системе - вылетит ошибка. найти прокси корневой (в которой все работает) - fs.get("/")
+
 local filesystem = require("filesystem")
 local fs = require("filesystem")
 local component = require("component")
