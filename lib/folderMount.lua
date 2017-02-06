@@ -4,28 +4,22 @@ local filesystem = require("filesystem")
 local fs = require("filesystem")
 local component = require("component")
 local computer = require("computer")
-local img = {}
+local mount = {}
 
 
 
-function img.mountIMG(otkyda,kyda,write)
+function mount.mountFolder(otkyda,kyda,write)
 if not type(otkyda) == "string" 		then error("Bad argument #1 (String expected, got " .. 	type(otkyda) .. ")") 	end
 if not type(kyda) == "string" 			then error("Bad argument #2 (String expected, got " .. 	type(kyda) 	 .. ")")	end
 if not type(write) == "boolean" 		then error("Bad argument #3 (Boolean expected, got " .. type(write)  .. ")")	end
-if not filesystem.isDirectory(otkyda) 	then error("Bad argument #1 (Directory expected, got file)") 					end
+if not filesystem.isDirectory(otkyda) 	then error("Bad path (Directory expected, got file)") 							end
 
 
 
 	local rootFS = fs.get(otkyda)
 	local proxy = {}
 	proxy.convertPath = function(path) 
-		local newPath
-		if otkyda:sub(1,-1) == "/" then
-			newPath = otkyda .. path
-		else
-			newPath = otkyda .. "/" .. path
-		end
-		return newPath
+		return fs.concat(otkyda,path)
 	end
 	proxy.address = "VirtualFS" .. tostring(math.random(0x000000,0xFFFFFF))
 	proxy.type = "filesystem"
@@ -96,4 +90,4 @@ if not filesystem.isDirectory(otkyda) 	then error("Bad argument #1 (Directory ex
 	return proxy
 end
 
-return img
+return mount
