@@ -1,0 +1,10 @@
+{
+{
+	path="/init.lua",
+	url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/MultiOS/init.lua",	
+},
+{
+	path="/.osprop",
+	url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/MultiOS/.osprop"
+},
+}
