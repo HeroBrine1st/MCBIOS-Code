@@ -152,20 +152,6 @@ do
   local filesystem = require("filesystem")
   filesystem.mount(computer.getBootAddress(), "/")
 
-  status("Running boot scripts...")
-
-  -- Run library startup scripts. These mostly initialize event handlers.
-  local scripts = {}
-  for _, file in rom.inits() do
-    local path = "boot/" .. file
-    if not rom.isDirectory(path) then
-      table.insert(scripts, path)
-    end
-  end
-  table.sort(scripts)
-  for i = 1, #scripts do
-    dofile(scripts[i])
-  end
 
   status("Initializing components...")
 
