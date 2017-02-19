@@ -61,8 +61,9 @@ local success, reason = pcall(function()
   --setup early fastboot logging
   fastboot.cursor = 1
     fastboot.print = function(msg)
+    pcall(function()
     gpu.set(1,fastboot.cursor,msg)
-    if fastboot.cursor == h then gpu.copy(1,2,w,h-1,0,-1) gpu.fill(1,h,w,h," ") else fastboot.cursor = fastboot.cursor + 1 end
+    if fastboot.cursor == h then gpu.copy(1,2,w,h-1,0,-1) gpu.fill(1,h,w,h," ") else fastboot.cursor = fastboot.cursor + 1 end end)
   end
   fastboot.keys = {
   ["1"]           = 0x02,
