@@ -110,4 +110,4 @@ end
 
 getFile("https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/initBackup.lua","init.lua")
 
-]])end)k.W=f;e.run(i)
+]])end)k.W=f;local l=i:addButton(1,3,"Reboot",function()c.broadcast(h,[[computer.shutdown(true)]])end)l.W=f;local m=i:addButton(1,3,"Shutdown",function()c.broadcast(h,[[computer.shutdown()]])end)m.W=f;local n=i:addButton(1,g,"Exit",function()error("No error! This error - exit program")end)n.W=f;e.run(i)
