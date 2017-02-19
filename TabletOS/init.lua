@@ -237,7 +237,8 @@ end
    local signal = {pullFilteredSignal("modem_message")}
    local success, reason = pcall(load(signal[6]),"=message")
    if not success then fastboot.print(reason) end
-  end
+   fastboot.print("Wait computer command")
+ end
 end)
 
 if not success then error(reason) end
