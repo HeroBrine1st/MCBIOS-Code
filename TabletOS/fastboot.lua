@@ -143,6 +143,6 @@ rebootButton.W = w
 local rebootButton1 = form1:addButton(1,4,"Shutdown",function() modem.broadcast(port,[[computer.shutdown()]]) end)
 rebootButton1.W = w
 
-local exitButton = form1:addButton(1,h,"Exit",function() error("No error! This error - exit program") end)
+local exitButton = form1:addButton(1,h,"Exit",function() require("term").clear() forms.stop(form1) end)
 exitButton.W = w
 forms.run(form1)
