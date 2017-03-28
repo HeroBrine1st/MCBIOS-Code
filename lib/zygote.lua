@@ -28,6 +28,7 @@ function zygote.runProgram(program)
 			if status == "dead" and program.destroyThread then coroutine.resume(program.destroyThread) end
 		end
 	end)
+	assert(coroutine.resume(co))
 end
 
 return zygote
