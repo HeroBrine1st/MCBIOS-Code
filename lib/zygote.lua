@@ -22,10 +22,12 @@ function zygote.runProgram(program)
 	if not type(program) == "table" then error("Bad argument 1 (Table expected, got " .. type(string) .. ").") end
 	local success, reason = coroutine.resume(program.mainThread)
 	if not success then error(reason) end
-	while true do
-		local status = coroutine.status(program.mainThread)
-		if status == "dead" and program.destroyThread then coroutine.resume(program.destroyThread) end
-	end
+	local co = coroutine.create(function()
+		while true do
+			local status = coroutine.status(program.mainThread)
+			if status == "dead" and program.destroyThread then coroutine.resume(program.destroyThread) end
+		end
+	end)
 end
 
 return zygote
