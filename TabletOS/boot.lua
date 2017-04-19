@@ -14,6 +14,13 @@ do
       computer.pushSignal("shutdown")
       os.sleep(0.1) -- Allow shutdown processing.
     end
+    local fs = component.proxy(computer.getBootAddress())
+    fs.remove("/.lastshutdown")
+    local f = fs.open("/.lastshutdown","w")
+    if f then
+      fs.write(f,"return true")
+      fs.close(f)
+    end
     shutdown(reboot)
   end
 
@@ -162,6 +169,10 @@ do
     component.setPrimary(t, c.address)
   end
   os.sleep(0.5) -- Allow signal processing by libraries.
+
+
+
+  
   computer.pushSignal("init") -- so libs know components are initialized.
 
   status("Initializing system...")
@@ -170,7 +181,7 @@ do
 end
 require("term").clear()
 while true do
-  local result, reason = xpcall(loadfile("/bin/sh.lua"), debug.traceback)
+  local result, reason = xpcall(loadfile("/apps/shell.lua"), debug.traceback)
   if not result then
     io.stderr:write((reason ~= nil and tostring(reason) or "unknown error") .. "\n")
     io.write("Press any key to continue.\n")
