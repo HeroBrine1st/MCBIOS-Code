@@ -56,13 +56,16 @@ do
   local y = 1
   local function status(msg)
     if gpu and screen then
-      component.invoke(gpu, "set", 1, y, msg)
-      if y == h then
-        component.invoke(gpu, "copy", 1, 2, w, h - 1, 0, -1)
-        component.invoke(gpu, "fill", 1, h, w, 1, " ")
-      else
-        y = y + 1
-      end
+      local gpu = component.proxy(gpu)
+      gpu.setBackground(0xCCCCCC)
+      gpu.setForeground(0xFFFFFF-0xCCCCCC+0x222222)
+      gpu.fill(1,1,w,h," ")
+      gpu.set(math.floor(w/2-string.len("TabletOS")/2),h/2-1,"TabletOS")
+      local y = h/2
+      local x = math.floor(w/2-string.len(msg)/2)
+      gpu.setForeground(0xFFFFFF-0xCCCCCC+0x444444)
+      gpu.set(x,y,msg)
+      gpu.set(1,h,"Made by HeroBrine1")
     end
   end
 
@@ -170,8 +173,6 @@ do
   end
   os.sleep(0.5) -- Allow signal processing by libraries.
 
-
-
   
   computer.pushSignal("init") -- so libs know components are initialized.
 
@@ -179,6 +180,9 @@ do
   os.sleep(0.1) -- Allow init processing.
   runlevel = 1
 end
+
+
+
 require("term").clear()
 while true do
   local result, reason = xpcall(loadfile("/apps/shell.lua"), debug.traceback)
