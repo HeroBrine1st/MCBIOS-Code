@@ -1,1 +1,90 @@
-local a=require("component")local b=require("computer")local c=a.gpu;local d=require("term")local e=require("shell")local f=require("ECSAPI")local g=require("event")c.setResolution(c.maxResolution())c.setBackground(0x000000)d.clear()local h,i=c.getResolution()local function j()local k=c.setBackground(0xFFFFFF)local l=c.setForeground(0xFFFFFF-0xCCCCCC)if h==160 then c.fill(1,1,h,5," ")local m="Material terminal"c.set(h/2-math.floor(string.len(m)/2),3,m)else c.fill(1,1,h,3," ")local m="Material terminal"c.set(h/2-math.floor(string.len(m)/2),2,m)end;c.setBackground(0xCCCCCC)c.setForeground(0xFFFFFF-0xCCCCCC)c.fill(1,1,h,1," ")c.set(1,1,"Working directory: "..require("shell").getWorkingDirectory())local n=Math.floor(b.energy()/b.maxEnergy()*100+1)local m=string.gsub(string.format("%q",math.floor(b.energy()/b.maxEnergy()*100)+1),"\"","")local o=string.len(m)c.set(80-o,1,m)c.set(80,1,"%")c.setBackground(k)c.setForeground(l)end;local function p()local q=f.rememberOldPixels(1,h==160 and i-5 or i-3,h,i)local k=c.setBackground(0xFFFFFF)local l=c.setForeground(0xFFFFFF-0xCCCCCC)c.fill(1,h==160 and i-4 or i-2,h,h==160 and 5 or 3," ")c.set(1,i,"Made by HeroBrine1")local function r()c.set(1,h==160 and i-2 or i-1,">")return f.inputText(2,h==160 and i-2 or i-1,h-1)end;while true do result=r()if result~=nil and result~=""then f.drawOldPixels(q)c.setBackground(k)c.setForeground(l)return result end end end;local function s(t)local u,v=e.execute(t)if not u and not v=="file not found"and not v=="interrupted"then v=debug.traceback(v)end;return u,v end;j()while true do j()local w,x=d.getCursor()if x<6 then d.setCursor(1,6)end;local y=e.getWorkingDirectory()local result=p()c.setBackground(0x000000)c.setForeground(0xFFFFFF)d.clear()j()d.setCursor(1,h==160 and 6 or 4)local u,v=s(result)if not u then f.error(v)end end
+local component = require("component")
+local computer = require("computer")
+local gpu = component.gpu
+local term = require("term")
+local shell = require("shell")
+local ecs = require("ECSAPI")
+local event = require("event")
+Math = math
+gpu.setResolution(gpu.maxResolution())
+gpu.setBackground(0x000000)
+term.clear()
+local w,h = gpu.getResolution()
+local function redrawBar()
+	local oldB = gpu.setBackground(0xFFFFFF)
+	local oldF = gpu.setForeground(0xFFFFFF-0xCCCCCC)
+	if w == 160 then
+		gpu.fill(1,1,w,5," ")
+		local str = "Material terminal"
+		gpu.set(w/2-math.floor(string.len(str)/2),3,str)
+	else
+		gpu.fill(1,1,w,3," ")
+		local str = "Material terminal"
+		gpu.set(w/2-math.floor(string.len(str)/2),2,str)
+	end
+	gpu.setBackground(0xCCCCCC)
+	gpu.setForeground(0xFFFFFF-0xCCCCCC)
+	gpu.fill(1,1,w,1," ")
+	gpu.set(1,1,"Working directory: " .. require("shell").getWorkingDirectory())
+	local energy = Math.floor((computer.energy()/computer.maxEnergy())*100+1)
+	local str = string.gsub(string.format("%q",math.floor(computer.energy()/computer.maxEnergy()*100)+1),"\"","")
+	local len = string.len(str)
+	gpu.set(80-len,1,str)
+	gpu.set(80,1,"%")
+	gpu.setBackground(oldB)
+	gpu.setForeground(oldF)
+end
+
+local function drawInput()
+	local oldPixels = ecs.rememberOldPixels(1,w == 160 and h-5 or h-3,w,h)
+	local oldB = gpu.setBackground(0xFFFFFF)
+	local oldF = gpu.setForeground(0xFFFFFF-0xCCCCCC)
+	gpu.fill(1,w == 160 and h-4 or h-2,w,w == 160 and 5 or 3," ")
+	gpu.set(1,h,"Made by HeroBrine1")
+	local function input()
+		gpu.set(1,w == 160 and h-2 or h-1,">")
+		return ecs.inputText(2,w == 160 and h-2 or h-1,w-1)
+	end
+
+	while true do
+		result = input()
+		if result ~= nil and result ~= "" then
+			ecs.drawOldPixels(oldPixels)
+			gpu.setBackground(oldB)
+			gpu.setForeground(oldF)
+			return result 
+		end
+	end
+end
+
+
+local function execute(command)
+	local success, reason = shell.execute(command)
+	if not success and not reason == "file not found" and not reason == "interrupted" then
+		reason = debug.traceback(reason)
+	end
+	return success, reason
+end
+
+redrawBar()
+while true do
+redrawBar()
+local xC, yC = term.getCursor()
+if yC < 6 then term.setCursor(1,6) end
+local path = shell.getWorkingDirectory()
+local result = drawInput()
+
+
+
+gpu.setBackground(0x000000)
+gpu.setForeground(0xFFFFFF)
+term.clear()
+redrawBar()
+term.setCursor(1,w == 160 and 6 or 4)
+
+local success, reason = execute(result)
+if not success then
+ecs.error(reason)
+end
+
+end
