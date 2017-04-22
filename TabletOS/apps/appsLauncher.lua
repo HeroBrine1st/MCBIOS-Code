@@ -44,6 +44,9 @@ for _, dir in pairs(pm.listOfApps(false)) do
 end
 list.W = 80
 list.H = 23
+list.color = 0xCCCCCC
+list.fontColor = (0xFFFFFF - 0xCCCCCC)
+list.border = 0
 local function eventListener(_,_,x,y,button,_)
 	if button == 0 and (x == 40 or x == 35) and y == 25 then
 		local success, reason = pcall(zygote.stop,form)
