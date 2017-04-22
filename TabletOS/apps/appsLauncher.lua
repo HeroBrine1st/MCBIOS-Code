@@ -1,7 +1,7 @@
 local pm = require("pm")
 local shell = require("shell")
 local zygote = require("zygote")
-local fs = require("filesyste,")
+local fs = require("filesystem")
 local event = require("event")
 local ecs = require("ecs")
 local form = zegote.addForm()
@@ -12,29 +12,29 @@ form.H = 23
 local list = form:addList(1,1,function(view)
 	local value = view.items[view.index]
 	local windowForm = zygote.addForm()
-windowForm.left = 30
-windowForm.top = 12-2
-windowForm.W = 20
-windowForm.H = 3
+	windowForm.left = 30
+	windowForm.top = 12-2
+	windowForm.W = 20
+	windowForm.H = 3
 
-windowButton1 = windowForm:addButton(1,1,"Execute",function()
-OSAPI.ignoreListeners()
-local success, reason = shell.execute(value)
-pcall(event.cancel,_G.timerID)
-pcall(event.cancel,timerID)
-if not success then ecs.error(reason) end
-OSAPI.init()
-form:setActive()
-end)
-windowButton2 = windowForm:addButton(1,2,"Uninstall",function()
-pm.uninstallApp(fs.name(value))
-form:setActive()
-end)
-windowButton3 = windowForm:addButton(1,2,"Exit",function()
-zygote.stop(windowForm)
-form:setActive()
-end)
-zygote.run(windowForm)
+	windowButton1 = windowForm:addButton(1,1,"Execute",function()
+		OSAPI.ignoreListeners()
+		local success, reason = shell.execute(value)
+		pcall(event.cancel,_G.timerID)
+		pcall(event.cancel,timerID)
+		if not success then ecs.error(reason) end
+		OSAPI.init()
+		form:setActive()
+	end)
+		windowButton2 = windowForm:addButton(1,2,"Uninstall",function()
+		pm.uninstallApp(fs.name(value))
+		form:setActive()
+	end)
+	windowButton3 = windowForm:addButton(1,2,"Exit",function()
+		zygote.stop(windowForm)
+		form:setActive()
+	end)
+	zygote.run(windowForm)
 end)
 for _, dir in pairs(pm.listOfApps(true)) do
 	list:insert(fs.name(dir),dir)
