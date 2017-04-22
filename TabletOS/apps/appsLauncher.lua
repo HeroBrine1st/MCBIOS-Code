@@ -34,10 +34,10 @@ form:setActive()
 end)
 zygote.run(windowForm)
 end)
-for _, dir in pairs(pm.listOfApps(true))
+for _, dir in pairs(pm.listOfApps(true)) do
 	list:insert(fs.name(dir),dir)
 end
-for _, dir in pairs(pm.listOfApps(false))
+for _, dir in pairs(pm.listOfApps(false)) do
 	list:insert(fs.name(dir),dir)
 end
 list.W = 80
