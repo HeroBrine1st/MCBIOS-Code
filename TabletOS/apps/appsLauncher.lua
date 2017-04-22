@@ -32,7 +32,6 @@ windowButton3 = windowForm:addButton(1,2,"Exit",function()
 zygote.stop(windowForm)
 form:setActive()
 end)
-zygote.ru
 zygote.run(windowForm)
 end)
 for _, dir in pairs(pm.listOfApps(true))
