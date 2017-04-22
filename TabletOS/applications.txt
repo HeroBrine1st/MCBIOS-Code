@@ -55,4 +55,8 @@ path="/version.lua",
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/lib/pm.lua",
 path="/lib/pm.lua",
 },
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/apps/appsLauncher.lua",
+path="/apps/appsLauncher.lua",
+},
 }
