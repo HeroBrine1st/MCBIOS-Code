@@ -8,6 +8,7 @@ fs.makeDirectory(packageManager.systemAppsPath)
 
 function packageManager.installApp(file,name)
 	local appPath = fs.concat(packageManager.userAppsPath,name)
+	fs.remove(appPath)
 	fs.copy(file,appPath)
 	return appPath
 end
@@ -18,7 +19,7 @@ function packageManager.uninstallApp(name)
 end
 
 function packageManager.listOfApps(system)
-	local appsDir = system and appsDir = packageManager.systemAppsPath or packageManager.userAppsPath
+	local appsDir = system and packageManager.systemAppsPath or packageManager.userAppsPath
 	local list = {}
 	for file in fs.list(appsDir) do 
 		if not fs.isDirectory(fs.concat(appsDir,file)) then
