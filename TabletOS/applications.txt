@@ -50,5 +50,9 @@ path="/autorun.lua",
 {
 url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TabletOS/version.lua",
 path="/version.lua",
-}
+},
+{
+url="https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/lib/pm.lua",
+path="/lib/pm.lua",
+},
 }
