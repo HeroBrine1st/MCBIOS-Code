@@ -31,7 +31,6 @@ local list = form:addList(1,1,function(view)
 		form:setActive()
 	end)
 	windowButton3 = windowForm:addButton(1,3,"Exit",function()
-		zygote.stop(windowForm)
 		form:setActive()
 	end)
 	windowButton1.W=20
@@ -40,7 +39,7 @@ local list = form:addList(1,1,function(view)
 	zygote.run(windowForm)
 end)
 for _, dir in pairs(pm.listOfApps(true)) do
-	list:insert(fs.name(dir),dir)
+	list:insert("SYSTEM " .. fs.name(dir),dir)
 end
 for _, dir in pairs(pm.listOfApps(false)) do
 	list:insert(fs.name(dir),dir)
