@@ -1,7 +1,7 @@
 return {
-	version = "0.1.2 Alpha-relelase",
+	version = "0.2.0 Beta-prerelelase",
 	changelog = {
-	ru = "Добавлен системный интерфейс OSAPI,добавлена система обновлений",
-	eu = "Add system interface OSAPI,add system updates",
+	ru = "Добавлен менеджер приложений",
+	eu = "Added manager applications",
 	}
 }
