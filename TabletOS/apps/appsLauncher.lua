@@ -3,6 +3,7 @@ local shell = require("shell")
 local zygote = require("zygote")
 local fs = require("filesyste,")
 local event = require("event")
+local ecs = require("ecs")
 local form = zegote.addForm()
 form.left = 1
 form.top = 2
@@ -18,9 +19,10 @@ windowForm.H = 3
 
 windowButton1 = windowForm:addButton(1,1,"Execute",function()
 OSAPI.ignoreListeners()
-shell.execute(value)
+local success, reason = shell.execute(value)
 pcall(event.cancel,_G.timerID)
 pcall(event.cancel,timerID)
+if not success then ecs.error(reason) end
 OSAPI.init()
 form:setActive()
 end)
@@ -41,9 +43,18 @@ for _, dir in pairs(pm.listOfApps(false)) do
 	list:insert(fs.name(dir),dir)
 end
 list.W = 80
-list.H = 22
-form:addButton(1,23,"Exit",function()
-	zygote.stop(form)
-end)
+list.H = 23
+local function eventListener(_,_,x,y,button,_)
+	if button == 0 and (x == 40 or x == 35) and y == 25 then
+		local success, reason = pcall(zygote.stop,form)
+		if not success then
+			if reason then
+				ecs.error("Unable to exit program:" .. reason)
+			end
+		end
+	end
+end
+
+local event = form:addEvent("touch",eventListener)
 OSAPI.init()
 zygote.run(form)
