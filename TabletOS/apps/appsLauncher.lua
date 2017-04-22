@@ -20,8 +20,6 @@ local list = form:addList(1,1,function(view)
 	windowButton1 = windowForm:addButton(1,1,"Execute",function()
 		OSAPI.ignoreListeners()
 		local success, reason = shell.execute(value)
-		pcall(event.cancel,_G.timerID)
-		pcall(event.cancel,timerID)
 		if not success then ecs.error(reason) end
 		OSAPI.init()
 		form:setActive()
