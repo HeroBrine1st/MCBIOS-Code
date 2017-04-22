@@ -14,7 +14,7 @@ local list = form:addList(1,1,function(view)
 windowForm.left = 30
 windowForm.top = 12-2
 windowForm.W = 20
-windowForm.H = 2
+windowForm.H = 3
 
 windowButton1 = windowForm:addButton(1,1,"Execute",function()
 OSAPI.ignoreListeners()
@@ -28,6 +28,11 @@ windowButton2 = windowForm:addButton(1,2,"Uninstall",function()
 pm.uninstallApp(fs.name(value))
 form:setActive()
 end)
+windowButton3 = windowForm:addButton(1,2,"Exit",function()
+zygote.stop(windowForm)
+form:setActive()
+end)
+zygote.ru
 zygote.run(windowForm)
 end)
 for _, dir in pairs(pm.listOfApps(true))
@@ -36,3 +41,10 @@ end
 for _, dir in pairs(pm.listOfApps(false))
 	list:insert(fs.name(dir),dir)
 end
+list.W = 80
+list.H = 22
+form:addButton(1,23,"Exit",function()
+	zygote.stop(form)
+end)
+OSAPI.init()
+zygote.run(form)
