@@ -30,10 +30,13 @@ local list = form:addList(1,1,function(view)
 		pm.uninstallApp(fs.name(value))
 		form:setActive()
 	end)
-	windowButton3 = windowForm:addButton(1,2,"Exit",function()
+	windowButton3 = windowForm:addButton(1,3,"Exit",function()
 		zygote.stop(windowForm)
 		form:setActive()
 	end)
+	windowButton1.W=20
+	windowButton2.W=20
+	windowButton3.W=20
 	zygote.run(windowForm)
 end)
 for _, dir in pairs(pm.listOfApps(true)) do
