@@ -16,15 +16,16 @@ local list = form:addList(1,1,function(view)
 	windowForm.top = 12-2
 	windowForm.W = 20
 	windowForm.H = 3
-
 	windowButton1 = windowForm:addButton(1,1,"Execute",function()
 		OSAPI.ignoreListeners()
+		ecs.prepareToExit()
 		local success, reason = shell.execute(value)
 		if not success then ecs.error(reason) end
 		OSAPI.init()
 		form:setActive()
 	end)
 		windowButton2 = windowForm:addButton(1,2,"Uninstall",function()
+		updateList()
 		pm.uninstallApp(fs.name(value))
 		form:setActive()
 	end)
@@ -36,11 +37,13 @@ local list = form:addList(1,1,function(view)
 	windowButton3.W=20
 	zygote.run(windowForm)
 end)
+function updateList()
 for _, dir in pairs(pm.listOfApps(true)) do
 	list:insert("SYSTEM " .. fs.name(dir),dir)
 end
 for _, dir in pairs(pm.listOfApps(false)) do
 	list:insert(fs.name(dir),dir)
+end
 end
 list.W = 80
 list.H = 23
@@ -60,4 +63,5 @@ end
 
 local event = form:addEvent("touch",eventListener)
 OSAPI.init()
+updateList()
 zygote.run(form)
