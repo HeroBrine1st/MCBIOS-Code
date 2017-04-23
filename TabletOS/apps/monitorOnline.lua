@@ -1,9 +1,7 @@
+OSAPI.init()
 local computer = require("computer")
 local component = require("component")
 local gpu = component.gpu
-local event = require("event")
-local fs = require("filesystem")
-local ecs = require("ECSAPI")
 local term = require("term")
 local unicode = require("unicode")
 local keyboard = require("keyboard")
