@@ -1,7 +1,7 @@
 return {
-	version = "0.2.0 Beta-prerelelase patch 1",
+	version = "0.2.1 Beta-prerelelase",
 	changelog = {
-	ru = "Исправлены баги",
-	eu = "Fixed bugs",
+	ru = "Исправлены баги, исправлено окно обновления",
+	eu = "Fixed bugs,fixed update window",
 	}
 }
