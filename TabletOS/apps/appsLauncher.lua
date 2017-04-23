@@ -1,4 +1,4 @@
-local pm = require("pm")
+\local pm = require("pm")
 local shell = require("shell")
 local zygote = require("zygote")
 local fs = require("filesystem")
@@ -38,6 +38,7 @@ local list = form:addList(1,1,function(view)
 	zygote.run(windowForm)
 end)
 function updateList()
+list:clear()
 for _, dir in pairs(pm.listOfApps(true)) do
 	list:insert("SYSTEM " .. fs.name(dir),dir)
 end
