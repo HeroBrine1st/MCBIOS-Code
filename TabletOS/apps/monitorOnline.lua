@@ -7,7 +7,7 @@ local unicode = require("unicode")
 local keyboard = require("keyboard")
 local Math = math
 gpu.setBackground(0x000000)
-gpu.fill(1,2,80,23)
+gpu.fill(1,2,80,23," ")
 local function requirePlayer(name)
 local online, reason = computer.addUser(name)
 computer.removeUser(name)
