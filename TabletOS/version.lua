@@ -1,7 +1,7 @@
 return {
-	version = "0.2.0 Beta-prerelelase",
+	version = "0.2.0 Beta-prerelelase patch 1",
 	changelog = {
-	ru = "Добавлен менеджер приложений",
-	eu = "Added applications manager",
+	ru = "Исправлены баги",
+	eu = "Fixed bugs",
 	}
 }
