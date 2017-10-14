@@ -52,6 +52,7 @@ function bluetooth.sendFile(path,deviceAddress,dialogSending)
 	end
 	if send then
 		totalSize = 0
+		local size = fs.size(path)
 		modem.send(deviceAddress,bluetooth.port,"SEND_START",fs.size(path))
 		local f = io.open(path,"r")
 		repeat
