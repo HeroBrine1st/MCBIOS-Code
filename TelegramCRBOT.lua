@@ -85,8 +85,32 @@ local function send(txt)
     end
 end
 
-local function githubFlash()
-  local url = ""
+local function flash(data,chatID)
+  TG.sendMessage(token,chat,"Checking code")
+  local success, reason = load(data)
+  if data == "" or not data then success = false reason = "flash data is empty" end
+  if not success then 
+    TG.sendMessage(token,chatID,"Flash aborted. Reason: " .. tostring(reason)) 
+  else
+    TG.sendMessage(token,chat,"Code right. Flashing..")
+    fs.remove("/autorun2.lua")
+    local f = io.open("/autorun2.lua","w")
+    f:write(data)
+    f:close()
+    TG.sendMessage(token,chatID,"Flash success. Enter /reboot for install changes.")
+  end
+end
+
+local function githubFlash(chatID)
+  local url = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TelegramCRBOT.lua"
+  local buffer = ""
+  TG.sendMessage(token,chatID,"Flashing from github..")
+  TG.sendMessage(token,chatID,"Downloading code from " .. url)
+  for chunk in internet.request(url) do
+    buffer = buffer .. chunk
+  end
+  TG.sendMessage("Flash process started")
+  flash(buffer,chatID)
 end
 
 local function checkAllOnline()
@@ -151,18 +175,7 @@ local function procCmd(command,chatID)
       end
     end
   elseif command[1] == "flash" then
-    TG.sendMessage(token,chatID,"Flashing...")
-    local success, reason = load(commandOrig:sub(6))
-    if commandOrig:sub(6) == "" or not commandOrig:sub(6) then success = false reason = "flash data is empty" end
-    if not success then 
-      TG.sendMessage(token,chatID,"Flash aborted. Reason: " .. tostring(reason)) 
-    else
-      fs.remove("/autorun2.lua")
-      local f = io.open("/autorun2.lua","w")
-      f:write(commandOrig:sub(6))
-      f:close()
-      TG.sendMessage(token,chatID,"Flash success. Enter /reboot for install changes.")
-    end
+    if command[2] == "github" then githubFlash(chatID) else flash(commandOrig:sub(6),chatID) end
   elseif command[1] == "modonline" then
       local i = 0
       local activeI = 0
