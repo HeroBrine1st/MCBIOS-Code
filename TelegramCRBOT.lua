@@ -6,7 +6,7 @@ local serial = require("serialization")
 local chat = component.chat_box
 local fs = require("filesystem")
 local SD = require("SaveData")
-local internet = require("internet")
+local internet = component.internet
 ------------------------------------------------------------------------------
 
 local token
@@ -101,18 +101,38 @@ local function flash(data,chatID)
   end
 end
 
+
+local function internetRequest(url)
+  local success, response = pcall(component.internet.request, url)
+  if success then
+    local responseData = ""
+    while true do
+      local data, responseChunk = response.read()
+      if data then
+        responseData = responseData .. data
+      else
+        if responseChunk then
+          return false, responseChunk
+        else
+          return true, responseData
+        end
+      end
+    end
+  else
+    return false, response
+  end
+end
+
 local function githubFlash(chatID)
   saveData()
   TG.getUpdates(token)
   local url = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TelegramCRBOT.lua"
-  local buffer = ""
   TG.sendMessage(token,chatID,"Flashing from github..")
-  TG.sendMessage(token,chatID,"Downloading code..")
-  for chunk in internet.request(url) do
-    buffer = buffer .. chunk
-  end
+  TG.sendMessage(token,chatID,"Downloading code from " .. url)
+  local success, reason = internetRequest(url)
+  if not success then TG.sendMessage(token,chatID,"Downloading failure: " .. reason) return end
   TG.sendMessage("Flash process started")
-  flash(buffer,chatID)
+  flash(reason,chatID)
 end
 
 local function checkAllOnline()
