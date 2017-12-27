@@ -197,7 +197,7 @@ local function procCmd(command,chatID)
       end
     end
   elseif command[1] == "flash" then
-    if command[2] == "github" then githubFlash(chatID) else flash(commandOrig:sub(6),chatID) end
+    githubFlash(chatID)
   elseif command[1] == "modonline" then
       local i = 0
       local activeI = 0
