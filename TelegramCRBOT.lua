@@ -86,13 +86,13 @@ local function send(txt)
 end
 
 local function flash(data,chatID)
-  TG.sendMessage(token,chat,"Checking code")
+  TG.sendMessage(token,chatID,"Checking code")
   local success, reason = load(data)
   if data == "" or not data then success = false reason = "flash data is empty" end
   if not success then 
     TG.sendMessage(token,chatID,"Flash aborted. Reason: " .. tostring(reason)) 
   else
-    TG.sendMessage(token,chat,"Code right. Flashing..")
+    TG.sendMessage(token,chatID,"Code right. Flashing..")
     fs.remove("/autorun2.lua")
     local f = io.open("/autorun2.lua","w")
     f:write(data)
@@ -131,7 +131,7 @@ local function githubFlash(chatID)
   TG.sendMessage(token,chatID,"Downloading code from " .. url)
   local success, reason = internetRequest(url)
   if not success then TG.sendMessage(token,chatID,"Downloading failure: " .. reason) return end
-  TG.sendMessage("Flash process started")
+  TG.sendMessage(token,chatID,"Flash process started")
   flash(reason,chatID)
 end
 
