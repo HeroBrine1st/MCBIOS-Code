@@ -102,10 +102,12 @@ local function flash(data,chatID)
 end
 
 local function githubFlash(chatID)
+  saveData()
+  TG.getUpdates(token)
   local url = "https://raw.githubusercontent.com/HeroBrine1st/OpenComputers/master/TelegramCRBOT.lua"
   local buffer = ""
   TG.sendMessage(token,chatID,"Flashing from github..")
-  TG.sendMessage(token,chatID,"Downloading code from " .. url)
+  TG.sendMessage(token,chatID,"Downloading code..")
   for chunk in internet.request(url) do
     buffer = buffer .. chunk
   end
