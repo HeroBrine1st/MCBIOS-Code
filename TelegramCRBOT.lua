@@ -146,6 +146,10 @@ local function checkAllOnline()
    end
 end
 
+local tgsmsg = TG.sendMessage
+TG.sendMessage = function(token,chatID,text)
+  if chatID == "game" then chat.send(text) send(text) else tmsmsg(token,chatID,text) end
+end
 
 chat.setName("HB1TelegramChatReaderBOT")
 local function procCmd(command,chatID)
@@ -226,12 +230,26 @@ local function checkChat(chatID)
 	return false
 end
 
+local function checkGamechatMsg(nick,msg)
+  msg = tostring(msg)
+  nick = tostring(msg)
+  if not msg:sub(1,2) == "TG" then return true end
+  msg = msg:sub(3)
+  local nickPassed = false
+  for i = 1, #moders do
+    if nick == moders[i] then nickPassed = true end
+  end
+  if not nickPassed then return true end
+  send("Executing command " .. msg .. " by " .. nick)
+  procCmd(msg,"game")
+end
+
 
 send("Bot switched on")
 while true do
 	checkAllOnline()
 	local _, _, nick, msg = event.pull(0.5,"chat_message")
-	if nick and msg and filter(nick) then
+	if nick and msg and filter(nick) and checkGamechatMsg(nick,msg)  then
 		players[nick] = {}
     players[nick][1] = 1
 		local _, time, timeunix = getTime()
