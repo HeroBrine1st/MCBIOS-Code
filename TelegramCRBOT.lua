@@ -253,7 +253,8 @@ send("Bot switched on")
 while true do
 	checkAllOnline()
 	local _, _, nick, msg = event.pull(0.5,"chat_message")
-	if nick and msg and filter(nick) and checkGamechatMsg(nick,msg) then
+  checkGamechatMsg(nick,msg)
+	if nick and msg and filter(nick) then
 		players[nick] = {}
     players[nick][1] = 1
 		local _, time, timeunix = getTime()
