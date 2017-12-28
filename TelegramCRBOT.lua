@@ -232,16 +232,13 @@ end
 require("term").clear()
 local function checkGamechatMsg(nick,msg)
   msg = tostring(msg)
-  nick = tostring(msg)
+  nick = tostring(nick)
   if not msg:sub(1,2) == "TG" then return true end
   msg = msg:sub(3)
-  print(msg)
   local nickPassed = false
   for i = 1, #moders do
     if nick == moders[i] then nickPassed = true end
-    print(nick, moders[i], i)
   end
-  print(nickpassed)
   if not nickPassed then return true end
   send("Executing command " .. msg .. " by " .. nick)
   procCmd(msg,"game")
