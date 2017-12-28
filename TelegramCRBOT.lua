@@ -240,7 +240,7 @@ local function checkGamechatMsg(nick,msg)
     if nick == moders[i] then nickPassed = true end
   end
   if not nickPassed then return true end
-  send("Executing command " .. msg .. " by " .. nick)
+  send("Executing command \"" .. msg .. "\" by " .. nick)
   procCmd(msg,"game")
 end
 
