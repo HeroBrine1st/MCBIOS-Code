@@ -148,7 +148,7 @@ end
 
 local tgsmsg = TG.sendMessage
 TG.sendMessage = function(token,chatID,text)
-  if chatID == "game" then chat.send(text) send(text) else tgsmsg(token,chatID,text) end
+  if chatID == "game" then chat.say(text) send(text) else tgsmsg(token,chatID,text) end
 end
 
 chat.setName("HB1TelegramChatReaderBOT")
