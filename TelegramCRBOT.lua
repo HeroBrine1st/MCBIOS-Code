@@ -243,6 +243,8 @@ local function checkGamechatMsg(nick,msg)
     if not nickPassed then return true end
     send("Executing command \"" .. msg .. "\" by " .. nick)
     procCmd(msg,"game")
+  else
+    return true
   end
 end
 
