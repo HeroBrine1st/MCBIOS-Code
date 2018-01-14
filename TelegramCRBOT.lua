@@ -15,11 +15,13 @@ local players = {}
 local accessChats = {-275279978}
 local moders = {}
 local data = SD.readData("TGCR")
+local focusedPlayers = {}
 if data then
   players = data.players
   accessChats = data.accessChats
   moders = data.moders
   token = data.token
+  focusedPlayers = data.focus
 end
 if not token then error("Not enough token key") end
 data = nil
@@ -47,7 +49,7 @@ end
 local function getTime()
     local file, res
     local uptime = computer.uptime()
-    while not file and not (computer.uptime() > uptime + 5) do
+    while not (file or res) do
       file, res = io.open('/UNIX.tmp', 'w')
     end
     if not file then error("Impossible open file /UNIX.tmp: " .. tostring(res)) end
@@ -135,12 +137,83 @@ local function githubFlash(chatID)
   flash(reason,chatID)
 end
 
+local function eventFocusedPlayers(nickname,msg)
+  if focusedPlayers[nickname] then
+    local data, time = getTime()
+    local text = "[" .. tostring(data) .. "] [" .. tostring(time) .. "] " .. nickname .. "> " .. msg 
+    table.insert(focusedPlayers[nickname],text)
+  end
+end
+
+local function addFocusPlayer(nickname)
+  focusedPlayers[nickname] = focusedPlayers[nickname] or {}
+end
+
+local function encode(code)
+  if code then
+    code = string.gsub(code, "([^%w ])", function (c)
+      return string.format("%%%02X", string.byte(c))
+    end)
+    code = string.gsub(code, " ", "+")
+  end
+  return code 
+end
+
+function uploadToPastebin(name,text,sendF)
+  sendF("Uploading " .. name)
+  local config = {}
+  local configFile = loadfile("/etc/pastebin.conf", "t", config)
+  if configFile then
+    local result, reason = pcall(configFile)
+    if not result then
+      sendF("Failed loading config: " .. reason)
+    end
+  end
+  config.key = config.key or "fd92bd40a84c127eeb6804b146793c97"
+  local result, response = pcall(require("internet").request,
+        "https://pastebin.com/api/api_post.php", 
+        "api_option=paste&" ..
+        "api_dev_key=" .. config.key .. "&" ..
+        "api_paste_format=lua&" ..
+        "api_paste_expire_date=N&" ..
+        "api_paste_name=" .. encode(name) .. "&" ..
+        "api_paste_code=" .. encode(text))
+
+  if result then
+    local info = ""
+    for chunk in response do
+      info = info .. chunk
+    end
+    if string.match(info, "^Bad API request, ") then
+      sendF("Failed.\n")
+      sendF(info)
+    else
+      sendF("Success.\n")
+      local pasteId = string.match(info, "[^/]+$")
+      sendF("pastebin.com/" .. tostring(pasteId))
+    end
+  else
+    sendF("failed.\n")
+    sendF(response)
+  end
+end
+
+local function uploadReportPlayer(nickname,chatID)
+  if not focusedPlayers[nickname] then TG.sendMessage(token,chatID,"No report.") end
+  local sendF = function(msg) TG.sendMessage(token,chatID,msg) end
+  local text = ""
+  for _, value in pairs(focusedPlayers[nickname]) do
+    text = text .. value .. "\n"
+  end
+  uploadToPastebin(nickname .. " report",text,sendF)
+end
+
 local function checkAllOnline()
    for key, _ in pairs(players) do
       local online = getOnline(key)
       local _, _, time = getTime()
-      if online and players[key][1] == 0 then players[key][1] = 1 send(key .. " join the game.") end
-      if not online and players[key][1] == 1 then players[key][1] = 0 players[key][2] = time + timeout send(key .. " left the game.") end
+      if online and players[key][1] == 0 then players[key][1] = 1 send(key .. " join the game.") eventFocusedPlayers(key,"join the game") end
+      if not online and players[key][1] == 1 then players[key][1] = 0 players[key][2] = time + timeout send(key .. " left the game.") eventFocusedPlayers(key,"left the game") end
       local player, doErase = checkTimeout(key)
       if doErase then send(key .. " removed from database by timeout.") players[key] = nil end
    end
@@ -218,7 +291,11 @@ local function procCmd(command,chatID)
           end
       end
       TG.sendMessage(token,chatID,str)
-	else
+	elseif command[1] == "focus"
+    addFocusPlayer(command[2])
+  elseif command[1] == "loadfocus" then
+    uploadReportPlayer(command[2],chatID)
+  else
 		TG.sendMessage(token,chatID,"Missing command.")
   end
 end
