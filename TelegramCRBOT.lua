@@ -291,7 +291,7 @@ local function procCmd(command,chatID)
           end
       end
       TG.sendMessage(token,chatID,str)
-	elseif command[1] == "focus"
+	elseif command[1] == "focus" then
     addFocusPlayer(command[2])
   elseif command[1] == "loadfocus" then
     uploadReportPlayer(command[2],chatID)
