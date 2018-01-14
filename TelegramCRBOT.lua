@@ -35,6 +35,7 @@ local function saveData()
   data.moders = moders
   data.accessChats = accessChats
   data.token = token
+  data.focus = focusedPlayers
   SD.saveData("TGCR",data)
 end
 
