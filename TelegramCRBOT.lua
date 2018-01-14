@@ -21,7 +21,7 @@ if data then
   accessChats = data.accessChats
   moders = data.moders
   token = data.token
-  focusedPlayers = data.focus
+  focusedPlayers = data.focus or {}
 end
 if not token then error("Not enough token key") end
 data = nil
