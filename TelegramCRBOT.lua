@@ -198,7 +198,6 @@ function uploadToPastebin(name,text,sendF)
     sendF("failed.\n")
     sendF(response)
   end
-  focusedPlayers[name] = {}
 end
 
 local function uploadReportPlayer(nickname,chatID)
@@ -209,6 +208,7 @@ local function uploadReportPlayer(nickname,chatID)
     text = text .. value .. "\n"
   end
   uploadToPastebin(nickname .. " report",text,sendF)
+  focusedPlayers[nickname] = {}
 end
 
 local function checkAllOnline()
