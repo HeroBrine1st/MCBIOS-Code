@@ -198,10 +198,11 @@ function uploadToPastebin(name,text,sendF)
     sendF("failed.\n")
     sendF(response)
   end
+  focusedPlayers[name] = {}
 end
 
 local function uploadReportPlayer(nickname,chatID)
-  if not focusedPlayers[nickname] then TG.sendMessage(token,chatID,"No report.") end
+  if not focusedPlayers[nickname] then TG.sendMessage(token,chatID,"No report.") return end
   local sendF = function(msg) TG.sendMessage(token,chatID,msg) end
   local text = ""
   for _, value in pairs(focusedPlayers[nickname]) do
@@ -293,11 +294,14 @@ local function procCmd(command,chatID)
           end
       end
       TG.sendMessage(token,chatID,str)
-	elseif command[1] == "focus" then
+	elseif command[1] == "tracking" then
     addFocusPlayer(command[2])
     TG.sendMessage(token,chatID,"Success")
-  elseif command[1] == "loadfocus" then
+  elseif command[1] == "report" then
     uploadReportPlayer(command[2],chatID)
+  elseif command[1] == "trackAbort" then
+    uploadReportPlayer(command[2],chatID)
+    focusedPlayers[command[2]] = nil
   elseif command[1] == "getAST" then 
     TG.sendMessage(token,chatID,tostring(period - (computer.uptime() - lastSave)) .. " seconds remaining")
   else
