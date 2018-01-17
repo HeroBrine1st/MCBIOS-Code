@@ -345,6 +345,7 @@ while true do
   if not lastSave then autoSave() end
 	checkAllOnline()
 	local _, _, nick, msg = event.pull(0.5,"chat_message")
+  eventFocusedPlayers(nick,msg)
   checkGamechatMsg(nick,msg)
   if computer.uptime() - lastSave > period - 1 then autoSave() end
 	if nick and msg and filter(nick) then
