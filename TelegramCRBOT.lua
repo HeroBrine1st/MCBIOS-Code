@@ -294,6 +294,7 @@ local function procCmd(command,chatID)
       TG.sendMessage(token,chatID,str)
 	elseif command[1] == "focus" then
     addFocusPlayer(command[2])
+    TG.sendMessage(token,chatID,"Success")
   elseif command[1] == "loadfocus" then
     uploadReportPlayer(command[2],chatID)
   else
@@ -328,9 +329,13 @@ end
 
 
 send("Bot switched on")
+local tick = 0
+local maxTick = 512
 while true do
 	checkAllOnline()
 	local _, _, nick, msg = event.pull(0.5,"chat_message")
+  tick = tick + 1
+  if tick == maxTick then tick = 0 send("Automatic save") saveData() send("Success") end
   checkGamechatMsg(nick,msg)
 	if nick and msg and filter(nick) then
 		players[nick] = {}
