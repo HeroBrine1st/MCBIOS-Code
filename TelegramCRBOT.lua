@@ -26,7 +26,8 @@ end
 if not token then error("Not enough token key") end
 data = nil
 local timeout = 604800
-
+local lastSave
+local period = 60
 ------------------------------------------------------------------------------
 
 local function saveData()
@@ -297,6 +298,8 @@ local function procCmd(command,chatID)
     TG.sendMessage(token,chatID,"Success")
   elseif command[1] == "loadfocus" then
     uploadReportPlayer(command[2],chatID)
+  elseif command[1] == "getAST" then 
+    TG.sendMessage(token,chatID,tostring(period - (computer.uptime() - lastSave)))
   else
 		TG.sendMessage(token,chatID,"Missing command.")
   end
@@ -328,15 +331,18 @@ local function checkGamechatMsg(nick,msg)
 end
 
 
+function autoSave()
+  send("Automatic save") saveData() send("Success")
+  lastSave = computer.uptime()
+end
+
 send("Bot switched on")
-local tick = 0
-local maxTick = 512
 while true do
+  if not lastSave then autoSave() end
 	checkAllOnline()
 	local _, _, nick, msg = event.pull(0.5,"chat_message")
-  tick = tick + 1
-  if tick == maxTick then tick = 0 send("Automatic save") saveData() send("Success") end
   checkGamechatMsg(nick,msg)
+  if computer.uptime() - lastSave > period - 1 then autoSave() end
 	if nick and msg and filter(nick) then
 		players[nick] = {}
     players[nick][1] = 1
