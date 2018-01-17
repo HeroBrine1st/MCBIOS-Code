@@ -27,7 +27,7 @@ if not token then error("Not enough token key") end
 data = nil
 local timeout = 604800
 local lastSave
-local period = 60
+local period = 600
 ------------------------------------------------------------------------------
 
 local function saveData()
@@ -299,7 +299,7 @@ local function procCmd(command,chatID)
   elseif command[1] == "loadfocus" then
     uploadReportPlayer(command[2],chatID)
   elseif command[1] == "getAST" then 
-    TG.sendMessage(token,chatID,tostring(period - (computer.uptime() - lastSave)))
+    TG.sendMessage(token,chatID,tostring(period - (computer.uptime() - lastSave)) .. " seconds remaining")
   else
 		TG.sendMessage(token,chatID,"Missing command.")
   end
