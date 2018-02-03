@@ -8,7 +8,7 @@ local fs = require("filesystem")
 local SD = require("SaveData")
 local internet = component.internet
 ------------------------------------------------------------------------------
-
+local lastTimeCheck = {0,0}
 local token
 local t_correction = 10787
 local players = {}
@@ -54,13 +54,23 @@ local function getTime()
     while not (file or res) do
       file, res = io.open('/UNIX.tmp', 'w')
     end
-    if not file then error("Impossible open file /UNIX.tmp: " .. tostring(res)) end
-    file:write('')
-    file:close()
-    local lastmod = tonumber(string.sub(fs.lastModified('UNIX.tmp'), 1, -4)) + t_correction
-    local data = os.date('%x', lastmod)
-    local time = os.date('%X', lastmod)
-    return data, time, lastmod
+    if not file then 
+      local lastmod = lastTimeCheck[1] + (computer.uptime()-lastTimeCheck[2])
+      local data = os.date('%x', lastmod)
+      local time = os.date('%X', lastmod)
+      lastTimeCheck[1] = lastmod
+      lastTimeCheck[2] = computer.uptime()
+      return data, time, lastmod
+    else
+      file:write('')
+      file:close()
+      local lastmod = tonumber(string.sub(fs.lastModified('UNIX.tmp'), 1, -4)) + t_correction
+      local data = os.date('%x', lastmod)
+      local time = os.date('%X', lastmod)
+      lastTimeCheck[1] = lastmod
+      lastTimeCheck[2] = computer.uptime()
+      return data, time, lastmod
+    end
 end
 
 local function checkTimeout(nick)
