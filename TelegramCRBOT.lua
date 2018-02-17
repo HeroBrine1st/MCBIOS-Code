@@ -84,9 +84,9 @@ local function checkTimeout(nick)
 end
 
 local function getOnline(nickname)
-   local online, reason = computer.addUser(nickname)
+   local success, online, reason = pcall(computer.addUser,nickname)
    computer.removeUser(nickname)
-   return online
+   return success and online
 end
 
 local function filter(nick)
