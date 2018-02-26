@@ -8,7 +8,7 @@ local fs = require("filesystem")
 local SD = require("SaveData")
 local internet = component.internet
 ------------------------------------------------------------------------------
-local lastTimeCheck = {0,0}
+
 local token
 local t_correction = 10787
 local players = {}
@@ -54,23 +54,13 @@ local function getTime()
     while not (file or res) do
       file, res = io.open('/UNIX.tmp', 'w')
     end
-    if not file then 
-      local lastmod = lastTimeCheck[1] + (computer.uptime()-lastTimeCheck[2])
-      local data = os.date('%x', lastmod)
-      local time = os.date('%X', lastmod)
-      lastTimeCheck[1] = lastmod
-      lastTimeCheck[2] = computer.uptime()
-      return data, time, lastmod
-    else
-      file:write('')
-      file:close()
-      local lastmod = tonumber(string.sub(fs.lastModified('UNIX.tmp'), 1, -4)) + t_correction
-      local data = os.date('%x', lastmod)
-      local time = os.date('%X', lastmod)
-      lastTimeCheck[1] = lastmod
-      lastTimeCheck[2] = computer.uptime()
-      return data, time, lastmod
-    end
+    if not file then error("Impossible open file /UNIX.tmp: " .. tostring(res)) end
+    file:write('')
+    file:close()
+    local lastmod = tonumber(string.sub(fs.lastModified('UNIX.tmp'), 1, -4)) + t_correction
+    local data = os.date('%x', lastmod)
+    local time = os.date('%X', lastmod)
+    return data, time, lastmod
 end
 
 local function checkTimeout(nick)
@@ -84,18 +74,29 @@ local function checkTimeout(nick)
 end
 
 local function getOnline(nickname)
-   local success, online, reason = pcall(computer.addUser,nickname)
+   local online, reason = computer.addUser(nickname)
    computer.removeUser(nickname)
-   return success and online
+   return online
 end
 
 local function filter(nick)
    return getOnline(nick)
 end
 
+local function sendMsgFrag(token,chatID,msg)
+    local str = msg
+    if str:len() < 4096 then
+        TG.sendMessage(token,chatID,str)
+    else
+        for i = 1, math.ceil(#str/4096) do
+            TG.sendMessage(token,chatID,str:sub(((i-1)*4096)+1,i*4096))
+        end
+    end
+end
+
 local function send(txt)
     for i = 1, #accessChats do
-      TG.sendMessage(token,accessChats[i],txt)
+      sendMsgFrag(token,accessChats[i],txt)
     end
 end
 
@@ -222,14 +223,19 @@ local function uploadReportPlayer(nickname,chatID)
 end
 
 local function checkAllOnline()
-   for key, _ in pairs(players) do
-      local online = getOnline(key)
-      local _, _, time = getTime()
-      if online and players[key][1] == 0 then players[key][1] = 1 send(key .. " join the game.") eventFocusedPlayers(key,"join the game") end
-      if not online and players[key][1] == 1 then players[key][1] = 0 players[key][2] = time + timeout send(key .. " left the game.") eventFocusedPlayers(key,"left the game") end
-      local player, doErase = checkTimeout(key)
-      if doErase then send(key .. " removed from database by timeout.") players[key] = nil end
-   end
+    local buffer = {}
+    local buffer2 = ""
+    local function sendB = function(msg) table.insert(buffer,msg) end
+    local function sendAll = function() for _, value in pairs(buffer) do buffer = buffer .. value .. "\n" send(buffer2) end 
+    for key, _ in pairs(players) do
+        local online = getOnline(key)
+        local _, _, time = getTime()
+        if online and players[key][1] == 0 then players[key][1] = 1 sendB(key .. " join the game.") eventFocusedPlayers(key,"join the game") end
+        if not online and players[key][1] == 1 then players[key][1] = 0 players[key][2] = time + timeout sendB(key .. " left the game.") eventFocusedPlayers(key,"left the game") end
+        local player, doErase = checkTimeout(key)
+        if doErase then sendB(key .. " removed from database by timeout.") players[key] = nil end
+    end
+    sendAll()
 end
 
 local tgsmsg = TG.sendMessage
