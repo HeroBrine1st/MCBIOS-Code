@@ -225,8 +225,8 @@ end
 local function checkAllOnline()
     local buffer = {}
     local buffer2 = ""
-    local function sendB = function(msg) table.insert(buffer,msg) end
-    local function sendAll = function() for _, value in pairs(buffer) do buffer = buffer .. value .. "\n" send(buffer2) end 
+    local sendB = function(msg) table.insert(buffer,msg) end
+    local sendAll = function() for _, value in pairs(buffer) do buffer = buffer .. value .. "\n" send(buffer2) end 
     for key, _ in pairs(players) do
         local online = getOnline(key)
         local _, _, time = getTime()
